@@ -2,7 +2,7 @@ using System.Security;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterController : MonoBehaviour
+public class playerController : MonoBehaviour
 {
     [Header("Initialization Values")]
     [Tooltip("Is the character a player?")]
@@ -10,7 +10,7 @@ public class CharacterController : MonoBehaviour
     [Tooltip("The Input Manager of the game")]
     [SerializeField] private InputManager inputManager;
     [Tooltip("The Rigidbody of the character")]
-    [SerializeField] private Rigidbody rb;
+    [SerializeField] private CharacterController cc;
 
     [Header("Movement Values")]
     [Tooltip("The scale to multiply the movement vector of the character with")]
@@ -20,7 +20,7 @@ public class CharacterController : MonoBehaviour
     [Tooltip("The scale that the default speed rises with, this is a linear value")]
     [SerializeField] float levelMovementScale = 0.1f;
 
-    private Vector3 defaultForce = new();
+    private Vector3 movementVector = new();
 
     private void Start()
     {
@@ -36,10 +36,11 @@ public class CharacterController : MonoBehaviour
         {
             inputManager = InputManager.instance;
         }
-        if (rb == null)
+        if (cc == null)
         {
-            rb = GetComponent<Rigidbody>();
+            cc = GetComponent<CharacterController>();
         }
+        //cc.attachedRigidbody.useGravity = true;
     }
 
     // Update is called once per frame  
@@ -57,20 +58,19 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Move the player based on the input from the player.
+    /// </summary>
     public void MovePlayer()
     {
         // Player made movements
-        Vector3 rawHorizontalMovementVector = inputManager.horizontalMovementVector;
-        Vector3 rawVerticalMovementVector = inputManager.verticalMovementVector;
+        float rawHorizontalMovementValue = inputManager.horizontalMovementVector;
+        float rawVerticalMovementValue = inputManager.verticalMovementVector;
 
-        Vector3 horizontalMovementVector = movementScale * Time.deltaTime * rawHorizontalMovementVector;
+        float horizontalMovementVector = movementScale * rawHorizontalMovementValue;
+        float verticalMovementVector = movementScale * rawVerticalMovementValue;
 
-        Debug.Log("Vector horizontal Movement:\t" + horizontalMovementVector);
-
-        // Move the player
-        transform.SetPositionAndRotation(transform.position + horizontalMovementVector, transform.rotation);
-
-        defaultForce += movementScale * Time.deltaTime * rawVerticalMovementVector;
+        movementVector = new Vector3(horizontalMovementVector, 0, verticalMovementVector);
     }
 
     /// <summary>
@@ -78,45 +78,14 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     void DefaultMovement()
     {
-        if (!grounded)
-        {
-            FallMovement();
-        }
         // Up the movement speed slowly
         levelMovementSpeed += levelMovementScale * Time.deltaTime;
         // Update the vector
-        defaultForce.z = movementScale * Time.deltaTime * levelMovementSpeed;
+        movementVector.z += levelMovementSpeed;
+        //movementVector.y = Time.deltaTime * Physics.gravity.y;
         // Apply the Vector to the position
-        rb.AddRelativeForce(defaultForce);
-        Debug.Log("Vector Default Movement:\t" + defaultForce);
-        
+        cc.SimpleMove(movementVector);
+        //cc.Move(movementVector);
+        Debug.Log("Vector Default Movement:\t" + movementVector);
     }
-
-    void FallMovement()
-    {
-        float gravity = 9.8f;
-        defaultForce.y -= gravity * Time.deltaTime;
-    }
-
-    #region Grounded Check
-    private bool grounded = true;
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Collision");
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            grounded = true;
-            defaultForce.y = 0f;
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        Debug.Log("Exit Collision");
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            grounded = false;
-        }
-    }
-    #endregion
 }
