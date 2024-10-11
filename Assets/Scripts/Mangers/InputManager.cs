@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    public static InputManager instance;
+    [HideInInspector] public static InputManager instance;
 
     void Awake()
     {
@@ -20,16 +18,16 @@ public class InputManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject); // Make this instance persistent
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject); // Destroy duplicate instances
         }
     }
 
     // The movementVector that's used for movement by the playable character
-    [HideInInspector] public float verticalMovementVector;
-    [HideInInspector] public float horizontalMovementVector;
+    [HideInInspector] public float playerInput;
 
     /// <summary>
     /// Handles the movement key input.
@@ -41,13 +39,6 @@ public class InputManager : MonoBehaviour
             + $"\nKey is:\t{context.control.displayName}");
 
         // Reads the value of the context (which is a normalized vector of the pressed keys)
-        var readValue = context.ReadValue<Vector3>();
-
-        // Assigns the read value to the movement vectors
-        verticalMovementVector = readValue.z;
-        horizontalMovementVector = readValue.x;
-
-        // Lowers the value if the player is trying to move backwards
-        if (verticalMovementVector <= 0) verticalMovementVector /= 2;
+        playerInput = context.ReadValue<float>();
     }
 }

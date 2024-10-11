@@ -1,13 +1,13 @@
-using System.Security;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class playerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("Initialization Values")]
     [Tooltip("Is the character a player?")]
     [SerializeField] private bool isPlayer;
-    [Tooltip("The Input Manager of the game")]
+    [Tooltip("The GameManager instance in the scene")]
+    [SerializeField] private GameManager gameManager;
+    [Tooltip("The Input Manager instance in the scene")]
     [SerializeField] private InputManager inputManager;
     [Tooltip("The Rigidbody of the character")]
     [SerializeField] private CharacterController cc;
@@ -15,12 +15,10 @@ public class playerController : MonoBehaviour
     [Header("Movement Values")]
     [Tooltip("The scale to multiply the movement vector of the character with")]
     [SerializeField] float movementScale = 10f;
-    [Tooltip("The default speed the player is going to have in the z axis")]
-    [SerializeField] float levelMovementSpeed = 5f;
-    [Tooltip("The scale that the default speed rises with, this is a linear value")]
-    [SerializeField] float levelMovementScale = 0.1f;
+
 
     private Vector3 movementVector = new();
+
 
     private void Start()
     {
@@ -36,11 +34,14 @@ public class playerController : MonoBehaviour
         {
             inputManager = InputManager.instance;
         }
+        if(gameManager == null)
+        {
+            gameManager = GameManager.instance;
+        }
         if (cc == null)
         {
             cc = GetComponent<CharacterController>();
         }
-        //cc.attachedRigidbody.useGravity = true;
     }
 
     // Update is called once per frame  
@@ -51,10 +52,13 @@ public class playerController : MonoBehaviour
 
     void MoveCharacter()
     {
-        DefaultMovement();
         if (isPlayer)
         {
             MovePlayer();
+        }
+        if(!isPlayer)
+        {
+            MoveEnemy();
         }
     }
 
@@ -63,29 +67,15 @@ public class playerController : MonoBehaviour
     /// </summary>
     public void MovePlayer()
     {
-        // Player made movements
-        float rawHorizontalMovementValue = inputManager.horizontalMovementVector;
-        float rawVerticalMovementValue = inputManager.verticalMovementVector;
-
-        float horizontalMovementVector = movementScale * rawHorizontalMovementValue;
-        float verticalMovementVector = movementScale * rawVerticalMovementValue;
-
-        movementVector = new Vector3(horizontalMovementVector, 0, verticalMovementVector);
+        movementVector = new Vector3(inputManager.playerInput * movementScale, 0, 0);
+        cc.SimpleMove(movementVector);
     }
 
-    /// <summary>
-    /// Perform the default movement of the character.
-    /// </summary>
-    void DefaultMovement()
+
+    private void MoveEnemy()
     {
-        // Up the movement speed slowly
-        levelMovementSpeed += levelMovementScale * Time.deltaTime;
-        // Update the vector
-        movementVector.z += levelMovementSpeed;
-        //movementVector.y = Time.deltaTime * Physics.gravity.y;
-        // Apply the Vector to the position
-        cc.SimpleMove(movementVector);
-        //cc.Move(movementVector);
-        Debug.Log("Vector Default Movement:\t" + movementVector);
+        float movementSpeed = gameManager.levelMovementSpeed;
+        movementVector = new Vector3(0, 0, -movementSpeed);
+        cc.Move(movementVector);
     }
 }
