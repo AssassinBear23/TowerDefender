@@ -17,6 +17,9 @@ public class GroundManager : MonoBehaviour
         SetupReferences();
     }
 
+    /// <summary>
+    /// Set up the references for the GroundManager instance.
+    /// </summary>
     void SetupReferences()
     {
         if (instance == null)
@@ -29,11 +32,15 @@ public class GroundManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Remove the platform from the list, create a new platform and add it to the list, and destroy the platform object.
+    /// </summary>
+    /// <param name="platformPrefab">The platform prefab to be destroyed.</param>
     public void PlatformDestroy(GameObject platformPrefab)
     {
         // Remove the platform from the list
         platforms.Remove(platformPrefab);
-        
+
         // Create a new platform and add it to the list
         platforms.Add(CreateNewPlatform());
 
@@ -41,6 +48,10 @@ public class GroundManager : MonoBehaviour
         Destroy(platformPrefab);
     }
 
+    /// <summary>
+    /// Create a new platform and add it to the list, then return it.
+    /// </summary>
+    /// <returns>The newly created platform.</returns>
     GameObject CreateNewPlatform()
     {
         Debug.Log("Last platform: " + platforms[^1].name);
