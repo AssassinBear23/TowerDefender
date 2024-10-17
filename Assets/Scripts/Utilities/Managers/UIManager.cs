@@ -1,98 +1,217 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
+/// <summary>
+/// Manages the UI elements in the game.
+/// </summary>
 public class UIManager : MonoBehaviour
 {
-    [HideInInspector] public static UIManager instance;
-
-    [Header("UI Elements")]
-    [Tooltip("The text that displays the distance the player has traveled")]
-    [SerializeField] private TMPro.TextMeshProUGUI distanceText;
-    [Tooltip("The text that displays the speed the player is going")]
-    [SerializeField] private TMPro.TextMeshProUGUI speedText;
-
-    private float speed;
+    /// <summary>
+    /// The pages (panels) managed by this UI Manager.
+    /// </summary>
+    [Header("Page Management")]
+    [Tooltip("The pages (panels) managed by this UI Manager")]
+    public List<UIPage> pages;
 
     /// <summary>
-    /// Awake is called when the script instance is being loaded.
+    /// The index of the currently active page/panel.
     /// </summary>
-    void Awake()
+    [Tooltip("The index of the currently active page/panel")]
+    public int activePageIndex = 0;
+
+    /// <summary>
+    /// The default page that is active when UI Manager starts up.
+    /// </summary>
+    [Tooltip("The default page that is active when UI Manager starts up")]
+    public int defaultPageIndex = 0;
+
+    /// <summary>
+    /// The pause menu page's index.
+    /// </summary>
+    [Header("Pause Settings")]
+    [Tooltip("The pause menu page's index\n defaults to 1")]
+    public int pausePageIndex = 1;
+
+    /// <summary>
+    /// Whether or not the game can be paused.
+    /// </summary>
+    [Tooltip("Whether or not the game can be paused")]
+    public bool allowPause = true;
+
+    // Whether or not the game is paused
+    private bool isPaused = false;
+
+    // A list of all UIElements classes
+    private List<UIElements> UIElements;
+
+    // The event system that manages UI navigation
+    [HideInInspector] public EventSystem eventSystem;
+    // The input manager to list for pausing
+    [SerializeField] InputManager inputManager;
+
+    // =========================================== SETUP METHODS ===============================================
+
+    /// <summary>
+    /// Default Unity Method called when the script is enabled.
+    /// </summary>
+    private void OnEnable()
     {
-        SetupSingleton(); // Set up the singleton instance
-        SubscribeToEvents(); // Subscribe to events from GameManager
+        SetupUIManager();
     }
 
     /// <summary>
-    /// This function is called when the MonoBehaviour will be destroyed.
+    /// Default Unity Method called when the script is first loaded.
     /// </summary>
-    void OnDestroy()
+    private void Start()
     {
-        UnsubscribeFromEvents(); // Unsubscribe from events to avoid memory leaks
+        SetupInputManager();
+        SetupEventSystem();
+        UpdateElements();
     }
 
     /// <summary>
-    /// Sets up the UIManager singleton instance.
+    /// Method to get all UI elements in the scene.
     /// </summary>
-    void SetupSingleton()
+    void GetUIElements()
     {
-        if (instance == null)
+        UIElements = FindObjectsOfType<UIElements>().ToList();
+        Debug.Log("Amount of UI Elements:\t" + UIElements.Count);
+        for(int i = 0; i < UIElements.Count; i++)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject); // Ensure this instance persists across scenes
+            Debug.Log("Element " + i + ":\t" + UIElements[i].name);
+        }
+    }
+
+    /// <summary>
+    /// Updates all UI elements in the <see cref="UIElements"/> list.
+    /// </summary>
+    public void UpdateElements()
+    {
+        GetUIElements();
+        foreach (UIElements element in UIElements)
+        {
+            element.UpdateElement();
+        }
+    }
+
+    /// <summary>
+    /// Sets up the inputManager singleton reference.
+    /// </summary>
+    private void SetupInputManager()
+    {
+        if (inputManager == null)
+        {
+            inputManager = InputManager.instance;
+        }
+        if (inputManager == null)
+        {
+            Debug.LogWarning($"There is no {nameof(inputManager)} in the scene. Make sure to add one to the scene otherwise you cannot pause the game");
+        }
+    }
+
+    /// <summary>
+    /// Sets the <see cref="eventSystem"/> variable to the EventSystem in the scene.
+    /// </summary>
+    private void SetupEventSystem()
+    {
+        eventSystem = FindObjectOfType<EventSystem>();
+        if (eventSystem == null)
+        {
+            Debug.LogWarning($"There is no {nameof(eventSystem)} in the scene. Make sure to add one to the scene");
+        }
+    }
+
+    /// <summary>
+    /// Sets up the UIManager singleton instance in <see cref="GameManager.uIManager"/>.
+    /// </summary>
+    void SetupUIManager()
+    {
+        if (GameManager.instance.uiManager == null && GameManager.instance != null)
+        {
+            GameManager.instance.uiManager = this;
+        }
+    }
+
+    //=========================================== FUNCTIONAL METHODS ===============================================
+
+    /// <summary>
+    /// Default Unity Method that is called every frame.
+    /// </summary>
+    private void Update()
+    {
+        CheckPauseInput();
+    }
+
+    /// <summary>
+    /// Checks for pause input.
+    /// </summary>
+    private void CheckPauseInput()
+    {
+        if (inputManager == null)
+        {
+            return;
+        }
+        if (inputManager.pausePressed)
+        {
+            TogglePause();
+        }
+    }
+
+    /// <summary>
+    /// Toggles the pause state of the game.
+    /// </summary>
+    public void TogglePause()
+    {
+        if (!allowPause)
+        {
+            return;
+        }
+        if (isPaused)
+        {
+            SetActiveAllPages(false);
+            Time.timeScale = 1;
+            isPaused = false;
         }
         else
         {
-            Destroy(gameObject); // Destroy duplicate instances
+            GoToPage(pausePageIndex);
+            Time.timeScale = 0;
+            isPaused = true;
         }
     }
 
     /// <summary>
-    /// Subscribes to the necessary events.
+    /// Goes to a page by that page's index.
     /// </summary>
-    void SubscribeToEvents()
+    /// <param name="pageIndex">The index in the page list to go to</param>
+    public void GoToPage(int pageIndex)
     {
-        GameManager.OnSpeedChanged += UpdateSpeed; // Subscribe to speed change event
-        GameManager.OnDistanceChanged += UpdateDistance; // Subscribe to distance change event
-    }
-
-    /// <summary>
-    /// Unsubscribes from the subscribed events.
-    /// </summary>
-    void UnsubscribeFromEvents()
-    {
-        GameManager.OnSpeedChanged -= UpdateSpeed; // Unsubscribe from speed change event
-        GameManager.OnDistanceChanged -= UpdateDistance; // Unsubscribe from distance change event
-    }
-
-    /// <summary>
-    /// Updates the speed text based on the current level movement speed.
-    /// </summary>
-    internal void UpdateSpeed()
-    {
-        // Guard Block
-        if (GameManager.instance == null) return;
-
-        speed = GameManager.instance.levelMovementSpeed; // Get the current speed from GameManager
-        float speedInKmh = Mathf.Round(speed * 3.6f * 10f) / 10f; // Convert m/s to km/h and round to 2 decimal places
-        speedText.text = $"SPEED: {speedInKmh}KM/H"; // Update the speed text in the UI
-    }
-
-    /// <summary>
-    /// Updates the distance text based on the distance traveled by the player.
-    /// </summary>
-    internal void UpdateDistance()
-    {
-        // Guard Block
-        if (GameManager.instance == null) return;
-
-        var distanceTraveled = GameManager.instance.distanceTraveled; // Get the distance traveled from GameManager
-        if (distanceTraveled < 1000)
+        if (pageIndex < pages.Count && pages[pageIndex] != null)
         {
-            distanceText.text = $"DISTANCE: {(int)distanceTraveled}M"; // Display distance in meters if less than 1000
+            SetActiveAllPages(false);
+            pages[pageIndex].gameObject.SetActive(true);
+            pages[pageIndex].SetSelectedUIToDefault();
         }
-        else
+    }
+
+    /// <summary>
+    /// Turns all stored pages on or off depending on the passed parameter.
+    /// </summary>
+    /// <param name="activeState">The state to set all pages to, true to active them all, false to deactivate them all</param>
+    private void SetActiveAllPages(bool activeState)
+    {
+        if (pages == null)
         {
-            float distanceInKm = Mathf.Round((distanceTraveled / 1000f) * 10f) / 10f; // Convert meters to kilometers and round to 1 decimal place
-            distanceText.text = $"DISTANCE: {distanceInKm}KM"; // Update the distance text in the UI
+            return;
+        }
+        foreach (UIPage page in pages)
+        {
+            if (page != null)
+            {
+                page.gameObject.SetActive(activeState);
+            }
         }
     }
 }

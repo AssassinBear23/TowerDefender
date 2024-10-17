@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    // A global reference (Singleton) of the InputManager that other scripts can reference to
     [HideInInspector] public static InputManager instance;
 
     void Awake()
@@ -26,6 +28,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
+
     // The movementVector that's used for movement by the playable character
     [HideInInspector] public float playerInput;
 
@@ -40,5 +43,29 @@ public class InputManager : MonoBehaviour
 
         // Reads the value of the context (which is a normalized vector of the pressed keys)
         playerInput = context.ReadValue<float>();
+    }
+
+    [Header("Pause Input")]
+    public bool pausePressed;
+
+    /// <summary>
+    /// Method used to read the input for pausing the game.
+    /// For more information, see <a href="https://docs.unity3d.com/Packages/com.unity.inputsystem@1.11/manual/index.html">New Input System Documentation</a>.
+    /// </summary>
+    /// <param name="context">The context regarding the call.</param>
+    public void ReadPauseInput(InputAction.CallbackContext context)
+    {
+        pausePressed = !context.canceled;
+        StartCoroutine(ResetPausePressed());
+    }
+
+    /// <summary>
+    /// Coroutine that resets the pausePressed variable at the end of the frame
+    /// </summary>
+    /// <returns><see cref="IEnumerator"/>, allows this function to be used as a coroutine</returns>
+    IEnumerator ResetPausePressed()
+    {
+        yield return new WaitForEndOfFrame();
+        pausePressed = false;
     }
 }
