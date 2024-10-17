@@ -24,7 +24,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""Player Movement"",
+            ""name"": ""PlayerMKControls"",
             ""id"": ""c712e4fa-eb56-4f41-9886-91653028b79d"",
             ""actions"": [
                 {
@@ -35,6 +35,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""41095767-93ad-4a9b-8e18-850a3c378bf1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -103,15 +112,38 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Basic Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""579d5565-be06-4aca-ba39-dab2d3be84b9"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""734c3048-425d-4899-9f15-07ad15e01408"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Player Movement
-        m_PlayerMovement = asset.FindActionMap("Player Movement", throwIfNotFound: true);
-        m_PlayerMovement_BasicMove = m_PlayerMovement.FindAction("Basic Move", throwIfNotFound: true);
+        // PlayerMKControls
+        m_PlayerMKControls = asset.FindActionMap("PlayerMKControls", throwIfNotFound: true);
+        m_PlayerMKControls_BasicMove = m_PlayerMKControls.FindAction("Basic Move", throwIfNotFound: true);
+        m_PlayerMKControls_Pause = m_PlayerMKControls.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -170,53 +202,62 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Player Movement
-    private readonly InputActionMap m_PlayerMovement;
-    private List<IPlayerMovementActions> m_PlayerMovementActionsCallbackInterfaces = new List<IPlayerMovementActions>();
-    private readonly InputAction m_PlayerMovement_BasicMove;
-    public struct PlayerMovementActions
+    // PlayerMKControls
+    private readonly InputActionMap m_PlayerMKControls;
+    private List<IPlayerMKControlsActions> m_PlayerMKControlsActionsCallbackInterfaces = new List<IPlayerMKControlsActions>();
+    private readonly InputAction m_PlayerMKControls_BasicMove;
+    private readonly InputAction m_PlayerMKControls_Pause;
+    public struct PlayerMKControlsActions
     {
         private @PlayerControls m_Wrapper;
-        public PlayerMovementActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @BasicMove => m_Wrapper.m_PlayerMovement_BasicMove;
-        public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
+        public PlayerMKControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @BasicMove => m_Wrapper.m_PlayerMKControls_BasicMove;
+        public InputAction @Pause => m_Wrapper.m_PlayerMKControls_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerMKControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerMovementActions set) { return set.Get(); }
-        public void AddCallbacks(IPlayerMovementActions instance)
+        public static implicit operator InputActionMap(PlayerMKControlsActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerMKControlsActions instance)
         {
-            if (instance == null || m_Wrapper.m_PlayerMovementActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PlayerMovementActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_PlayerMKControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerMKControlsActionsCallbackInterfaces.Add(instance);
             @BasicMove.started += instance.OnBasicMove;
             @BasicMove.performed += instance.OnBasicMove;
             @BasicMove.canceled += instance.OnBasicMove;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
-        private void UnregisterCallbacks(IPlayerMovementActions instance)
+        private void UnregisterCallbacks(IPlayerMKControlsActions instance)
         {
             @BasicMove.started -= instance.OnBasicMove;
             @BasicMove.performed -= instance.OnBasicMove;
             @BasicMove.canceled -= instance.OnBasicMove;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
-        public void RemoveCallbacks(IPlayerMovementActions instance)
+        public void RemoveCallbacks(IPlayerMKControlsActions instance)
         {
-            if (m_Wrapper.m_PlayerMovementActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_PlayerMKControlsActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IPlayerMovementActions instance)
+        public void SetCallbacks(IPlayerMKControlsActions instance)
         {
-            foreach (var item in m_Wrapper.m_PlayerMovementActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_PlayerMKControlsActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_PlayerMovementActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_PlayerMKControlsActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
-    public interface IPlayerMovementActions
+    public PlayerMKControlsActions @PlayerMKControls => new PlayerMKControlsActions(this);
+    public interface IPlayerMKControlsActions
     {
         void OnBasicMove(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
