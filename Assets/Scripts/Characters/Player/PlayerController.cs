@@ -1,10 +1,9 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Initialization Values")]
-    [Tooltip("Is the character a player?")]
-    [SerializeField] private bool isPlayer;
     [Tooltip("The GameManager instance in the scene")]
     [SerializeField] private GameManager gameManager;
     [Tooltip("The Input Manager instance in the scene")]
@@ -16,13 +15,15 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The scale to multiply the movement vector of the character with")]
     [SerializeField] float movementScale = 10f;
 
-
     private Vector3 movementVector = new();
+
+    public static System.Action PlayerDeath;
 
 
     private void Start()
     {
         GetReferences();
+        GameManager.instance.player = gameObject;
     }
 
     /// <summary>
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour
         {
             inputManager = InputManager.instance;
         }
-        if(gameManager == null)
+        if (gameManager == null)
         {
             gameManager = GameManager.instance;
         }
@@ -47,19 +48,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame  
     void FixedUpdate()
     {
-        MoveCharacter();
-    }
-
-    void MoveCharacter()
-    {
-        if (isPlayer)
-        {
-            MovePlayer();
-        }
-        if(!isPlayer)
-        {
-            MoveEnemy();
-        }
+        MovePlayer();
     }
 
     /// <summary>
@@ -69,13 +58,5 @@ public class PlayerController : MonoBehaviour
     {
         movementVector = new Vector3(inputManager.playerInput * movementScale, 0, 0);
         cc.SimpleMove(movementVector);
-    }
-
-
-    private void MoveEnemy()
-    {
-        float movementSpeed = gameManager.levelMovementSpeed;
-        movementVector = new Vector3(0, 0, -movementSpeed);
-        cc.Move(movementVector);
     }
 }
