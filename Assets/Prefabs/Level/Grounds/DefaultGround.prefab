@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 959036532090349135}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MidPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5931653000548577216}
   - component: {fileID: 8364355019485266039}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: DefaultGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,6 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deleteDistance: 10
   midPointTransform: {fileID: 959036532090349135}
+  offset: 7.5
 --- !u!1 &6457507367486560654
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +93,7 @@ GameObject:
   - component: {fileID: 5092673352337515356}
   - component: {fileID: 8410145682673492817}
   - component: {fileID: 2737796190751210177}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6457507367486560654}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 1, z: 1.5}
   m_ConstrainProportionsScale: 0
@@ -212,15 +213,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2868619394825733123, guid: 28b9d9f7db8b1d545ace26214b3e7492, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2868619394825733123, guid: 28b9d9f7db8b1d545ace26214b3e7492, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2868619394825733123, guid: 28b9d9f7db8b1d545ace26214b3e7492, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2868619394825733123, guid: 28b9d9f7db8b1d545ace26214b3e7492, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -237,6 +238,10 @@ PrefabInstance:
     - target: {fileID: 4252183687752047982, guid: 28b9d9f7db8b1d545ace26214b3e7492, type: 3}
       propertyPath: m_Name
       value: DeathBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 4252183687752047982, guid: 28b9d9f7db8b1d545ace26214b3e7492, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
