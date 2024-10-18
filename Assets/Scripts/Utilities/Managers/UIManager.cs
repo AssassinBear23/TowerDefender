@@ -77,11 +77,11 @@ public class UIManager : MonoBehaviour
     void GetUIElements()
     {
         UIElements = FindObjectsOfType<UIElements>().ToList();
-        Debug.Log("Amount of UI Elements:\t" + UIElements.Count);
-        for(int i = 0; i < UIElements.Count; i++)
-        {
-            Debug.Log("Element " + i + ":\t" + UIElements[i].name);
-        }
+        //Debug.Log("Amount of UI Elements:\t" + UIElements.Count);
+        //for(int i = 0; i < UIElements.Count; i++)
+        //{
+        //    Debug.Log("Element " + i + ":\t" + UIElements[i].name);
+        //}
     }
 
     /// <summary>
@@ -94,6 +94,9 @@ public class UIManager : MonoBehaviour
         {
             element.UpdateElement();
         }
+#if UNITY_EDITOR
+        GameManager.instance.UpdateDebug();
+#endif
     }
 
     /// <summary>

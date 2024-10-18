@@ -38,8 +38,8 @@ public class InputManager : MonoBehaviour
     /// <param name="context">The input action callback context.</param>
     public void OnMovementKey(InputAction.CallbackContext context)
     {
-        Debug.Log("Movement Key Pressed"
-            + $"\nKey is:\t{context.control.displayName}");
+        //Debug.Log("Movement Key Pressed"
+        //    + $"\nKey is:\t{context.control.displayName}");
 
         // Reads the value of the context (which is a normalized vector of the pressed keys)
         playerInput = context.ReadValue<float>();

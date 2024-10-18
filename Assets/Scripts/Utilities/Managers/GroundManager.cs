@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,14 @@ public class GroundManager : MonoBehaviour
     [SerializeField] private List<GameObject> mediumPlatformPrefabs;
     [Tooltip("A list of hard difficulty platform prefabs")]
     [SerializeField] private List<GameObject> hardPlatformPrefabs;
-    
+
+
+    // Used for debugging purposes
+    [HideInInspector] public GameObject LastSpawnedPlatform { get; private set; }
+    [HideInInspector] public string LastSpawnedPlatformDifficulty { get; private set; }
+
+    //===================================== METHOD DECLERATION ======================================================
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -29,20 +37,34 @@ public class GroundManager : MonoBehaviour
         {
             GameManager.instance.groundManager = this;
         }
-        else if(GameManager.instance.groundManager != this)
+        else if (GameManager.instance.groundManager != this)
         {
             Destroy(gameObject); // Destroy duplicate instances
         }
     }
 
+    /// <summary>
+    /// Method to subscribe to events.
+    /// </summary>
     void SubscribeToEvents()
     {
         GameManager.OnDifficultyIncrease += CalculateDifficultyRatio;
     }
 
+    /// <summary>
+    /// Method to unsubscribe to events.
+    /// </summary>
     void UnsubscribeToEvents()
     {
         GameManager.OnDifficultyIncrease -= CalculateDifficultyRatio;
+    }
+
+    /// <summary>
+    /// Default Unity Event that is called when the script is going to be destroyed.
+    /// </summary>
+    private void OnDestroy()
+    {
+        UnsubscribeToEvents();
     }
 
     /// <summary>
@@ -64,52 +86,104 @@ public class GroundManager : MonoBehaviour
 
     /// <summary>
     /// Create a new platform and add it to the list, then return it.
+    /// It does this by positioning the new platform at the last platforms pivot point.
     /// </summary>
     /// <returns>The newly created platform.</returns>
     GameObject CreateNewPlatform()
     {
-        //Debug.Log("Last platform: " + platforms[^1].name);
-        Vector3 toSetPosition = platforms[^1].transform.position;
-        //Debug.Log("Position before adding size: " + toSetPosition);
-        var sizeOfPlatform = 15f;
-        toSetPosition.z += sizeOfPlatform;
-        //Debug.Log("Creating new platform at: " + toSetPosition);
-        // Instantiate a random platform prefab from the list and set its parent to the Ground empty object, and then return it
-        var platformPrefab = GetRandomPlatformPrefab();
-        return Instantiate(platformPrefab, toSetPosition, new Quaternion(), parent: this.transform);
+        var platform = platforms[^1];
+        Debug.Log("Last platform: " + platform.name);
+        var platformScrollScript = platform.GetComponent<GroundScroll>();
+        Vector3 toSetPosition = platform.transform.position;
+
+        // Get the platform prefab we are going to use.
+        (GameObject platformPrefab, int value) = GetRandomPlatformPrefab();
+
+        // get the offset that needs to be applied to the new platforms position before instantiation.
+        float lastPlatformOffset = platformScrollScript.offset;
+        float newPlatformOffset = platformPrefab.GetComponent<GroundScroll>().offset;
+
+        // shift the z position of the new platform by the offset.
+        toSetPosition.z += lastPlatformOffset + newPlatformOffset;
+
+        if (value > 50)
+        {
+            Vector3 localScale = platformPrefab.transform.localScale;
+            localScale.x *= -1;
+            platformPrefab.transform.localScale = localScale;
+        }
+
+        Debug.Log("Raw toSetPosition: " + platform.transform.position +
+            "\ntoSetPosition offset:\n\t" + lastPlatformOffset + "\n\t" + newPlatformOffset +
+            "\nCreating new platform at: " + toSetPosition +
+            "\nLast Platform is at:\t" + platform.transform.position +
+            "\nPosition difference: " + (toSetPosition.z - platform.transform.position.z));
+
+        var obj = Instantiate(platformPrefab, toSetPosition, new Quaternion(), parent: this.transform);
+
+        LastSpawnedPlatform = obj;
+        // instantiate the random platform prefab we got at the position we calculated and then return it.
+        return obj;
     }
 
 
 
-    private float easyRatio = 80f;
-    private float mediumRatio = 18f;
-    GameObject GetRandomPlatformPrefab()
+    public float EasyRatio { get; private set; }
+    public float MediumRatio { get; private set; }
+
+
+
+/// <summary>
+/// Returns a random platform prefab based on the difficulty ratios.
+/// </summary>
+/// <returns>The randomly selected platform prefab.</returns>
+(GameObject platformPrefab, int randomValue) GetRandomPlatformPrefab()
     {
         int t_num = Random.Range(0, 100);
-        if (t_num <= easyRatio)
+        if (t_num <= EasyRatio)
         {
-            return easyPlatformPrefabs[Random.Range(0, easyPlatformPrefabs.Count)];
+            LastSpawnedPlatformDifficulty = "Easy";
+            return (easyPlatformPrefabs[Random.Range(0, easyPlatformPrefabs.Count)], t_num);
         }
-        else if (t_num <= easyRatio + mediumRatio)
+        else if (t_num <= EasyRatio + MediumRatio)
         {
-            return mediumPlatformPrefabs[Random.Range(0, mediumPlatformPrefabs.Count)];
+            LastSpawnedPlatformDifficulty = "Medium";
+            return (mediumPlatformPrefabs[Random.Range(0, mediumPlatformPrefabs.Count)], t_num);
         }
         else
         {
-            return hardPlatformPrefabs[Random.Range(0, hardPlatformPrefabs.Count)];
+            LastSpawnedPlatformDifficulty = "Hard";
+            return (hardPlatformPrefabs[Random.Range(0, hardPlatformPrefabs.Count)], t_num);
         }
     }
 
     [SerializeField] private AnimationCurve easyPlatformsSpawnRateCurve;
     [SerializeField] private AnimationCurve mediumPlatformsSpawnRateCurve;
-    private 
-    void CalculateDifficultyRatio()
+    /// <summary>
+    /// Calculates the difficulty ratio based on the distance traveled.
+    /// </summary>
+    public void CalculateDifficultyRatio()
     {
-        float distanceInKm = GameManager.instance.distanceTraveled / 1000;
-        easyRatio = EvaluateCurve(easyPlatformsSpawnRateCurve, distanceInKm) * 100;
-        mediumRatio = EvaluateCurve(mediumPlatformsSpawnRateCurve, distanceInKm) * 100;
+        // Get the value to evaluate the curves with
+        float x_value = GameManager.instance.DifficultyLevel / 10;
+
+        // Evaluate Easy Diff Curv
+        float evaluatedEasyCurve = EvaluateCurve(easyPlatformsSpawnRateCurve, x_value);
+        Debug.Log(evaluatedEasyCurve);
+        EasyRatio = evaluatedEasyCurve * 100;
+        
+        // Evaluate Medium Diff Curv
+        float evaluatedMediumCurve = EvaluateCurve(mediumPlatformsSpawnRateCurve, x_value);
+        Debug.Log(evaluatedMediumCurve);
+        MediumRatio = evaluatedMediumCurve * 100;
     }
 
+    /// <summary>
+    /// Evaluates the given AnimationCurve at the specified value.
+    /// </summary>
+    /// <param name="curve">The AnimationCurve to evaluate.</param>
+    /// <param name="value">The value at which to evaluate the curve.</param>
+    /// <returns>The evaluated value of the curve at the specified value.</returns>
     float EvaluateCurve(AnimationCurve curve, float value)
     {
         return curve.Evaluate(value);
