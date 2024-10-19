@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GroundManager : MonoBehaviour
 {
+    #region Variables
+
     [Header("Platform Management")]
     [Tooltip("A list of platforms in the scene\nShould have the starter platforms in here, in order of close to far.")]
     [SerializeField] private List<GameObject> platforms = new();
@@ -19,7 +21,11 @@ public class GroundManager : MonoBehaviour
     [HideInInspector] public GameObject LastSpawnedPlatform { get; private set; }
     [HideInInspector] public string LastSpawnedPlatformDifficulty { get; private set; }
 
-    //===================================== METHOD DECLERATION ======================================================
+    #endregion Variables
+
+    //===================================== METHOD DECLERATION ====================================================== 
+    #region Methods
+
 
     // Start is called before the first frame update
     void Awake()
@@ -120,6 +126,8 @@ public class GroundManager : MonoBehaviour
             "\nPosition difference: " + (toSetPosition.z - platform.transform.position.z));
 
         var obj = Instantiate(platformPrefab, toSetPosition, new Quaternion(), parent: this.transform);
+
+        amountOfSpawnedPlatforms++;
 
         LastSpawnedPlatform = obj;
         // instantiate the random platform prefab we got at the position we calculated and then return it.

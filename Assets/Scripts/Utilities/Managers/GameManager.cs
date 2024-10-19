@@ -10,6 +10,8 @@ using TMPro;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    #region Variables
+
     [Header("References")]
     [Tooltip("The player object in the scene")]
     public GameObject player;
@@ -38,6 +40,14 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int DifficultyLevel { get; private set; }
 
     public static event System.Action OnDifficultyIncrease;
+
+    #endregion Variables
+
+    // ========================================== METHODS =======================================================
+    
+    #region Methods
+    
+    #region SetupMethods
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -74,6 +84,12 @@ public class GameManager : MonoBehaviour
     {
         PlayerController.PlayerDeath += GameOver;
     }
+
+    #endregion SetupMethods
+
+    // =========================================== FUNCTIONAL METHODS ===============================================
+
+    #region FunctionalMethods
 
     /// <summary>
     /// FixedUpdate is called once every physics update.
@@ -155,7 +171,14 @@ public class GameManager : MonoBehaviour
         uiManager.UpdateElements();
     }
 
+    #endregion FunctionalMethods
+
+    #endregion Methods
+
     //========================================== DEBUGGING ========================================================
+
+    #region Debugging
+
     [Header("Debugging")]
     [Tooltip("Show the debug text?")]
     [SerializeField] private bool showDebug = false;
@@ -176,4 +199,6 @@ public class GameManager : MonoBehaviour
     {
         GameDebug.SetupDebug(debuggingText, showDebug, textSize, debugFlags);
     }
+
+    #endregion Debugging
 }

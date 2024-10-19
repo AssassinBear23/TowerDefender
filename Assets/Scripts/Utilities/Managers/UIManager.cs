@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
+    #region Variables
+
     /// <summary>
     /// The pages (panels) managed by this UI Manager.
     /// </summary>
@@ -51,7 +53,15 @@ public class UIManager : MonoBehaviour
     // The input manager to list for pausing
     [SerializeField] InputManager inputManager;
 
+    #endregion Variables
+
+    // ============================================= METHODS ===================================================
+
+    #region Methods
+
     // =========================================== SETUP METHODS ===============================================
+
+    #region SetupMethods
 
     /// <summary>
     /// Default Unity Method called when the script is enabled.
@@ -82,20 +92,6 @@ public class UIManager : MonoBehaviour
         //{
         //    Debug.Log("Element " + i + ":\t" + UIElements[i].name);
         //}
-    }
-
-    /// <summary>
-    /// Updates all UI elements in the <see cref="UIElements"/> list.
-    /// </summary>
-    public void UpdateElements()
-    {
-        GameDebug.UpdateDebug();
-        GetUIElements();
-        foreach (UIElements element in UIElements)
-        {
-            element.UpdateElement();
-        }
-        
     }
 
     /// <summary>
@@ -132,11 +128,36 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.instance.uiManager == null && GameManager.instance != null)
         {
-            GameManager.instance.uiManager = this;
+            try
+            {
+                GameManager.instance.uiManager = this;
+            }
+            catch (System.Exception)
+            {
+                // Exception caught but not displayed
+            }
+
         }
     }
+#endregion Setup Methods
 
-    //=========================================== FUNCTIONAL METHODS ===============================================
+    //=========================================== FUNCTIONAL METHODS ===========================================
+
+    #region FunctionalMethods
+
+    /// <summary>
+    /// Updates all UI elements in the <see cref="UIElements"/> list.
+    /// </summary>
+    public void UpdateElements()
+    {
+        GameDebug.UpdateDebug();
+        GetUIElements();
+        foreach (UIElements element in UIElements)
+        {
+            element.UpdateElement();
+        }
+
+    }
 
     /// <summary>
     /// Default Unity Method that is called every frame.
@@ -216,4 +237,7 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    #endregion
+    #endregion Methods
 }
