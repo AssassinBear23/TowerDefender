@@ -89,14 +89,13 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void UpdateElements()
     {
+        GameDebug.UpdateDebug();
         GetUIElements();
         foreach (UIElements element in UIElements)
         {
             element.UpdateElement();
         }
-#if UNITY_EDITOR
-        GameManager.instance.UpdateDebug();
-#endif
+        
     }
 
     /// <summary>

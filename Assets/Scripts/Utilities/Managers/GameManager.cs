@@ -1,15 +1,8 @@
 using UnityEngine;
-using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 using System;
-
-
-
-
-#if UNITY_EDITOR
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
-#endif
+
 
 
 /// <summary>
@@ -51,9 +44,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void Awake()
     {
-#if UNITY_EDITOR
         SetupDebug();
-#endif
         SetupReferences();
     }
 
@@ -164,9 +155,7 @@ public class GameManager : MonoBehaviour
         uiManager.UpdateElements();
     }
 
-
     //========================================== DEBUGGING ========================================================
-#if UNITY_EDITOR
     [Header("Debugging")]
     [Tooltip("Show the debug text?")]
     [SerializeField] private bool showDebug = false;
@@ -176,103 +165,15 @@ public class GameManager : MonoBehaviour
     [Tooltip("Size of the text")]
     [SerializeField] private int textSize = 24;
 
+    [Space(10)]
+    [Tooltip("The debug flags to display in the inspector")]
+    [SerializeField] public GameDebug.DebugFlagsEnum debugFlags;
+
     /// <summary>
     /// Set up the debugging functionality.
     /// </summary>
     void SetupDebug()
     {
-        if (CheckIfNone())
-        {
-            debuggingText.gameObject.SetActive(false);
-            Debug.Log("No Debug Flags are set, disabling debugging text");
-            return;
-        }
-        if (showDebug)
-        {
-            Debug.Log("Debugging text is enabled");
-            debuggingText.gameObject.SetActive(true);
-            debuggingText.fontSize = textSize;
-        }
-        else
-        {
-            Debug.Log("Debugging text is disabled");
-            debuggingText.gameObject.SetActive(false);
-        }
+        GameDebug.SetupDebug(debuggingText, showDebug, textSize, debugFlags);
     }
-
-    [System.Flags]
-    public enum DebugFlagsEnum
-    {
-        None = 0,
-        SpawnedPlatform = 1 << 0,
-        SpawnedPlatformDetailed = 1 << 1,
-        Difficulty = 1 << 2,
-        DifficultyOdds = 1 << 3,
-    }
-    [Space(10)]
-    [Tooltip("The debug flags to display in the inspector")]
-    [SerializeField] private DebugFlagsEnum debugFlags;
-
-    private readonly Dictionary<DebugFlagsEnum, string> DebugFlagsText = new()
-    {
-        { DebugFlagsEnum.SpawnedPlatform, "Spawned Platform: " },
-        { DebugFlagsEnum.SpawnedPlatformDetailed, "Spawned Platform Difficulty: " },
-        { DebugFlagsEnum.Difficulty, "Difficulty: " },
-        { DebugFlagsEnum.DifficultyOdds, "OddRatio's:\neasy: {0}\nmedium: {1}\nhard: {2}" },
-    };
-
-    bool CheckIfNone()
-    {
-        return debugFlags == DebugFlagsEnum.None;
-    }
-
-    /// <summary>
-    /// Update the debugging information.
-    /// </summary>
-    public void UpdateDebug()
-    {
-        if (!debuggingText.gameObject.activeSelf)
-        {
-            return;
-        }
-
-        List<string> debugMessages = new();
-
-        foreach (DebugFlagsEnum flag in Enum.GetValues(typeof(DebugFlagsEnum)))
-        {
-            // Guard block
-            if (!debugFlags.HasFlag(flag) || !DebugFlagsText.ContainsKey(flag))
-            {
-                continue;
-            }
-            string message = DebugFlagsText[flag];
-
-            switch (flag)
-            {
-                case DebugFlagsEnum.SpawnedPlatform:
-                    message += groundManager.LastSpawnedPlatform;
-                    break;
-                case DebugFlagsEnum.SpawnedPlatformDetailed:
-                    message += groundManager.LastSpawnedPlatformDifficulty;
-                    break;
-                case DebugFlagsEnum.Difficulty:
-                    message += DifficultyLevel;
-                    break;
-                case DebugFlagsEnum.DifficultyOdds:
-                    float easyRatio = groundManager.EasyRatio;
-                    float mediumRatio = groundManager.MediumRatio;
-                    float hardRatio = 100 - easyRatio - mediumRatio;
-                    message = string.Format(message, easyRatio, mediumRatio, hardRatio);
-                    break;
-            }
-
-            // Add the debug message to the list
-            debugMessages.Add(message);
-        }
-        //Debug.Log(string.Join("\n", debugMessages));
-
-        // Join all debug messages into a single string and display it
-        debuggingText.text = string.Join("\n", debugMessages);
-    }
-#endif
 }
