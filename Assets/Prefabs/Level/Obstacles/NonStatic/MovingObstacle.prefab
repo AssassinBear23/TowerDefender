@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 8120134092939176320}
   - component: {fileID: 3499604055379392578}
   - component: {fileID: 1974319521229528966}
+  - component: {fileID: -8457050647461168917}
   m_Layer: 6
-  m_Name: Obstacle
+  m_Name: MovingObstacle
   m_TagString: KillElement
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,3 +119,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3adcd063e3c42d447bf1f21aa0a47178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8457050647461168917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296353971822096597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 686a34b596c73eb4a9418c4fe81c44f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToPoint: 5
+  distance: 5
