@@ -1,6 +1,4 @@
 using UnityEngine;
-using System;
-using System.Collections.Generic;
 using TMPro;
 
 
@@ -44,9 +42,9 @@ public class GameManager : MonoBehaviour
     #endregion Variables
 
     // ========================================== METHODS =======================================================
-    
+
     #region Methods
-    
+
     #region SetupMethods
 
     /// <summary>
@@ -180,9 +178,6 @@ public class GameManager : MonoBehaviour
     #region Debugging
 
     [Header("Debugging")]
-    [Tooltip("Show the debug text?")]
-    [SerializeField] private bool showDebug = false;
-    [Space(10)]
     [Tooltip("The text that will be used to display debugging information")]
     [SerializeField] private TMP_Text debuggingText;
     [Tooltip("Size of the text")]
@@ -190,14 +185,19 @@ public class GameManager : MonoBehaviour
 
     [Space(10)]
     [Tooltip("The debug flags to display in the inspector")]
-    [SerializeField] public GameDebug.DebugFlagsEnum debugFlags;
+    [SerializeField] private GameDebug.DebugFlagsEnum debugFlags;
+
+    /// <summary>
+    /// Public read-only property to access the debugging text.
+    /// </summary>
+    public TMP_Text DebuggingText => debuggingText;
 
     /// <summary>
     /// Set up the debugging functionality.
     /// </summary>
     void SetupDebug()
     {
-        GameDebug.SetupDebug(debuggingText, showDebug, textSize, debugFlags);
+        GameDebug.SetupDebug(debuggingText, textSize, debugFlags);
     }
 
     #endregion Debugging

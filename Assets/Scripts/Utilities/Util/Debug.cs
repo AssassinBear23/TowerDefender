@@ -6,7 +6,6 @@ public static class GameDebug
 {
     // Variables
     private static TMP_Text debuggingText;
-    private static bool showDebug;
     private static int textSize;
     private static DebugFlagsEnum debugFlags;
 
@@ -31,10 +30,9 @@ public static class GameDebug
     }
 
     // Method to set up the debugging text
-    public static void SetupDebug(TMP_Text text, bool show, int size, DebugFlagsEnum flags)
+    public static void SetupDebug(TMP_Text text, int size, DebugFlagsEnum flags)
     {
         debuggingText = text;
-        showDebug = show;
         textSize = size;
         debugFlags = flags;
 
@@ -44,17 +42,8 @@ public static class GameDebug
             UnityEngine.Debug.Log("No Debug Flags are set, disabling debugging text");
             return;
         }
-        if (showDebug)
-        {
-            UnityEngine.Debug.Log("Debugging text is enabled");
-            debuggingText.gameObject.SetActive(true);
-            debuggingText.fontSize = textSize;
-        }
-        else
-        {
-            UnityEngine.Debug.Log("Debugging text is disabled");
-            debuggingText.gameObject.SetActive(false);
-        }
+
+        text.fontSize = textSize;
     }
 
     // Method to check if no debug flags are set
