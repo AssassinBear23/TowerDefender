@@ -87,7 +87,7 @@ public class MovingObstacle : MonoBehaviour
             // Check if the limit name contains the starting direction
             if (limit.name.ToLower().Contains(startingDirection.ToString().ToLower()))
             {
-                WaitAndMove(limit);
+                StartCoroutine(WaitAndMove(limit));
             }
         }
     }
@@ -98,7 +98,7 @@ public class MovingObstacle : MonoBehaviour
     /// <param name="other">The other Collider involved in this collision.</param>
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("COLLIDED WITH: " + other.transform.name.ToUpper());
+        //Debug.Log("COLLIDED WITH: " + other.transform.name.ToUpper());
         if (other.transform == leftLimit)
         {
             Debug.Log("Moving to right limit");
