@@ -28,9 +28,9 @@ public class InputManager : MonoBehaviour
         }
     }
 
-
+    [Header("Player Movement Input")]
     // The movementVector that's used for movement by the playable character
-    [HideInInspector] public float playerInput;
+    public float playerInput;
 
     /// <summary>
     /// Handles the movement key input.
@@ -43,6 +43,19 @@ public class InputManager : MonoBehaviour
 
         // Reads the value of the context (which is a normalized vector of the pressed keys)
         playerInput = context.ReadValue<float>();
+    }
+
+    [Header("Skill inputs")]
+    public bool shieldPressed;
+    /// <summary>
+    /// Handles the shield key input.
+    /// </summary>
+    /// <param name="context">The input action callback context.</param>
+    public void OnShieldKey(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnShieldKey called"
+                  + $"\nState is: {context.phase}");
+        shieldPressed = !context.canceled;
     }
 
     [Header("Pause Input")]
