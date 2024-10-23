@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Initialization Values")]
@@ -14,6 +15,10 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Values")]
     [Tooltip("The scale to multiply the movement vector of the character with")]
     [SerializeField] float movementScale = 10f;
+
+    [Header("Skill Management")]
+    [Tooltip("The SkillManager instance in the scene")]
+    [SerializeField] private SkillManager skillManager;
 
     private Vector3 movementVector = new();
 
@@ -51,12 +56,20 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
     }
 
+    void Update()
+    {
+        foreach (var skill in skillManager.enabledSkills)
+        {
+            skill.UseSkill();
+        }
+    }
+
     /// <summary>
     /// Move the player based on the input from the player.
     /// </summary>
     public void MovePlayer()
     {
-        movementVector = new Vector3(inputManager.playerInput * movementScale, 0, 0);
+        movementVector = new Vector3(inputManager.playerMovementInput * movementScale, 0, 0);
         cc.SimpleMove(movementVector);
     }
 }
