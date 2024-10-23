@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 950cf4ff43985d74db0c397022cef8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 1113268595923455425, guid: 6a63050168364134ea4cd0cb0d94e86d, type: 3}
+  projectilePrefab: {fileID: 1113268595923455425, guid: 96ab3dceaef1f4d47a03836ad44e99ef, type: 3}
   projectileHolder: {fileID: 0}
   projectileSpawnPosition: {fileID: 5592491060984397707}
   bulletRotation: {x: 1, y: 0, z: 0, w: 1}

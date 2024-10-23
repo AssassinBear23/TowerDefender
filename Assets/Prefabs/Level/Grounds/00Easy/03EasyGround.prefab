@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ff53a7bb7e0dd419dedf77ddff3feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deleteDistance: 10
+  deleteDistance: 15
   midPointTransform: {fileID: 4613173661523475120}
   offset: 7.5
 --- !u!1 &6457507367486560654
@@ -206,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2985472316185711178, guid: 9c6ad6ce28074894c9b4298834c94a48, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2985472316185711178, guid: 9c6ad6ce28074894c9b4298834c94a48, type: 3}
       propertyPath: m_LocalPosition.x
