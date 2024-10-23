@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Prefabs/Level/Dynamic Enemies.meta
 guid: c12e824d72a4cdb4ea9b87854afebe9b
+========
+guid: ac861666398ca6347b77db06fe30e0e0
+>>>>>>>> Stashed changes:Assets/Prefabs/UI.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
