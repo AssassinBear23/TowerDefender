@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingObstacle : MonoBehaviour
+public class MovingObstacle : Obstacle
 {
     [Header("Movement Settings")]
     [Tooltip("Movement speed of the obstacle")]
