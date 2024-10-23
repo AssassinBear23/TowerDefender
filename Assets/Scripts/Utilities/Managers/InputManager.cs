@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class InputManager : MonoBehaviour
 {
     // A global reference (Singleton) of the InputManager that other scripts can reference to
@@ -20,7 +21,6 @@ public class InputManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Make this instance persistent
         }
         else
         {
@@ -28,9 +28,11 @@ public class InputManager : MonoBehaviour
         }
     }
 
+
+    #region Player Controls
     [Header("Player Movement Input")]
     // The movementVector that's used for movement by the playable character
-    public float playerInput;
+    public float playerMovementInput;
 
     /// <summary>
     /// Handles the movement key input.
@@ -42,7 +44,7 @@ public class InputManager : MonoBehaviour
         //    + $"\nKey is:\t{context.control.displayName}");
 
         // Reads the value of the context (which is a normalized vector of the pressed keys)
-        playerInput = context.ReadValue<float>();
+        playerMovementInput = context.ReadValue<float>();
     }
 
     [Header("Skill inputs")]
@@ -56,6 +58,7 @@ public class InputManager : MonoBehaviour
         Debug.Log("OnShieldKey called"
                   + $"\nState is: {context.phase}");
         shieldPressed = !context.canceled;
+        StartCoroutine(ResetKey(() => shieldPressed = false));
     }
 
     [Header("Pause Input")]
@@ -69,16 +72,28 @@ public class InputManager : MonoBehaviour
     public void ReadPauseInput(InputAction.CallbackContext context)
     {
         pausePressed = !context.canceled;
-        StartCoroutine(ResetPausePressed());
+        StartCoroutine(ResetKey(() => pausePressed = false));
     }
 
     /// <summary>
-    /// Coroutine that resets the pausePressed variable at the end of the frame
+    /// Coroutine that resets the specified boolean variable at the end of the frame
     /// </summary>
+    /// <param name="resetAction">The action to reset the boolean variable.</param>
     /// <returns><see cref="IEnumerator"/>, allows this function to be used as a coroutine</returns>
-    IEnumerator ResetPausePressed()
+    public static IEnumerator ResetKey(System.Action resetAction)
     {
+        /* How does this work:
+         * The return type is a IEnumerator, which allows this function to be used as a coroutine.
+         * 
+         * The paremeter is a System.Action, this means that the parameter is a delegate that can be called. 
+         * In this case that would be a lambda function.
+         * 
+         * This allows the user to pass a lambda fucntion that reset the desired boolean 
+         * Example: StartCoroutine(ResetKey(() => pausePressed = false));
+         */
         yield return new WaitForEndOfFrame();
-        pausePressed = false;
+        resetAction();
     }
+
+    #endregion Player Controls
 }
