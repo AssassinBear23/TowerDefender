@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     #endregion Variables
 
-    // ========================================== METHODS =======================================================
+    // ========================================== METHOD DECLERATION =======================================================
 
     #region Methods
 
@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        SetupDebug();
         SetupReferences();
     }
 
@@ -172,33 +171,4 @@ public class GameManager : MonoBehaviour
     #endregion FunctionalMethods
 
     #endregion Methods
-
-    //========================================== DEBUGGING ========================================================
-
-    #region Debugging
-
-    [Header("Debugging")]
-    [Tooltip("The text that will be used to display debugging information")]
-    [SerializeField] private TMP_Text debuggingText;
-    [Tooltip("Size of the text")]
-    [SerializeField] private int textSize = 24;
-
-    [Space(10)]
-    [Tooltip("The debug flags to display in the inspector")]
-    [SerializeField] private GameDebug.DebugFlagsEnum debugFlags;
-
-    /// <summary>
-    /// Public read-only property to access the debugging text.
-    /// </summary>
-    public TMP_Text DebuggingText => debuggingText;
-
-    /// <summary>
-    /// Set up the debugging functionality.
-    /// </summary>
-    void SetupDebug()
-    {
-        GameDebug.SetupDebug(debuggingText, textSize, debugFlags);
-    }
-
-    #endregion Debugging
 }

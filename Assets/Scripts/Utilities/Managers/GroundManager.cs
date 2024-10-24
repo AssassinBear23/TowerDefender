@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +15,7 @@ public class GroundManager : MonoBehaviour
     [Tooltip("A list of hard difficulty platform prefabs")]
     [SerializeField] private List<GameObject> hardPlatformPrefabs;
 
+    private int amountOfSpawnedPlatforms = 0;
 
     // Used for debugging purposes
     [HideInInspector] public GameObject LastSpawnedPlatform { get; private set; }
@@ -24,12 +24,15 @@ public class GroundManager : MonoBehaviour
     #endregion Variables
 
     //===================================== METHOD DECLERATION ====================================================== 
+
     #region Methods
-
-
-    // Start is called before the first frame update
+    #region Setup
+    /// <summary>
+    /// Awake is called before the first frame update.
+    /// </summary>
     void Awake()
     {
+        EvaluateDifficultyCurves();
         SetupReferences();
         SubscribeToEvents();
     }
@@ -72,6 +75,9 @@ public class GroundManager : MonoBehaviour
     {
         UnsubscribeToEvents();
     }
+
+    #endregion Setup
+    #region Platform Management
 
     /// <summary>
     /// Remove the platform from the list, create a new platform and add it to the list, and destroy the platform object.
@@ -141,11 +147,11 @@ public class GroundManager : MonoBehaviour
 
 
 
-/// <summary>
-/// Returns a random platform prefab based on the difficulty ratios.
-/// </summary>
-/// <returns>The randomly selected platform prefab.</returns>
-(GameObject platformPrefab, int randomValue) GetRandomPlatformPrefab()
+    /// <summary>
+    /// Returns a random platform prefab based on the difficulty ratios.
+    /// </summary>
+    /// <returns>The randomly selected platform prefab.</returns>
+    (GameObject platformPrefab, int randomValue) GetRandomPlatformPrefab()
     {
         int t_num = Random.Range(0, 100);
         if (t_num <= EasyRatio)
@@ -173,17 +179,54 @@ public class GroundManager : MonoBehaviour
     public void CalculateDifficultyRatio()
     {
         // Get the value to evaluate the curves with
-        float x_value = GameManager.instance.DifficultyLevel / 10;
+        float x_value = GameManager.instance.distanceTraveled / 100000;
 
         // Evaluate Easy Diff Curv
         float evaluatedEasyCurve = EvaluateCurve(easyPlatformsSpawnRateCurve, x_value);
-        Debug.Log(evaluatedEasyCurve);
+        //Debug.Log(evaluatedEasyCurve);
         EasyRatio = evaluatedEasyCurve * 100;
-        
+
         // Evaluate Medium Diff Curv
         float evaluatedMediumCurve = EvaluateCurve(mediumPlatformsSpawnRateCurve, x_value);
-        Debug.Log(evaluatedMediumCurve);
+        //Debug.Log(evaluatedMediumCurve);
         MediumRatio = evaluatedMediumCurve * 100;
+    }
+
+    [SerializeField][Range(0.001f, 0.1f)] private float evaluationAccuracy;
+
+    private void EvaluateDifficultyCurves()
+    {
+        Dictionary<string, Dictionary<float, float>> evaluationTable = new();
+
+        Dictionary<float, float> tempEasy = new();
+        for (float i = 0; i < 1; i += evaluationAccuracy)
+        {
+
+            tempEasy.Add(i, EvaluateCurve(easyPlatformsSpawnRateCurve, i));
+        }
+        evaluationTable.Add("Easy", tempEasy);
+        Dictionary<float, float> tempMedium = new();
+        for (float i = 0; i < 1; i += evaluationAccuracy)
+        {
+
+            tempMedium.Add(i, EvaluateCurve(mediumPlatformsSpawnRateCurve, i));
+        }
+        evaluationTable.Add("Medium", tempMedium);
+        
+        LogCurve(evaluationTable);
+    }
+
+    private void LogCurve(Dictionary<string, Dictionary<float, float>> evaluationTable)
+    {
+        foreach (var curve in evaluationTable)
+        {
+            string message = $"{curve.Key}".ToUpper();
+            foreach (var value in curve.Value)
+            {
+                message += $"\n{value.Key}:\t{value.Value}";
+            }
+            Debug.Log(message);
+        }
     }
 
     /// <summary>
@@ -196,4 +239,7 @@ public class GroundManager : MonoBehaviour
     {
         return curve.Evaluate(value);
     }
+
+    #endregion Platform Management
+    #endregion Methods
 }

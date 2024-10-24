@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// Manages the UI elements in the game.
 /// </summary>
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviour, IMoveHandler, IHandler
 {
     #region Variables
 
@@ -36,6 +38,8 @@ public class UIManager : MonoBehaviour
     [Tooltip("The pause menu page's index\n defaults to 1")]
     public int pausePageIndex = 1;
 
+    
+
     /// <summary>
     /// Whether or not the game can be paused.
     /// </summary>
@@ -45,13 +49,13 @@ public class UIManager : MonoBehaviour
     // Whether or not the game is paused
     private bool isPaused = false;
 
-    // A list of all UIElements classes
-    private List<UIElements> UIElements;
+    // A list of all UIElement classes
+    private List<UIElement> UIElements;
 
-    // The event system that manages UI navigation
-    [HideInInspector] public EventSystem eventSystem;
+    // The NavigationAction that we listen to to reset the selected UI to default if none is selected
+    //[SerializeField] private InputAction onNavigationAction;
     // The input manager to list for pausing
-    [SerializeField] InputManager inputManager;
+    [HideInInspector] public InputManager inputManager;
 
     #endregion Variables
 
@@ -76,8 +80,9 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        Debug.Log("UI Manager Started");
+        SetupDebug();
         SetupInputManager();
-        SetupEventSystem();
         UpdateElements();
     }
 
@@ -86,12 +91,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     void GetUIElements()
     {
-        UIElements = FindObjectsOfType<UIElements>().ToList();
-        //Debug.Log("Amount of UI Elements:\t" + UIElements.Count);
-        //for(int i = 0; i < UIElements.Count; i++)
-        //{
-        //    Debug.Log("Element " + i + ":\t" + UIElements[i].name);
-        //}
+        UIElements = FindObjectsOfType<UIElement>().ToList();
     }
 
     /// <summary>
@@ -110,23 +110,11 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the <see cref="eventSystem"/> variable to the EventSystem in the scene.
-    /// </summary>
-    private void SetupEventSystem()
-    {
-        eventSystem = FindObjectOfType<EventSystem>();
-        if (eventSystem == null)
-        {
-            Debug.LogWarning($"There is no {nameof(eventSystem)} in the scene. Make sure to add one to the scene");
-        }
-    }
-
-    /// <summary>
     /// Sets up the UIManager singleton instance in <see cref="GameManager.uIManager"/>.
     /// </summary>
     void SetupUIManager()
     {
-        if (GameManager.instance.uiManager == null && GameManager.instance != null)
+        if (GameManager.instance != null && GameManager.instance.uiManager == null)
         {
             try
             {
@@ -136,14 +124,15 @@ public class UIManager : MonoBehaviour
             {
                 // Exception caught but not displayed
             }
-
         }
+
+        //onNavigationAction.performed += _ => ResetSelectedUIToDefault();
     }
-#endregion Setup Methods
+    #endregion Setup Methods
 
     //=========================================== FUNCTIONAL METHODS ===========================================
 
-    #region FunctionalMethods
+    #region Functional Methods
 
     /// <summary>
     /// Updates all UI elements in the <see cref="UIElements"/> list.
@@ -152,11 +141,10 @@ public class UIManager : MonoBehaviour
     {
         GameDebug.UpdateDebug();
         GetUIElements();
-        foreach (UIElements element in UIElements)
+        foreach (UIElement element in UIElements)
         {
             element.UpdateElement();
         }
-
     }
 
     /// <summary>
@@ -165,6 +153,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         CheckPauseInput();
+        //ResetSelectedUIToDefault();
     }
 
     /// <summary>
@@ -179,6 +168,28 @@ public class UIManager : MonoBehaviour
         if (inputManager.pausePressed)
         {
             TogglePause();
+        }
+    }
+
+    #endregion Functional Methods
+    #region UI Methods
+
+    /// <summary>
+    /// Turns all stored pages on or off depending on the passed parameter.
+    /// </summary>
+    /// <param name="activeState">The state to set all pages to, true to active them all, false to deactivate them all</param>
+    private void SetActiveAllPages(bool activeState)
+    {
+        if (pages == null)
+        {
+            return;
+        }
+        foreach (UIPage page in pages)
+        {
+            if (page != null)
+            {
+                page.gameObject.SetActive(activeState);
+            }
         }
     }
 
@@ -205,6 +216,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ToggleAllowPause()
+    {
+        allowPause = !allowPause;
+    }
+
     /// <summary>
     /// Goes to a page by that page's index.
     /// </summary>
@@ -219,25 +235,52 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Turns all stored pages on or off depending on the passed parameter.
-    /// </summary>
-    /// <param name="activeState">The state to set all pages to, true to active them all, false to deactivate them all</param>
-    private void SetActiveAllPages(bool activeState)
+
+    public GameObject LastSelected { private get; set; }
+
+    public void OnMove(AxisEventData eventData)
     {
-        if (pages == null)
+        Debug.Log("OnMove Called");
+        if (EventSystem.current.currentSelectedGameObject == null)
         {
-            return;
-        }
-        foreach (UIPage page in pages)
-        {
-            if (page != null)
-            {
-                page.gameObject.SetActive(activeState);
-            }
+            EventSystem.current.SetSelectedGameObject(LastSelected);
         }
     }
 
-    #endregion
-    #endregion Methods
-}
+    public void OnDeselect(BaseEventData eventData)
+    {
+        Debug.Log($"{this.gameObject.name} got deselected");
+        LastSelected = EventSystem.current.currentSelectedGameObject;
+    }
+
+    //========================================== DEBUGGING ========================================================
+
+    #region Debugging
+
+    [Header("Debugging")]
+        [Tooltip("The text that will be used to display debugging information")]
+        [SerializeField] private TMP_Text debuggingText;
+        [Tooltip("Size of the text")]
+        [SerializeField][Range(1f, 40f)] private int textSize = 24;
+
+        [Space(10)]
+        [Tooltip("The debug flags to display in the inspector")]
+        [SerializeField] private GameDebug.DebugFlagsEnum debugFlags;
+
+        /// <summary>
+        /// Set up the debugging functionality.
+        /// </summary>
+        void SetupDebug()
+        {
+            //Debug.Log("Setting up Debugging" +
+            //    "\nDebugger Text: " + debuggingText +
+            //    "\nText size: " + textSize +
+            //    "\nDebug Flags: " + debugFlags);
+            GameDebug.SetupDebug(debuggingText, textSize, debugFlags);
+        }
+
+        #endregion Debugging
+
+        #endregion UI Methods
+        #endregion Methods
+    }
