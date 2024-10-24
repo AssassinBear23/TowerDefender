@@ -55,10 +55,10 @@ public class InputManager : MonoBehaviour
     /// <param name="context">The input action callback context.</param>
     public void OnShieldKey(InputAction.CallbackContext context)
     {
-        Debug.Log("OnShieldKey called"
-                  + $"\nState is: {context.phase}");
+        //Debug.Log("OnShieldKey called"
+        //          + $"\nState is: {context.phase}");
         shieldPressed = !context.canceled;
-        StartCoroutine(ResetKey(() => shieldPressed = false));
+        //StartCoroutine(ResetKey(() => shieldPressed = false));
     }
 
     [Header("Pause Input")]
