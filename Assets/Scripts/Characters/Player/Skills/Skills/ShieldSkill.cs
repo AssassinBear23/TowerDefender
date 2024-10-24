@@ -3,18 +3,20 @@
 /// <summary>
 /// Represents a shield skill that can be activated by the player.
 /// </summary>
-[RequireComponent(typeof(MeshCollider), typeof(MeshRenderer))]
+[RequireComponent(typeof(MeshCollider), typeof(MeshRenderer), typeof(Light))]
 public class ShieldSkill : Skill
 {
     #region Properties
     [Header("References")]
-    [SerializeField] private Renderer shieldRenderer;
+    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private Light lightComponent;
 
     [Header("Skill Values")]
     [SerializeField] private float shieldDuration = 3f;
-    [SerializeField] private float cooldown = 10f;
+    [SerializeField] private float cooldownTime = 10f;
 
-    private bool active;
+    [SerializeField] private bool active;
+    private bool firstTimeActivation = true;
 
     #endregion Properties
 
@@ -24,9 +26,15 @@ public class ShieldSkill : Skill
     #region Methods
     #region SetupMethods
 
+    private void Awake()
+    {
+        lastUseTime = Time.time;
+    }
+
     private void Reset()
     {
-        shieldRenderer = GetComponent<MeshRenderer>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        lightComponent = GetComponent<Light>();
     }
 
     #endregion SetupMethods
@@ -35,17 +43,32 @@ public class ShieldSkill : Skill
 
     #region Functional Methods
 
+
+
     /// <summary>
     /// Use the <see cref="ShieldSkill"/>.
     /// </summary>
     public override void UseSkill()
     {
-        // If the shield key is not pressed, the skill is on cooldown or the skill is already active, don't do anything.
+        //If the shield key is not pressed, the skill is on cooldown or the skill is already active, don't do anything.
+        //Debug.Log(IsOnCooldown());
+        if (firstTimeActivation && InputManager.instance.shieldPressed)
+        {
+            firstTimeActivation = false;
+            ToggleComponents();
+            active = true;
+        }
         if (!InputManager.instance.shieldPressed
-            || IsOnCooldown())
+            || IsOnCooldown() || active == true)
+        {
+            //Debug.Log("Skill is on cooldown: " + IsOnCooldown());
             return;
+        }
 
-        shieldRenderer.enabled = true;
+        //Debug.Log("Entering UseSkill");
+
+        ToggleComponents();
+        active = true;
     }
 
 
@@ -56,10 +79,13 @@ public class ShieldSkill : Skill
     /// <param name="other">The other collider involved in this collision.</param>
     private void OnTriggerEnter(Collider other)
     {
+        //Debug.Log("Entered Collision");
+
         // Guardblock
         if (!active) return;
 
-        shieldRenderer.enabled = false;
+        Destroy(other.gameObject);
+        ToggleComponents();
         active = false;
         lastUseTime = Time.time;
     }
@@ -69,26 +95,17 @@ public class ShieldSkill : Skill
     /// Checks if the skill is currently on cooldown.
     /// </summary>
     /// <returns>True if the skill is on cooldown, otherwise false.</returns>
-    private bool IsOnCooldown()
+    public override bool IsOnCooldown()
     {
-        return lastUseTime + cooldown < Time.time;
+        return Time.time <= lastUseTime + cooldownTime;
+    }
+
+    public void ToggleComponents()
+    {
+        lightComponent.enabled = !lightComponent.enabled;
+        meshRenderer.enabled = !meshRenderer.enabled;
     }
 
     #endregion Functional Methods
-
-    // ======================================= UTIL METHODS ================================================== //
-
-    #region Util
-
-    /// <summary>
-    /// Gets the skill component.
-    /// </summary>
-    /// <returns>The skill component.</returns>
-    public override Component GetSkill()
-    {
-        return this;
-    }
-
-    #endregion Util
     #endregion Methods
 }

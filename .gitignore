@@ -72,3 +72,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 *.zip
 *.7z
+/Assets/99ERP
+/Assets/99ERP.meta
+*.erp

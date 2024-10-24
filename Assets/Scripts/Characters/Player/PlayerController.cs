@@ -58,10 +58,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        foreach (var skill in skillManager.enabledSkills)
-        {
-            skill.UseSkill();
-        }
+        SkillManager.instance.UseSkills();
     }
 
     /// <summary>

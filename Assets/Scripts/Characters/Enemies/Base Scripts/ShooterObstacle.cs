@@ -28,6 +28,9 @@ public class ShooterObstacle : Obstacle
 
     // ======================================================= SETUP METHODS =======================================================================
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void OnValidate()
     {
         if (projectileHolder == null)
@@ -71,7 +74,9 @@ public class ShooterObstacle : Obstacle
                                      new Quaternion(0, 0, 90, 0),
                                      projectileHolder != null ? projectileHolder : null);
             bullet.transform.rotation = bulletRotation;
-            bullet.GetComponent<Bullet>().Speed = bulletSpeed;
+            var bulletComponent = bullet.GetComponent<Bullet>();
+            bulletComponent.Speed = bulletSpeed;
+            bulletComponent.DetermineDirection(transform.rotation);
             lastShotTime = Time.time;
         }
     }
