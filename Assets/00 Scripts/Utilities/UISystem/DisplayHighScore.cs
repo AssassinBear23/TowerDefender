@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class DisplayHighScore : UIElements
+public class DisplayHighScore : UIElement
 {
     private TMP_Text text;
 

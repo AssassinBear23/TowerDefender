@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class DisplayScore : UIElements
+public class DisplayScore : UIElement
 {
     private TMP_Text text;
     private void Awake()
@@ -14,11 +14,6 @@ public class DisplayScore : UIElements
     /// </summary>
     public override void UpdateDisplay()
     {
-        //Debug.Log($"All references used in {nameof(UpdateDisplay)}:\t" +
-        //    "\nGameManager:\t" + GameManager.instance +
-        //    "\nScore:\t" + GameManager.instance.score +
-        //    "\nHigh Score:\t" + GameManager.instance.highScore);
         text.text = "Score: " + GameManager.instance.score;
-        
     }
 }

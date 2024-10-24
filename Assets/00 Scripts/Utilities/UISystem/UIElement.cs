@@ -1,9 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIElements : MonoBehaviour
+public class UIElement : MonoBehaviour
 {
+
     /// <summary>
     /// Updates the UI element.
     /// </summary>
@@ -13,7 +13,7 @@ public class UIElements : MonoBehaviour
     }
 
     /// <summary>
-    /// Default method that gets overridden by the child classes. That's also the reason that it is a virtual method.
+    /// Virtual method to update the display of the UI element.
     /// </summary>
     public virtual void UpdateDisplay()
     {

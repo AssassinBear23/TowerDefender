@@ -12,7 +12,7 @@ public class ShieldSkill : Skill
     [SerializeField] private Light lightComponent;
 
     [Header("Skill Values")]
-    [SerializeField] private float shieldDuration = 3f;
+    //[SerializeField] private float shieldDuration = 3f;
     [SerializeField] private float cooldownTime = 10f;
 
     [SerializeField] private bool active;

@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
     private bool isPaused = false;
 
     // A list of all UIElements classes
-    private List<UIElements> UIElements;
+    private List<UIElement> UIElements;
 
     // The event system that manages UI navigation
     [HideInInspector] public EventSystem eventSystem;
@@ -86,7 +86,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     void GetUIElements()
     {
-        UIElements = FindObjectsOfType<UIElements>().ToList();
+        UIElements = FindObjectsOfType<UIElement>().ToList();
         //Debug.Log("Amount of UI Elements:\t" + UIElements.Count);
         //for(int i = 0; i < UIElements.Count; i++)
         //{
@@ -152,7 +152,7 @@ public class UIManager : MonoBehaviour
     {
         GameDebug.UpdateDebug();
         GetUIElements();
-        foreach (UIElements element in UIElements)
+        foreach (UIElement element in UIElements)
         {
             element.UpdateElement();
         }
