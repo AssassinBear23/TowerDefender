@@ -31,7 +31,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Basic Move"",
                     ""type"": ""Value"",
                     ""id"": ""90ebcba7-778c-4f7c-a4f0-a9ba1736ea2a"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -44,13 +44,22 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shield"",
+                    ""type"": ""Button"",
+                    ""id"": ""82b0b739-2b2f-4dc4-90dd-4412c0aee743"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": ""WASD"",
                     ""id"": ""5f5b207f-8cf5-4d6a-81cc-90bc4d8f4f3e"",
-                    ""path"": ""1DAxis(mode=1)"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -134,27 +143,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Skills"",
-            ""id"": ""67cd1b05-348b-48bf-83b3-3af0761414e9"",
-            ""actions"": [
-                {
-                    ""name"": ""Shield"",
-                    ""type"": ""Button"",
-                    ""id"": ""25a10399-b799-4e82-a604-b6558f03dc84"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
+                },
                 {
                     ""name"": """",
-                    ""id"": ""1e8033c4-8dec-4581-991f-40baca257337"",
+                    ""id"": ""4276a017-3569-4634-a165-96141155da34"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -165,7 +157,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0f4c9766-a9cb-41b0-84f1-23254d5645da"",
+                    ""id"": ""ded4651a-5ce0-47cb-9eab-04916e59cf43"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -183,9 +175,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_BasicControls = asset.FindActionMap("BasicControls", throwIfNotFound: true);
         m_BasicControls_BasicMove = m_BasicControls.FindAction("Basic Move", throwIfNotFound: true);
         m_BasicControls_Pause = m_BasicControls.FindAction("Pause", throwIfNotFound: true);
-        // Skills
-        m_Skills = asset.FindActionMap("Skills", throwIfNotFound: true);
-        m_Skills_Shield = m_Skills.FindAction("Shield", throwIfNotFound: true);
+        m_BasicControls_Shield = m_BasicControls.FindAction("Shield", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,12 +239,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IBasicControlsActions> m_BasicControlsActionsCallbackInterfaces = new List<IBasicControlsActions>();
     private readonly InputAction m_BasicControls_BasicMove;
     private readonly InputAction m_BasicControls_Pause;
+    private readonly InputAction m_BasicControls_Shield;
     public struct BasicControlsActions
     {
         private @PlayerControls m_Wrapper;
         public BasicControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @BasicMove => m_Wrapper.m_BasicControls_BasicMove;
         public InputAction @Pause => m_Wrapper.m_BasicControls_Pause;
+        public InputAction @Shield => m_Wrapper.m_BasicControls_Shield;
         public InputActionMap Get() { return m_Wrapper.m_BasicControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -270,6 +262,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Shield.started += instance.OnShield;
+            @Shield.performed += instance.OnShield;
+            @Shield.canceled += instance.OnShield;
         }
 
         private void UnregisterCallbacks(IBasicControlsActions instance)
@@ -280,6 +275,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Shield.started -= instance.OnShield;
+            @Shield.performed -= instance.OnShield;
+            @Shield.canceled -= instance.OnShield;
         }
 
         public void RemoveCallbacks(IBasicControlsActions instance)
@@ -297,59 +295,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public BasicControlsActions @BasicControls => new BasicControlsActions(this);
-
-    // Skills
-    private readonly InputActionMap m_Skills;
-    private List<ISkillsActions> m_SkillsActionsCallbackInterfaces = new List<ISkillsActions>();
-    private readonly InputAction m_Skills_Shield;
-    public struct SkillsActions
-    {
-        private @PlayerControls m_Wrapper;
-        public SkillsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Shield => m_Wrapper.m_Skills_Shield;
-        public InputActionMap Get() { return m_Wrapper.m_Skills; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(SkillsActions set) { return set.Get(); }
-        public void AddCallbacks(ISkillsActions instance)
-        {
-            if (instance == null || m_Wrapper.m_SkillsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_SkillsActionsCallbackInterfaces.Add(instance);
-            @Shield.started += instance.OnShield;
-            @Shield.performed += instance.OnShield;
-            @Shield.canceled += instance.OnShield;
-        }
-
-        private void UnregisterCallbacks(ISkillsActions instance)
-        {
-            @Shield.started -= instance.OnShield;
-            @Shield.performed -= instance.OnShield;
-            @Shield.canceled -= instance.OnShield;
-        }
-
-        public void RemoveCallbacks(ISkillsActions instance)
-        {
-            if (m_Wrapper.m_SkillsActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(ISkillsActions instance)
-        {
-            foreach (var item in m_Wrapper.m_SkillsActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_SkillsActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public SkillsActions @Skills => new SkillsActions(this);
     public interface IBasicControlsActions
     {
         void OnBasicMove(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-    }
-    public interface ISkillsActions
-    {
         void OnShield(InputAction.CallbackContext context);
     }
 }
