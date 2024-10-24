@@ -4,19 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ground
+  - KillElement
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Obstacle
+  - ObstacleUtility
+  - Skill
+  - NonPlayerProjectile
+  - PlayerProjectile
   - 
   - 
   - 
