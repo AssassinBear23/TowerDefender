@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 
 
-public class LoadSceneButton : MonoBehaviour
+public class LoadSceneButton : Button
 {
     /// <summary>
     /// Loads the scene with the given name.

@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-#if UNITY_EDITOR
-using UnityEngine;
-#endif
 
 public static class GameDebug
 {
     // Variables  
     private static TMP_Text debuggingText;
     private static int textSize;
-    public static DebugFlagsEnum DebugFlags { get; set; }
+    public static DebugFlagsEnum debugFlags { get; set; }
 
     /// <summary>  
     /// Dictionary to hold the debug flag text messages.  
@@ -46,7 +43,7 @@ public static class GameDebug
     {
         debuggingText = text;
         textSize = size;
-        DebugFlags = flags;
+        debugFlags = flags;
 
         if (CheckIfNone())
         {
@@ -64,7 +61,7 @@ public static class GameDebug
     /// <returns>True if no debug flags are set, otherwise false.</returns>  
     private static bool CheckIfNone()
     {
-        return DebugFlags == DebugFlagsEnum.None;
+        return debugFlags == DebugFlagsEnum.None;
     }
 
     /// <summary>  
@@ -72,8 +69,6 @@ public static class GameDebug
     /// </summary>  
     public static void UpdateDebug()
     {
-        // Check if the debugging text is null
-
         if (!debuggingText.gameObject.activeSelf)
         {
             return;
@@ -86,7 +81,7 @@ public static class GameDebug
         foreach (DebugFlagsEnum flag in Enum.GetValues(typeof(DebugFlagsEnum)))
         {
             // Check if the flag is set and if the flag is in the dictionary, if not continue to next loop.  
-            if (!DebugFlags.HasFlag(flag) || !DebugFlagsText.ContainsKey(flag))
+            if (!debugFlags.HasFlag(flag) || !DebugFlagsText.ContainsKey(flag))
             {
                 continue;
             }
@@ -128,7 +123,7 @@ public static class GameDebug
     /// <param name="flag">The debug flag to enable.</param>  
     public static void EnableDebugFlag(DebugFlagsEnum flag)
     {
-        DebugFlags |= flag;
+        debugFlags |= flag;
     }
 
     /// <summary>  
@@ -137,7 +132,7 @@ public static class GameDebug
     /// <param name="flag">The debug flag to disable.</param>  
     public static void DisableDebugFlag(DebugFlagsEnum flag)
     {
-        DebugFlags &= ~flag;
+        debugFlags &= ~flag;
     }
 
     /// <summary>  
@@ -147,6 +142,6 @@ public static class GameDebug
     /// <returns>True if the debug flag is enabled, otherwise false.</returns>  
     public static bool IsDebugFlagEnabled(DebugFlagsEnum flag)
     {
-        return DebugFlags.HasFlag(flag);
+        return debugFlags.HasFlag(flag);
     }
 }
