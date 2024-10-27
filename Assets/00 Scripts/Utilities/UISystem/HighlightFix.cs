@@ -45,6 +45,11 @@ public class HighlightFix : MonoBehaviour, IPointerEnterHandler, IDeselectHandle
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        EventSystem.current.SetSelectedGameObject(null);
+        var thisSelectable = this.gameObject;
+        var currentSelected = EventSystem.current.currentSelectedGameObject;
+        if (currentSelected == thisSelectable)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 }

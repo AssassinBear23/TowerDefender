@@ -8,6 +8,26 @@ public class InputManager : MonoBehaviour
     // A global reference (Singleton) of the InputManager that other scripts can reference to
     [HideInInspector] public static InputManager instance;
 
+    // Whether or not the player game controls are enabled
+    [SerializeField] private bool playerGameControlsEnabled = true;
+    /// <summary>  
+    /// Gets or sets a value indicating whether the player game controls are enabled.  
+    /// </summary>  
+    /// <value>  
+    ///   <c>true</c> if player game controls are enabled; otherwise, <c>false</c>.  
+    /// </value>  
+    public bool PlayerGameControlsEnabled { get => playerGameControlsEnabled; set => playerGameControlsEnabled = value; }
+
+    // Whether or not the player controls are enabled
+    [SerializeField] private bool playerControlsEnabled = true;
+    /// <summary>
+    /// Gets or sets a value indicating whether the overall player controls are enabled.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if player controls are enabled; otherwise, <c>false</c>.
+    /// </value>
+    public bool PlayerControlsEnabled { get => playerControlsEnabled; set => playerControlsEnabled = value; }
+
     void Awake()
     {
         Initialization();
@@ -28,6 +48,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    // ============================================= CONTROL HANDLING ===================================================
 
     #region Player Controls
     [Header("Player Movement Input")]
@@ -40,6 +61,7 @@ public class InputManager : MonoBehaviour
     /// <param name="context">The input action callback context.</param>
     public void OnMovementKey(InputAction.CallbackContext context)
     {
+        if (!playerGameControlsEnabled) return;
         //Debug.Log("Movement Key Pressed"
         //    + $"\nKey is:\t{context.control.displayName}");
 
@@ -55,6 +77,7 @@ public class InputManager : MonoBehaviour
     /// <param name="context">The input action callback context.</param>
     public void OnShieldKey(InputAction.CallbackContext context)
     {
+        if (!playerGameControlsEnabled) return;
         //Debug.Log("OnShieldKey called"
         //          + $"\nState is: {context.phase}");
         shieldPressed = !context.canceled;
@@ -71,6 +94,7 @@ public class InputManager : MonoBehaviour
     /// <param name="context">The context regarding the call.</param>
     public void ReadPauseInput(InputAction.CallbackContext context)
     {
+        if (!playerControlsEnabled) return;
         pausePressed = !context.canceled;
         StartCoroutine(ResetKey(() => pausePressed = false));
     }

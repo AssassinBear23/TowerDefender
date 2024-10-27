@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4753418856073689740}
   - component: {fileID: 5957443785025469944}
   - component: {fileID: -1554440966043560506}
-  - component: {fileID: -5744650025795850457}
+  - component: {fileID: 445794640880741771}
   m_Layer: 9
   m_Name: ShootObstacleProjectile
   m_TagString: Untagged
@@ -158,7 +158,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -225,7 +225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503ed02389b40964a8b1ee546e865052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-5744650025795850457
+  direction: {x: 0, y: 0, z: 0}
+--- !u!114 &445794640880741771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,6 +235,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1113268595923455425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ad07c81fd525024a8614baed75bf637, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c7b7acf54e643e40bff51060317dd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

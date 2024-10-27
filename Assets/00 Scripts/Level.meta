@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: fac24a3e81051fa46a282608d522b51b
+labels:
+- Ground
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

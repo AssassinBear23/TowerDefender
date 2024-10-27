@@ -1,7 +1,4 @@
 using UnityEngine;
-using TMPro;
-
-
 
 /// <summary>
 /// Class that manages the game.
@@ -145,6 +142,14 @@ public class GameManager : MonoBehaviour
         instance.highScore = instance.score;
         PlayerPrefs.SetInt("HighScore", instance.highScore);
         PlayerPrefs.Save();
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        Debug.Log("Quiting Application");
+#endif
+        StaticMethods.QuitApplication();
     }
 
     //===================================== END GAME FUNCTIONALITY =========================================
