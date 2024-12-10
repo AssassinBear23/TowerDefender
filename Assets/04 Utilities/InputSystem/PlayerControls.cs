@@ -31,7 +31,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Basic Move"",
                     ""type"": ""Value"",
                     ""id"": ""90ebcba7-778c-4f7c-a4f0-a9ba1736ea2a"",
-                    ""expectedControlType"": ""Axis"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -46,7 +46,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Shield"",
+                    ""name"": ""Shoot"",
                     ""type"": ""Button"",
                     ""id"": ""82b0b739-2b2f-4dc4-90dd-4412c0aee743"",
                     ""expectedControlType"": ""Button"",
@@ -59,7 +59,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""WASD"",
                     ""id"": ""5f5b207f-8cf5-4d6a-81cc-90bc4d8f4f3e"",
-                    ""path"": ""1DAxis"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -68,8 +68,30 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Negative"",
+                    ""name"": ""Up"",
                     ""id"": ""bc424575-de8c-4109-b735-b8a171be92cf"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Basic Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Down"",
+                    ""id"": ""09f49f10-5723-4381-bdb7-5f98402e311a"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Basic Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Left"",
+                    ""id"": ""273f7f32-abd8-4081-974a-bc3e0285cbb0"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -79,8 +101,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Positive"",
-                    ""id"": ""09f49f10-5723-4381-bdb7-5f98402e311a"",
+                    ""name"": ""Right"",
+                    ""id"": ""1722db08-9492-48f2-a36f-a04842b6c800"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -92,7 +114,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Arrow Keys"",
                     ""id"": ""c6a2cd9a-74fe-4cb7-b46f-91ca9ce44ad0"",
-                    ""path"": ""1DAxis(mode=1)"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -101,8 +123,30 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Negative"",
+                    ""name"": ""Up"",
                     ""id"": ""d3732f4c-42fb-472c-abd1-3d461844e6ab"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Basic Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Down"",
+                    ""id"": ""52d32ac9-47a2-4f53-a56a-ee54947167a6"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Basic Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Left"",
+                    ""id"": ""ba777853-9990-400a-8cc2-2fc096ef0acd"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -112,8 +156,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Positive"",
-                    ""id"": ""52d32ac9-47a2-4f53-a56a-ee54947167a6"",
+                    ""name"": ""Right"",
+                    ""id"": ""9e523fce-3a09-4ed8-8a90-161cf96f1ad8"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -151,18 +195,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shield"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ded4651a-5ce0-47cb-9eab-04916e59cf43"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shield"",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -175,7 +208,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_BasicControls = asset.FindActionMap("BasicControls", throwIfNotFound: true);
         m_BasicControls_BasicMove = m_BasicControls.FindAction("Basic Move", throwIfNotFound: true);
         m_BasicControls_Pause = m_BasicControls.FindAction("Pause", throwIfNotFound: true);
-        m_BasicControls_Shield = m_BasicControls.FindAction("Shield", throwIfNotFound: true);
+        m_BasicControls_Shoot = m_BasicControls.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -239,14 +272,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IBasicControlsActions> m_BasicControlsActionsCallbackInterfaces = new List<IBasicControlsActions>();
     private readonly InputAction m_BasicControls_BasicMove;
     private readonly InputAction m_BasicControls_Pause;
-    private readonly InputAction m_BasicControls_Shield;
+    private readonly InputAction m_BasicControls_Shoot;
     public struct BasicControlsActions
     {
         private @PlayerControls m_Wrapper;
         public BasicControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @BasicMove => m_Wrapper.m_BasicControls_BasicMove;
         public InputAction @Pause => m_Wrapper.m_BasicControls_Pause;
-        public InputAction @Shield => m_Wrapper.m_BasicControls_Shield;
+        public InputAction @Shoot => m_Wrapper.m_BasicControls_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_BasicControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -262,9 +295,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
-            @Shield.started += instance.OnShield;
-            @Shield.performed += instance.OnShield;
-            @Shield.canceled += instance.OnShield;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         private void UnregisterCallbacks(IBasicControlsActions instance)
@@ -275,9 +308,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
-            @Shield.started -= instance.OnShield;
-            @Shield.performed -= instance.OnShield;
-            @Shield.canceled -= instance.OnShield;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         public void RemoveCallbacks(IBasicControlsActions instance)
@@ -299,6 +332,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnBasicMove(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnShield(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

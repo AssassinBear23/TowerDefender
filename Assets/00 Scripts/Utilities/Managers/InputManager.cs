@@ -53,7 +53,7 @@ public class InputManager : MonoBehaviour
     #region Player Controls
     [Header("Player Movement Input")]
     // The movementVector that's used for movement by the playable character
-    public float playerMovementInput;
+    public Vector2 playerMovementInput;
 
     /// <summary>
     /// Handles the movement key input.
@@ -66,7 +66,7 @@ public class InputManager : MonoBehaviour
         //    + $"\nKey is:\t{context.control.displayName}");
 
         // Reads the value of the context (which is a normalized vector of the pressed keys)
-        playerMovementInput = context.ReadValue<float>();
+        playerMovementInput = context.ReadValue<Vector2>();
     }
 
     [Header("Skill inputs")]

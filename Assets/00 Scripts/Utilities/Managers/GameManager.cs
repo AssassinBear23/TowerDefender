@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public static GameManager instance;
     // The UI Manager that manages the UI elements in the current scene
     public UIManager uiManager;
-    // The Ground Manager that manages the ground/platforms in the scene.
-    public GroundManager groundManager;
 
     [Header("Scores")]
     [Tooltip("The score the player has in the game")]
