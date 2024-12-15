@@ -8,23 +8,23 @@ public class InputManager : MonoBehaviour
     // A global reference (Singleton) of the InputManager that other scripts can reference to
     [HideInInspector] public static InputManager instance;
 
-    // Whether or not the player game controls are enabled
+    // Whether or not the tower game controls are enabled
     [SerializeField] private bool playerGameControlsEnabled = true;
     /// <summary>  
-    /// Gets or sets a value indicating whether the player game controls are enabled.  
+    /// Gets or sets a value indicating whether the tower game controls are enabled.  
     /// </summary>  
     /// <value>  
-    ///   <c>true</c> if player game controls are enabled; otherwise, <c>false</c>.  
+    ///   <c>true</c> if tower game controls are enabled; otherwise, <c>false</c>.  
     /// </value>  
     public bool PlayerGameControlsEnabled { get => playerGameControlsEnabled; set => playerGameControlsEnabled = value; }
 
-    // Whether or not the player controls are enabled
+    // Whether or not the tower controls are enabled
     [SerializeField] private bool playerControlsEnabled = true;
     /// <summary>
-    /// Gets or sets a value indicating whether the overall player controls are enabled.
+    /// Gets or sets a value indicating whether the overall tower controls are enabled.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if player controls are enabled; otherwise, <c>false</c>.
+    ///   <c>true</c> if tower controls are enabled; otherwise, <c>false</c>.
     /// </value>
     public bool PlayerControlsEnabled { get => playerControlsEnabled; set => playerControlsEnabled = value; }
 

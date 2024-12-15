@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     #region Variables
 
     [Header("References")]
-    [Tooltip("The player object in the scene")]
-    public GameObject player;
+    [Tooltip("The tower object in the scene")]
+    public GameObject Tower;
     [Space(10)]
     // The script that managers others. Its a reference to itself (Singleton pattern)
     [HideInInspector] public static GameManager instance;
@@ -53,7 +53,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SubscribeToEvents();
-        groundManager.CalculateDifficultyRatio();
     }
 
     /// <summary>
@@ -74,7 +73,7 @@ public class GameManager : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        PlayerController.PlayerDeath += GameOver;
+        TowerController.PlayerDeath += GameOver;
     }
 
     #endregion SetupMethods
@@ -97,7 +96,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Increase the distance traveled by the player.
+    /// Increase the distance traveled by the tower.
     /// </summary>
     void IncreaseDistanceTraveled()
     {
