@@ -93,19 +93,19 @@ public static class GameDebug
             switch (flag)
             {
                 case DebugFlagsEnum.SpawnedPlatform:
-                    message += GameManager.instance.groundManager.LastSpawnedPlatform;
+                    //message += GameManager.instance.groundManager.LastSpawnedPlatform;
                     break;
                 case DebugFlagsEnum.SpawnedPlatformDetailed:
-                    message += GameManager.instance.groundManager.LastSpawnedPlatformDifficulty;
+                    //message += GameManager.instance.groundManager.LastSpawnedPlatformDifficulty;
                     break;
                 case DebugFlagsEnum.Difficulty:
                     message += GameManager.instance.DifficultyLevel;
                     break;
                 case DebugFlagsEnum.DifficultyOdds:
-                    float easyRatio = GameManager.instance.groundManager.EasyRatio;
-                    float mediumRatio = GameManager.instance.groundManager.MediumRatio;
-                    float hardRatio = 100 - easyRatio - mediumRatio;
-                    message = string.Format(message, easyRatio, mediumRatio, hardRatio);
+                    //float easyRatio = GameManager.instance.groundManager.EasyRatio;
+                    //float mediumRatio = GameManager.instance.groundManager.MediumRatio;
+                    //float hardRatio = 100 - easyRatio - mediumRatio;
+                    //message = string.Format(message, easyRatio, mediumRatio, hardRatio);
                     break;
             }
 

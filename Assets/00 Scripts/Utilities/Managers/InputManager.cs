@@ -8,23 +8,23 @@ public class InputManager : MonoBehaviour
     // A global reference (Singleton) of the InputManager that other scripts can reference to
     [HideInInspector] public static InputManager instance;
 
-    // Whether or not the player game controls are enabled
+    // Whether or not the tower game controls are enabled
     [SerializeField] private bool playerGameControlsEnabled = true;
     /// <summary>  
-    /// Gets or sets a value indicating whether the player game controls are enabled.  
+    /// Gets or sets a value indicating whether the tower game controls are enabled.  
     /// </summary>  
     /// <value>  
-    ///   <c>true</c> if player game controls are enabled; otherwise, <c>false</c>.  
+    ///   <c>true</c> if tower game controls are enabled; otherwise, <c>false</c>.  
     /// </value>  
     public bool PlayerGameControlsEnabled { get => playerGameControlsEnabled; set => playerGameControlsEnabled = value; }
 
-    // Whether or not the player controls are enabled
+    // Whether or not the tower controls are enabled
     [SerializeField] private bool playerControlsEnabled = true;
     /// <summary>
-    /// Gets or sets a value indicating whether the overall player controls are enabled.
+    /// Gets or sets a value indicating whether the overall tower controls are enabled.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if player controls are enabled; otherwise, <c>false</c>.
+    ///   <c>true</c> if tower controls are enabled; otherwise, <c>false</c>.
     /// </value>
     public bool PlayerControlsEnabled { get => playerControlsEnabled; set => playerControlsEnabled = value; }
 
@@ -53,7 +53,7 @@ public class InputManager : MonoBehaviour
     #region Player Controls
     [Header("Player Movement Input")]
     // The movementVector that's used for movement by the playable character
-    public float playerMovementInput;
+    public Vector2 playerMovementInput;
 
     /// <summary>
     /// Handles the movement key input.
@@ -66,7 +66,7 @@ public class InputManager : MonoBehaviour
         //    + $"\nKey is:\t{context.control.displayName}");
 
         // Reads the value of the context (which is a normalized vector of the pressed keys)
-        playerMovementInput = context.ReadValue<float>();
+        playerMovementInput = context.ReadValue<Vector2>();
     }
 
     [Header("Skill inputs")]
