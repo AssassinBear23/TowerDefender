@@ -8,6 +8,9 @@ public class Rotate : MonoBehaviour
     [Header("Rotation Values")]
     [Tooltip("The speed at which the object will rotate")]
     [SerializeField] private float _rotationSpeed = 10f;
+    [Tooltip("The direction in which the object will rotate")]
+    [SerializeField] private RotationDirection direction = RotationDirection.Clockwise;
+    enum RotationDirection { Clockwise = 1, CounterClockwise = -1}
 
     /// <summary>
     /// Gets or sets the rotation speed of the object.
@@ -38,6 +41,6 @@ public class Rotate : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime, Space.World);
+        transform.Rotate((int)direction * Vector3.up, _rotationSpeed * Time.deltaTime, Space.World);
     }
 }
