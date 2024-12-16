@@ -75,3 +75,4 @@ crashlytics-build.properties
 /Assets/99ERP
 /Assets/99ERP.meta
 *.erp
+.vscode
