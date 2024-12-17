@@ -22,17 +22,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("The high score the player has in the game on this device")]
     public int highScore;
 
-    [Header("Speed Values")]
-    [Tooltip("The default speed the player is going to have in the z axis")]
-    public float levelMovementSpeed = 5f;
-    [Tooltip("The scale that the default speed rises with, this is a linear value")]
-    public float levelMovementScale = 0.1f;
-    [Tooltip("The distance the player has traveled in the game")]
-    public float distanceTraveled = 0f;
-
-    [HideInInspector] public int DifficultyLevel { get; private set; }
-
-    public static event System.Action OnDifficultyIncrease;
+    [Tooltip("The level data of the loaded level")]
+    [SerializeField] private Level _levelData;
+    public Level LevelData { get => _levelData; set => _levelData = value; }
 
     #endregion Variables
 
@@ -85,60 +77,12 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// FixedUpdate is called once every physics update.
     /// </summary>
-    void FixedUpdate()
+    void Update()
     {
         if (Time.timeScale != 0)
         {
-            IncreaseSpeed();
-            IncreaseDistanceTraveled();
             uiManager.UpdateElements();
         }
-    }
-
-    /// <summary>
-    /// Increase the distance traveled by the tower.
-    /// </summary>
-    void IncreaseDistanceTraveled()
-    {
-        distanceTraveled += levelMovementSpeed * Time.deltaTime;
-        int predictedLevel = (int)distanceTraveled / 100;
-        if ((int)distanceTraveled % 100 == 0 && DifficultyLevel != predictedLevel)
-        {
-            IncreaseDifficulty();
-            Debug.Log("Difficulty Increased");
-        }
-    }
-
-    /// <summary>
-    /// Used to increase the speed of everything in the game.
-    /// </summary>
-    void IncreaseSpeed()
-    {
-        levelMovementSpeed += levelMovementScale * Time.deltaTime;
-    }
-
-    void IncreaseDifficulty()
-    {
-        DifficultyLevel += 1;
-        OnDifficultyIncrease?.Invoke();
-    }
-
-    public void CalculateScore()
-    {
-        Debug.Log("Calculating Score...");
-        instance.score = ((int)(distanceTraveled / 10) + (DifficultyLevel * 100) + (int)(Time.timeSinceLevelLoad));
-        Debug.Log("Score:\t" + instance.score + "\nHigh Score:\t" + instance.highScore);
-        if (instance.score > instance.highScore)
-        {
-            IncreaseHighscore();
-        }
-    }
-
-    void IncreaseHighscore()
-    {
-        instance.highScore = instance.score;
-        PlayerPrefs.SetInt("HighScore", instance.highScore);
-        PlayerPrefs.Save();
     }
 
     public void QuitGame()
@@ -166,7 +110,6 @@ public class GameManager : MonoBehaviour
             uiManager.allowPause = false;
             uiManager.GoToPage(gameOverPageIndex);
         }
-        CalculateScore();
         uiManager.UpdateElements();
     }
 

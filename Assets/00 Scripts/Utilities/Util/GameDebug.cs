@@ -99,8 +99,8 @@ public static class GameDebug
                     //message += GameManager.instance.groundManager.LastSpawnedPlatformDifficulty;
                     break;
                 case DebugFlagsEnum.Difficulty:
-                    message += GameManager.instance.DifficultyLevel;
-                    break;
+                    //message += GameManager.instance.DifficultyLevel;
+                    //break;
                 case DebugFlagsEnum.DifficultyOdds:
                     //float easyRatio = GameManager.instance.groundManager.EasyRatio;
                     //float mediumRatio = GameManager.instance.groundManager.MediumRatio;
