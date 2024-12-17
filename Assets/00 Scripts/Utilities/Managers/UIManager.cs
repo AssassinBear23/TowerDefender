@@ -135,6 +135,7 @@ public class UIManager : MonoBehaviour
             }
             catch (System.Exception)
             {
+                Debug.Log("Dafuq?");
                 // Exception caught but not displayed
             }
 

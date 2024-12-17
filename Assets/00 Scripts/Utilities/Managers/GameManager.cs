@@ -22,9 +22,10 @@ public class GameManager : MonoBehaviour
     [Tooltip("The high score the player has in the game on this device")]
     public int highScore;
 
-    [Tooltip("The level data of the loaded level")]
-    [SerializeField] private Level _levelData;
-    public Level LevelData { get => _levelData; set => _levelData = value; }
+    // The level data of the loaded level
+    //[Tooltip("The level data of the loaded level")]
+    //[SerializeField] private Level _levelData;
+    //public Level LevelData { get => _levelData; set => _levelData = value; }
 
     #endregion Variables
 
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        SetupReferences();
+        SetupSingleton();
     }
 
     private void Start()
@@ -48,11 +49,10 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Set up the references for the GameManager.
+    /// Set up the GameManager Singleton.
     /// </summary>
-    void SetupReferences()
+    void SetupSingleton()
     {
-        // Singleton
         if (instance == null)
         {
             instance = this;
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        TowerController.PlayerDeath += GameOver;
+        //CharacterController.PlayerDeath += GameOver;
     }
 
     #endregion SetupMethods

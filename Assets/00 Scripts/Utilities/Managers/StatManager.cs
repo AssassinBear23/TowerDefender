@@ -1,15 +1,21 @@
 using UnityEngine;
 using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
+using System.Collections;
 
 public class StatManager : MonoBehaviour
 {
-    private TowerController towerController;
-    private Dictionary<Stat, float> currentStats = new Dictionary<Stat, float>();
+    private CharacterController towerController;
+    [SerializeField] private SerializedDictionary<Stat, float> currentStats;
     private List<Item> equippedItems = new List<Item>();
 
-    private void Start()
-    {
-        towerController = GameManager.instance.Tower.GetComponent<TowerController>();
+
+    IEnumerator Start()
+    { 
+        towerController = GameManager.instance.Tower.GetComponent<CharacterController>();
+        yield return new WaitForEndOfFrame();
+        towerController.SetTowerStatValue(currentStats);
+        Debug.Log("StatManager initialized");
     }
 
     public void EquipItem(Item item)
@@ -41,5 +47,11 @@ public class StatManager : MonoBehaviour
                 currentStats.Add(stat.Key, stat.Value);
             }
         }
+        UpdateTower();
+    }
+
+    private void UpdateTower()
+    {
+        towerController.SetTowerStatValue(currentStats);
     }
 }
