@@ -5,28 +5,28 @@ using System.Collections;
 
 public class StatManager : MonoBehaviour
 {
-    private CharacterController towerController;
-    [SerializeField] private SerializedDictionary<Stat, float> currentStats;
-    private List<Item> equippedItems = new List<Item>();
+    private CharStats tower;
+    [SerializeField] private SerializedDictionary<Stat, float> _currentPlayerStats;
+    private List<Item> _equippedItems = new List<Item>();
 
 
     IEnumerator Start()
-    { 
-        towerController = GameManager.instance.Tower.GetComponent<CharacterController>();
+    {
         yield return new WaitForEndOfFrame();
-        towerController.SetTowerStatValue(currentStats);
+        tower = GameManager.instance.Tower.GetComponent<CharStats>();
+        tower.SetStatValues(_currentPlayerStats);
         Debug.Log("StatManager initialized");
     }
 
     public void EquipItem(Item item)
     {
-        equippedItems.Add(item);
+        _equippedItems.Add(item);
         UpdateStats(item, true);
     }
 
     public void UnequipItem(Item item)
     {
-        equippedItems.Remove(item);
+        _equippedItems.Remove(item);
         UpdateStats(item, false);
     }
 
@@ -34,17 +34,17 @@ public class StatManager : MonoBehaviour
     {
         foreach (KeyValuePair<Stat, float> stat in updatedItem.StatModifiers)
         {
-            if (currentStats.ContainsKey(stat.Key) && itemAdded)
+            if (_currentPlayerStats.ContainsKey(stat.Key) && itemAdded)
             {
-                currentStats[stat.Key] += stat.Value;
+                _currentPlayerStats[stat.Key] += stat.Value;
             }
-            else if (currentStats.ContainsKey(stat.Key) && !itemAdded)
+            else if (_currentPlayerStats.ContainsKey(stat.Key) && !itemAdded)
             {
-                currentStats[stat.Key] -= stat.Value;
+                _currentPlayerStats[stat.Key] -= stat.Value;
             }
-            else if (!currentStats.ContainsKey(stat.Key) && itemAdded)
+            else if (!_currentPlayerStats.ContainsKey(stat.Key) && itemAdded)
             {
-                currentStats.Add(stat.Key, stat.Value);
+                _currentPlayerStats.Add(stat.Key, stat.Value);
             }
         }
         UpdateTower();
@@ -52,6 +52,6 @@ public class StatManager : MonoBehaviour
 
     private void UpdateTower()
     {
-        towerController.SetTowerStatValue(currentStats);
+        tower.SetStatValues(_currentPlayerStats);
     }
 }

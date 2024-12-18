@@ -1,18 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Initialization Values")]
+    [Tooltip("The GameManager instance in the scene")]
+    private GameManager _gm;
+    [Tooltip("The spot from which the projectiles will launch from")]
+    [SerializeField] private Transform _firePoint;
+
+    // Methods for the initialization values
+    public Transform FirePoint { get => _firePoint; }
+
+    private void Start()
     {
-        
+        if (_firePoint == null)
+        {
+            Debug.Log("Fire point is not set.");
+        }
+        _gm = GameManager.instance;
+        _gm.Tower = gameObject;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
