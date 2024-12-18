@@ -4477,7 +4477,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 6e55f5bc85e832e41b5e64d2e940ba39, type: 2}
     - target: {fileID: 4577554740099243595, guid: 6146d4145b7711b4f90b053456722228, type: 3}
       propertyPath: _equippedItems._serializedList.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4577554740099243595, guid: 6146d4145b7711b4f90b053456722228, type: 3}
       propertyPath: _equippedItems._serializedList.Array.data[0].Key

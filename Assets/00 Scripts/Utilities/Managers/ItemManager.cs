@@ -19,29 +19,44 @@ public class ItemManager : MonoBehaviour
 #if UNITY_EDITOR
     private SerializedDictionary<Item, int> _previousItems = new();
 
+
+    /// <summary>
+    /// Called when the script is loaded or a value is changed in the Inspector.
+    /// This method ensures that the stats are updated correctly when items are added or removed in the editor.
+    /// </summary>
     void OnValidate()
     {
+        // Initialize _previousItems if it is null
         _previousItems ??= new SerializedDictionary<Item, int>(_equippedItems);
 
-        Debug.Log("OnValidate called" +
-            $"\n_previousItems:\t{_previousItems.Keys} ");
-
+        // Iterate through the currently equipped items
         foreach (Item item in _equippedItems.Keys)
         {
-            
-            if (!_previousItems.ContainsKey(item))
+            Debug.Log($"Checking item:\t{item.ItemName}"
+                + $"\nDoes old dic contain key?:\t{_previousItems.ContainsKey(item)}"
+                + $"\nAre the values different?:\t{(_previousItems.ContainsKey(item) ? _previousItems[item] : 0) != _equippedItems[item]}"
+                + $"\nOld value:\t{(_previousItems.ContainsKey(item) ? _previousItems[item] : 0)}"
+                + $"\nNew value:\t{_equippedItems[item]}"
+                );
+            // Update stats if the item is new or its level has changed
+            if (!_previousItems.ContainsKey(item) || (_previousItems.ContainsKey(item) && (_previousItems[item] != _equippedItems[item])))
             {
                 UpdateStats(item, _equippedItems[item], true);
             }
         }
+
+        // Iterate through the previously equipped items
         foreach (Item item in _previousItems.Keys)
         {
-            if (!_equippedItems.ContainsKey(item))
+            // Update stats if the item is no longer equipped or its level has changed
+            if (!_equippedItems.ContainsKey(item) || (_equippedItems.ContainsKey(item) && (_previousItems[item] != _equippedItems[item])))
             {
-                UpdateStats(item, _equippedItems[item], false);
+                UpdateStats(item, _previousItems[item], false);
             }
         }
-        _previousItems = _equippedItems;
+
+        // Update _previousItems to the current state of _equippedItems
+        _previousItems = new SerializedDictionary<Item, int>(_equippedItems);
     }
 #endif
 
