@@ -11,7 +11,7 @@ public class TowerController : MonoBehaviour
     // Methods for the initialization values
     public Transform FirePoint { get => _firePoint; }
 
-    private void Start()
+    private void Awake()
     {
         if (_firePoint == null)
         {
@@ -20,6 +20,4 @@ public class TowerController : MonoBehaviour
         _gm = GameManager.instance;
         _gm.Tower = gameObject;
     }
-
-
 }

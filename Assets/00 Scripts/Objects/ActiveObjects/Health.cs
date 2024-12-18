@@ -9,16 +9,20 @@ public class HealthController : MonoBehaviour
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _currentHealth;
 
-    private CharStats stat;
+    private CharStats _charInfo;
 
-    public event Action<bool> OnCharDeath;
+    /// <summary>
+    /// Event that is invoked when a character dies. 
+    /// <para>
+    /// The bool parameter is true if the character is the player.
+    /// </para>
+    /// </summary>
+    public static event Action<bool> OnCharDeath;
 
-    private IEnumerator Start()
+    void Start()
     {
-        yield return new WaitForEndOfFrame();
-        stat = GetComponent<CharStats>();
-        yield return new WaitForEndOfFrame();
-        _maxHealth = stat.GetStatValue(_healthStatAsset);
+        _charInfo = GetComponent<CharStats>();
+        _maxHealth = _charInfo.GetStatValue(_healthStatAsset);
         _currentHealth = _maxHealth;
     }
 
@@ -33,7 +37,7 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
-        GameManager.instance.CharDeath?.Invoke();
+        OnCharDeath?.Invoke(_charInfo.IsTower);
         Destroy(gameObject);
     }
 }
