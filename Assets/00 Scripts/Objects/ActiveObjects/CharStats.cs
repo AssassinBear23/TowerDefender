@@ -16,11 +16,16 @@ public class CharStats : MonoBehaviour
         return _charStats[key];
     }
 
+    public void SetStatValue(Stat key, float value)
+    {
+        _charStats[key] = value;
+    }
+
     /// <summary>
     /// Set the tower stats to the given dictionary.
     /// </summary>
     /// <param name="dict">The dictionary to set the tower stats to</param>
-    public void SetStatValues(SerializedDictionary<Stat, float> dict)
+    public void SetStatDict(SerializedDictionary<Stat, float> dict)
     {
         if (dict == null)
         {
