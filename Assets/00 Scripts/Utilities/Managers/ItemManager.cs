@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using AYellowpaper.SerializedCollections;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-
 public class ItemManager : MonoBehaviour
 {
     private CharStats tower;
-    [SerializeField] private List<Item> _equippedItems = new();
+    [SerializeField] private SerializedDictionary<Item, int> _equippedItems = new();
 
     void Start()
     {
@@ -18,53 +17,56 @@ public class ItemManager : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    private List<Item> _previousItems = new();
+    private SerializedDictionary<Item, int> _previousItems = new();
 
     void OnValidate()
     {
-        _previousItems ??= new List<Item>(_equippedItems);
+        _previousItems ??= new SerializedDictionary<Item, int>(_equippedItems);
 
-        foreach (Item item in _equippedItems)
+        Debug.Log("OnValidate called" +
+            $"\n_previousItems:\t{_previousItems.Keys} ");
+
+        foreach (Item item in _equippedItems.Keys)
         {
-            if (!_previousItems.Contains(item))
+            
+            if (!_previousItems.ContainsKey(item))
             {
-                UpdateStats(item, true);
+                UpdateStats(item, _equippedItems[item], true);
             }
         }
-
-        foreach (Item item in _previousItems)
+        foreach (Item item in _previousItems.Keys)
         {
-            if (!_equippedItems.Contains(item))
+            if (!_equippedItems.ContainsKey(item))
             {
-                UpdateStats(item, false);
+                UpdateStats(item, _equippedItems[item], false);
             }
         }
-
-        _previousItems = new List<Item>(_equippedItems);
+        _previousItems = _equippedItems;
     }
 #endif
 
 
-    public void EquipItem(Item item)
+    public void EquipItem(Item item, int itemLevel)
     {
-        _equippedItems.Add(item);
-        UpdateStats(item, true);
+        _equippedItems.Add(item, itemLevel);
+        UpdateStats(item, itemLevel, true);
     }
 
-    public void UnequipItem(Item item)
+    public void UnequipItem(Item item, int itemLevel)
     {
         _equippedItems.Remove(item);
-        UpdateStats(item, false);
+        UpdateStats(item, itemLevel, false);
     }
 
-    private void UpdateStats(Item itemUpdate, bool IsBeingAdded)
+    private void UpdateStats(Item itemUpdate, int itemLevel, bool IsBeingAdded)
     {
         Debug.Log("Updating stats with following item:"
-                  + $"\nItem:\t{itemUpdate.ItemName}"
+                  + $"\nItem:\t{itemUpdate.ItemName}" 
+                  + $"\nLevel:\t{itemLevel}"
                   + $"\nAdding:\t{IsBeingAdded}");
         if (IsBeingAdded)
         {
-            foreach (KeyValuePair<Stat, float> stat in itemUpdate.StatModifiers)
+            foreach (KeyValuePair<Stat, float> stat in itemUpdate.GetStatModifiers(itemLevel))
             {
                 if (stat.Value == 0) return;
                 float _currentValue = tower.GetStatValue(stat.Key);
@@ -73,7 +75,7 @@ public class ItemManager : MonoBehaviour
         }
         else
         {
-            foreach (KeyValuePair<Stat, float> stat in itemUpdate.StatModifiers)
+            foreach (KeyValuePair<Stat, float> stat in itemUpdate.GetStatModifiers(itemLevel))
             {
                 if (stat.Value == 0) return;
                 float _currentValue = tower.GetStatValue(stat.Key);

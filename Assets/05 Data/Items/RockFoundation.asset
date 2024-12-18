@@ -13,10 +13,33 @@ MonoBehaviour:
   m_Name: RockFoundation
   m_EditorClassIdentifier: 
   ItemName: Rock Foundation
-  _itemIcon: {fileID: 0}
+  itemId: 010000000200000003000000
+  _itemIcons:
+  - {fileID: 21300000, guid: 90f4456e5da8ed746b76e0ff75d73d99, type: 3}
+  - {fileID: 21300000, guid: a099f38e46714e9499c0ab38a9261942, type: 3}
+  - {fileID: 21300000, guid: f5618540e89ffda4f804c01d71df4ac4, type: 3}
   _statModifiers:
     _serializedList:
-    - Key: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
-      Value: 100
+    - Key: 1
+      Value:
+        _serializedList:
+        - Key: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
+          Value: 100
+    - Key: 2
+      Value:
+        _serializedList:
+        - Key: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
+          Value: 150
+        - Key: {fileID: 11400000, guid: a99086bff58852b49b819c5ae5090910, type: 2}
+          Value: 2
+    - Key: 3
+      Value:
+        _serializedList:
+        - Key: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
+          Value: 250
+        - Key: {fileID: 11400000, guid: a99086bff58852b49b819c5ae5090910, type: 2}
+          Value: 4
+        - Key: {fileID: 11400000, guid: bcb6208e7b5fd8a4687243631bc3ba39, type: 2}
+          Value: 5
   _itemDescription: The tower gains a solid rock foundation, making it more sturdy
     again attacks
