@@ -17,6 +17,6 @@ MonoBehaviour:
   - {fileID: 2541560605915584751, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
   - {fileID: 2541560605915584751, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
   - {fileID: 2541560605915584751, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
-  - {fileID: 2541560605915584751, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
+  - {fileID: 2541560605915584751, guid: 3e984698d45f7554aacb1d5163a707df, type: 3}
   isMiniBossWave: 1
   isBossWave: 0
