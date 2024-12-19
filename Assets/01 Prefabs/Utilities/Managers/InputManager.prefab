@@ -74,9 +74,41 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 90ebcba7-778c-4f7c-a4f0-a9ba1736ea2a
     m_ActionName: Player Movement/Basic Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2925877726583933237}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: ReadPauseInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 41095767-93ad-4a9b-8e18-850a3c378bf1
+    m_ActionName: BasicControls/Pause[/Keyboard/escape,/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2925877726583933237}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 82b0b739-2b2f-4dc4-90dd-4412c0aee743
+    m_ActionName: BasicControls/Shoot[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player Movement
+  m_DefaultActionMap: BasicControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &2925877726583933237
@@ -91,4 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c036ed3653663549be6f450fa771507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: 0
+  playerGameControlsEnabled: 1
+  playerControlsEnabled: 1
+  playerMovementInput: {x: 0, y: 0}
+  shieldPressed: 0
+  pausePressed: 0
