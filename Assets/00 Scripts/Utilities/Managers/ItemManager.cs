@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using AYellowpaper.SerializedCollections;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -8,7 +8,7 @@ using UnityEditor;
 public class ItemManager : MonoBehaviour
 {
     private CharStats tower;
-    [SerializeField] private SerializedDictionary<Item, int> _equippedItems = new();
+    [SerializeField] private List<Item> _equippedItems = new();
 
     void Start()
     {
@@ -17,8 +17,7 @@ public class ItemManager : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    private SerializedDictionary<Item, int> _previousItems = new();
-
+    private List<Item> _previousItems = new();
 
     /// <summary>
     /// Called when the script is loaded or a value is changed in the Inspector.
@@ -27,61 +26,58 @@ public class ItemManager : MonoBehaviour
     void OnValidate()
     {
         // Initialize _previousItems if it is null
-        _previousItems ??= new SerializedDictionary<Item, int>(_equippedItems);
+        _previousItems ??= new List<Item>(_equippedItems);
 
         // Iterate through the currently equipped items
-        foreach (Item item in _equippedItems.Keys)
+        foreach (Item item in _equippedItems)
         {
-            Debug.Log($"Checking item:\t{item.ItemName}"
-                + $"\nDoes old dic contain key?:\t{_previousItems.ContainsKey(item)}"
-                + $"\nAre the values different?:\t{(_previousItems.ContainsKey(item) ? _previousItems[item] : 0) != _equippedItems[item]}"
-                + $"\nOld value:\t{(_previousItems.ContainsKey(item) ? _previousItems[item] : 0)}"
-                + $"\nNew value:\t{_equippedItems[item]}"
-                );
-            // Update stats if the item is new or its level has changed
-            if (!_previousItems.ContainsKey(item) || (_previousItems.ContainsKey(item) && (_previousItems[item] != _equippedItems[item])))
+            if (!_previousItems.Contains(item))
+
             {
-                UpdateStats(item, _equippedItems[item], true);
+                UpdateStats(item, true);
             }
         }
 
         // Iterate through the previously equipped items
-        foreach (Item item in _previousItems.Keys)
+        foreach (Item item in _previousItems)
         {
-            // Update stats if the item is no longer equipped or its level has changed
-            if (!_equippedItems.ContainsKey(item) || (_equippedItems.ContainsKey(item) && (_previousItems[item] != _equippedItems[item])))
+            if (!_equippedItems.Contains(item))
             {
-                UpdateStats(item, _previousItems[item], false);
+                UpdateStats(item, false);
             }
         }
 
         // Update _previousItems to the current state of _equippedItems
-        _previousItems = new SerializedDictionary<Item, int>(_equippedItems);
+        _previousItems = new List<Item>(_equippedItems);
     }
 #endif
 
 
-    public void EquipItem(Item item, int itemLevel)
+    public void EquipItem(Item item)
     {
-        _equippedItems.Add(item, itemLevel);
-        UpdateStats(item, itemLevel, true);
+        _equippedItems.Add(item);
+        UpdateStats(item, true);
     }
 
     public void UnequipItem(Item item, int itemLevel)
     {
         _equippedItems.Remove(item);
-        UpdateStats(item, itemLevel, false);
+        UpdateStats(item, false);
     }
 
-    private void UpdateStats(Item itemUpdate, int itemLevel, bool IsBeingAdded)
+    private void UpdateStats(Item itemUpdate, bool IsBeingAdded)
     {
+        if(itemUpdate == null)
+        {
+            Debug.Log("No item passed for UpdateStats(). Make sure the passed Item is not Null.");
+        }
         Debug.Log("Updating stats with following item:"
-                  + $"\nItem:\t{itemUpdate.ItemName}" 
-                  + $"\nLevel:\t{itemLevel}"
+                  + $"\nItem:\t{itemUpdate.ItemName}"
+                  + $"\nLevel:\t{itemUpdate.ItemLevel}"
                   + $"\nAdding:\t{IsBeingAdded}");
         if (IsBeingAdded)
         {
-            foreach (KeyValuePair<Stat, float> stat in itemUpdate.GetStatModifiers(itemLevel))
+            foreach (KeyValuePair<Stat, float> stat in itemUpdate.StatModifiers)
             {
                 if (stat.Value == 0) return;
                 float _currentValue = tower.GetStatValue(stat.Key);
@@ -90,7 +86,7 @@ public class ItemManager : MonoBehaviour
         }
         else
         {
-            foreach (KeyValuePair<Stat, float> stat in itemUpdate.GetStatModifiers(itemLevel))
+            foreach (KeyValuePair<Stat, float> stat in itemUpdate.StatModifiers)
             {
                 if (stat.Value == 0) return;
                 float _currentValue = tower.GetStatValue(stat.Key);
