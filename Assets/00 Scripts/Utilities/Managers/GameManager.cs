@@ -16,16 +16,14 @@ public class GameManager : MonoBehaviour
     // The UI Manager that manages the UI elements in the current scene
     public UIManager uiManager;
 
-    [Header("Scores")]
-    [Tooltip("The score the player has in the game")]
-    public int score;
-    [Tooltip("The high score the player has in the game on this device")]
-    public int highScore;
+    [Header("Stats")]
+    [Tooltip("The wave the player is currently at")]
+    public int wave;
 
-    // The level data of the loaded level
-    //[Tooltip("The level data of the loaded level")]
-    //[SerializeField] private Level _levelData;
-    //public Level LevelData { get => _levelData; set => _levelData = value; }
+     //The level data of the loaded level
+    [Tooltip("The level data of the loaded level")]
+    [SerializeField] private Level _levelData;
+    public Level LevelData { get => _levelData; set => _levelData = value; }
 
     #endregion Variables
 
