@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312c60c4d9c879545bd6ed6ee8e1ac05, type: 3}
+  m_Name: mBoss_MeleeWave_5x
+  m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 2541560605915584751, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
+  - {fileID: 2541560605915584751, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
+  - {fileID: 2541560605915584751, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
+  - {fileID: 2541560605915584751, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
+  - {fileID: 2541560605915584751, guid: 3e984698d45f7554aacb1d5163a707df, type: 3}
+  isMiniBossWave: 1
+  isBossWave: 0
