@@ -48,6 +48,8 @@ public class UIManager : MonoBehaviour
     // A list of all UIElements classes
     private List<UIElement> UIElements;
 
+    [SerializeField] private StatDisplay _statDisplay;
+
     // The event system that manages UI navigation
     [HideInInspector] public EventSystem eventSystem;
     // The input manager to list for pausing
@@ -180,7 +182,11 @@ public class UIManager : MonoBehaviour
         {
             element.UpdateElement();
         }
+    }
 
+    public void UpdateStats()
+    {
+        _statDisplay.UpdateStatDisplay();
     }
 
     /// <summary>
