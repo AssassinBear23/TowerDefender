@@ -53,7 +53,8 @@ public class StatDisplay : MonoBehaviour
         string messageBuilder = "";
         foreach (Stat stat in statListOrder)
         {
-            float value = (int)_towerStats.GetStatValue(stat);
+            Debug.Log($"Stat: {stat.StatName} being checked");
+            float value = Mathf.Round(_towerStats.GetStatValue(stat)*10)/10;
             messageBuilder += $"{value}\n";
         }
         _statValueText.text = messageBuilder;
@@ -70,5 +71,14 @@ public class StatDisplay : MonoBehaviour
             messageBuilder += $"{stat.StatName}:\n";
         }
         _statNameText.text = messageBuilder;
+    }
+
+    private void OnGUI()
+    {
+        // Create a button at the top-left corner of the screen
+        if (GUI.Button(new Rect(10, 60, 150, 30), "Update Stats"))
+        {
+            UpdateStatDisplay();
+        }
     }
 }
