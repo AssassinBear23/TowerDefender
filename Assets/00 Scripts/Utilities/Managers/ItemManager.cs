@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -14,7 +12,7 @@ public class ItemManager : MonoBehaviour
 
     void Start()
     {
-        tower = GameManager.instance.Tower.GetComponent<CharStats>();
+        tower = GameManager.Instance.Tower.GetComponent<CharStats>();
         Debug.Log("StatManager initialized");
     }
 
@@ -48,7 +46,6 @@ public class ItemManager : MonoBehaviour
                 UpdateStats(item, false);
             }
         }
-
         // Update _previousItems to the current state of _equippedItems
         _previousItems = new List<Item>(_equippedItems);
     }
@@ -100,6 +97,6 @@ public class ItemManager : MonoBehaviour
                 tower.SetStatValue(stat.Key, _currentValue - stat.Value);
             }
         }
-        GameManager.instance.uiManager.UpdateStats();
+        GameManager.Instance.UIManager.UpdateStats();
     }
 }

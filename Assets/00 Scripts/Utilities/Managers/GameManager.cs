@@ -9,16 +9,20 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     [Tooltip("The tower object in the scene")]
-    public GameObject Tower;
+    public Transform Tower;
+    [Tooltip("The player object in the scene")]
+    public Transform player;
     [Space(10)]
     // The script that managers others. Its a reference to itself (Singleton pattern)
-    [HideInInspector] public static GameManager instance;
+    private static GameManager _instance;
+    public static GameManager Instance { get => _instance; }
     // The UI Manager that manages the UI elements in the current scene
-    public UIManager uiManager;
+    public UIManager UIManager;
+    public ItemManager ItemManager;
 
     [Header("Stats")]
     [Tooltip("The wave the player is currently at")]
-    public int wave;
+    public int Wave;
 
      //The level data of the loaded level
     [Tooltip("The level data of the loaded level")]
@@ -51,9 +55,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void SetupSingleton()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
         else
         {
@@ -79,7 +83,7 @@ public class GameManager : MonoBehaviour
     {
         if (Time.timeScale != 0)
         {
-            uiManager.UpdateElements();
+            UIManager.UpdateElements();
         }
     }
 
@@ -103,12 +107,12 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         Debug.Log("Game Over");
-        if (uiManager != null)
+        if (UIManager != null)
         {
-            uiManager.allowPause = false;
-            uiManager.GoToPage(gameOverPageIndex);
+            UIManager.allowPause = false;
+            UIManager.GoToPage(gameOverPageIndex);
         }
-        uiManager.UpdateElements();
+        UIManager.UpdateElements();
     }
 
     #endregion FunctionalMethods

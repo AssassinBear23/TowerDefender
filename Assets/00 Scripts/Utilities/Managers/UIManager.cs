@@ -104,7 +104,7 @@ public class UIManager : MonoBehaviour
     {
         if (inputManager == null)
         {
-            inputManager = InputManager.instance;
+            inputManager = InputManager._instance;
         }
         if (inputManager == null)
         {
@@ -125,15 +125,15 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets up the UIManager singleton instance in <see cref="GameManager.uIManager"/>.
+    /// Sets up the UIManager singleton Instance in <see cref="GameManager.uIManager"/>.
     /// </summary>
     void SetupUIManager()
     {
-        if (GameManager.instance.uiManager == null && GameManager.instance != null)
+        if (GameManager.Instance.UIManager == null && GameManager.Instance != null)
         {
             try
             {
-                GameManager.instance.uiManager = this;
+                GameManager.Instance.UIManager = this;
             }
             catch (System.Exception)
             {

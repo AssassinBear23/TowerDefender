@@ -41,7 +41,7 @@ public class StatDisplay : MonoBehaviour
     {
         if (_towerStats == null)
         {
-            _towerStats = GameManager.instance.Tower.GetComponent<CharStats>();
+            _towerStats = GameManager.Instance.Tower.GetComponent<CharStats>();
         }
     }
 

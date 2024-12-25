@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     // A global reference (Singleton) of the InputManager that other scripts can reference to
-    [HideInInspector] public static InputManager instance;
+    private static InputManager _instance;
+    public static InputManager Instance { get => _instance; }
 
     // Whether or not the player game controls are enabled
     [SerializeField] private bool playerGameControlsEnabled = true;
@@ -38,9 +39,9 @@ public class InputManager : MonoBehaviour
     /// </summary>
     void Initialization()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
         else
         {

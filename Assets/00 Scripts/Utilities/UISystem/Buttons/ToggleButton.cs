@@ -49,12 +49,12 @@ public class ToggleButton : Button
         if (GameDebug.IsDebugFlagEnabled(flagToToggle))
         {
             GameDebug.DisableDebugFlag(flagToToggle);
-            GameManager.instance.uiManager.UpdateElements();
+            GameManager.Instance.UIManager.UpdateElements();
         }
         else
         {
             GameDebug.EnableDebugFlag(flagToToggle);
-            GameManager.instance.uiManager.UpdateElements();
+            GameManager.Instance.UIManager.UpdateElements();
         }
     }
 }
