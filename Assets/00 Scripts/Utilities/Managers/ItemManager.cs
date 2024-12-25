@@ -9,6 +9,7 @@ public class ItemManager : MonoBehaviour
 {
     private CharStats tower;
     [SerializeField] private List<Item> _equippedItems = new();
+    [SerializeField] private List<Item> _inventory = new();
 
     void Start()
     {
@@ -49,8 +50,26 @@ public class ItemManager : MonoBehaviour
         // Update _previousItems to the current state of _equippedItems
         _previousItems = new List<Item>(_equippedItems);
     }
+
 #endif
 
+    /// <summary>
+    /// Adds an item to the inventory.
+    /// </summary>
+    /// <param name="item">The item to add to the inventory.</param>
+    public void AddItemToInventory(Item item)
+    {
+        _inventory.Add(item);
+    }
+
+    /// <summary>
+    /// Removes an item from the inventory.
+    /// </summary>
+    /// <param name="item">The item to remove from the inventory.</param>
+    public void RemoveItemFromInventory(Item item)
+    {
+        _inventory.Remove(item);
+    }
 
     public void EquipItem(Item item)
     {
