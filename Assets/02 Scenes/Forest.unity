@@ -5485,8 +5485,8 @@ MonoBehaviour:
   _inventory: []
   _inventoryCapacity: 15
   _equippedCapacity: 10
-  _inventorySlotsParent: {fileID: 0}
-  _equippedSlotsParent: {fileID: 0}
+  _inventorySlotsParent: {fileID: 1277777809}
+  _equippedSlotsParent: {fileID: 1009613619}
 --- !u!1 &1365925887
 GameObject:
   m_ObjectHideFlags: 0

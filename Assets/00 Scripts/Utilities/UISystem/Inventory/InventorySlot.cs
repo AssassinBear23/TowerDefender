@@ -54,6 +54,12 @@ public class InventorySlot : MonoBehaviour
             _eventTrigger.enabled = false;
             return;
         }
+        else
+        {
+            _itemIcon.sprite = item.GetItemIcon;
+            _itemIcon.enabled = true;
+            _eventTrigger.enabled = true;
+        }
     }
 
     private bool IsUpdateNeeded()

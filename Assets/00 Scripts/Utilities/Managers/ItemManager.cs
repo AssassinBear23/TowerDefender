@@ -36,8 +36,8 @@ public class ItemManager : MonoBehaviour
     {
         _inventorySlots = new List<InventorySlot>();
         _equippedSlots = new List<InventorySlot>();
-        _inventorySlots = GetComponentsInChildren<InventorySlot>().ToList();
-        _equippedSlots = GetComponentsInChildren<InventorySlot>().ToList();
+        _inventorySlots = _inventorySlotsParent.GetComponentsInChildren<InventorySlot>().ToList();
+        _equippedSlots = _equippedSlotsParent.GetComponentsInChildren<InventorySlot>().ToList();
     }
 
     void UpdateSlots(List<InventorySlot> list)
