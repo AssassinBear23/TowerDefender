@@ -104,7 +104,7 @@ public class UIManager : MonoBehaviour
     {
         if (inputManager == null)
         {
-            inputManager = InputManager._instance;
+            inputManager = InputManager.Instance;
         }
         if (inputManager == null)
         {

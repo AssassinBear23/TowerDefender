@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider), typeof(Light))]
@@ -37,7 +36,8 @@ public class ItemPickup : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        if(_light == null)
+        _light = GetComponent<Light>();
+        if (_light == null)
         {
             Debug.LogError("Light is not set in " + gameObject.name);
         }
@@ -46,12 +46,17 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform == _player)
+        if (other.transform != _player) return;
+
+        // If there is space in the inventory, then add it. Otherwise do nothing
+        if (GameManager.Instance.ItemManager.AddItemToInventory(_item))
         {
-            GameManager.Instance.ItemManager.AddItemToInventory(_item);
             Destroy(gameObject);
         }
+        else
+        {
+            // Tell player inventory is full
+            Debug.Log("Inventory is full");
+        }
     }
-
-
 }
