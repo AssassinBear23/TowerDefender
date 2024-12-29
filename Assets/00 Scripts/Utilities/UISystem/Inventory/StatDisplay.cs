@@ -15,6 +15,8 @@ public class StatDisplay : MonoBehaviour
 
     private List<Stat> statListOrder;
 
+    //============================================== Methods ================================================== 
+
     private void Start()
     {
         SetupReferences();

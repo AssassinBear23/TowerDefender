@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using System.Collections;
 
 
 #if UNITY_EDITOR
@@ -10,74 +10,53 @@ using UnityEditor;
 public class ItemManager : MonoBehaviour
 {
     private CharStats tower;
-    [Header("Inventory Lists")]
-    [SerializeField] private List<Item> _equippedItems = new();
+    [Header("Inventory Settings")]
     [SerializeField] private List<Item> _inventory = new();
     [Space(10)]
     [SerializeField] int _inventoryCapacity = 15;
-    [SerializeField] int _equippedCapacity = 10;
 
-    [Header("UI Settings")]
+    [Header("General Settings")]
     [SerializeField] private Transform _inventorySlotsParent;
-    [SerializeField] private Transform _equippedSlotsParent;
 
-    private List<InventorySlot> _inventorySlots;
-    private List<InventorySlot> _equippedSlots;
+    private InventorySlot[] _inventorySlots;
 
 
-    void Start()
+
+    IEnumerator Start()
     {
         tower = GameManager.Instance.Tower.GetComponent<CharStats>();
         Debug.Log("StatManager initialized");
         GetLists();
+        yield return new WaitForEndOfFrame();
+        GameManager.Instance.UIManager.UpdateStats();
     }
 
     void GetLists()
     {
-        _inventorySlots = new List<InventorySlot>();
-        _equippedSlots = new List<InventorySlot>();
-        _inventorySlots = _inventorySlotsParent.GetComponentsInChildren<InventorySlot>().ToList();
-        _equippedSlots = _equippedSlotsParent.GetComponentsInChildren<InventorySlot>().ToList();
+        _inventorySlots = _inventorySlotsParent.GetComponentsInChildren<InventorySlot>();
     }
-
-    void UpdateSlots(List<InventorySlot> list)
-    {
-        foreach (InventorySlot slot in list)
-        {
-            slot.UpdateSlot();
-        }
-    }
-
-    private void OnGUI()
-    {
-        if (GUI.Button(new Rect(10, 110, 150, 30), "Update Slots"))
-        {
-            UpdateSlots();
-        }
-    }
-
-
-    void UpdateSlots()
-    {
-        UpdateSlots(_inventorySlots);
-        UpdateSlots(_equippedSlots);
-    }
-
-
-
 
     /// <summary>
-    /// Checks if all equipped slots are full.
+    /// Adds an item to the inventory.
     /// </summary>
-    /// <returns>True if all equipped slots are full, otherwise false.</returns>
-    private bool IsEquipedSlotsFull()
+    /// <param name="obj">The item to be added to the inventory.</param>
+    /// <returns>True if the item was successfully added, otherwise false.</returns>
+    public bool AddItemToInventory(Item obj)
     {
-        if (_equippedItems.Count == _equippedCapacity)
+        if (obj == null)
         {
-            Debug.Log("All slots are occupied. Cannot equip item.");
-            return true;
+            Debug.Log("Passed item is null.");
+            return false;
         }
-        return false;
+        if (IsInventoryFull())
+        {
+            return false;
+        }
+
+        _inventory.Add(obj);
+        UpdateSlots();
+        UpdateStats(obj, true);
+        return true;
     }
 
     /// <summary>
@@ -95,88 +74,27 @@ public class ItemManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds an item to the inventory.
+    /// Updates the inventory slots to reflect the current state of the inventory.
     /// </summary>
-    /// <param name="item">The item to add to the inventory.</param>
-    /// <returns>True if the item was added successfully, otherwise false.</returns>
-    public bool AddItemToInventory(Item item)
+    private void UpdateSlots()
     {
-        if (!IsInventoryFull())
+        for (int i = 0; i < _inventory.Count; i++)
         {
-            _inventory.Add(item);
-            UpdateSlots(_inventorySlots);
-            return true;
+            _inventorySlots[i].Item = _inventory[i];
+            _inventorySlots[i].UpdateSlot();
         }
-        return false;
-    }
-
-    /// <summary>
-    /// Removes an item from the inventory.
-    /// </summary>
-    /// <param name="item">The item to remove from the inventory.</param>
-    /// <remarks>
-    /// If the item is not found in the inventory, an error message is logged.
-    /// </remarks>
-    public void RemoveItemFromInventory(Item item)
-    {
-        if (!_inventory.Contains(item))
+        for (int i = _inventory.Count - 1; i < _inventorySlots.Length; i++)
         {
-            Debug.LogError("Item not found in inventory. Cannot remove item.");
-            UpdateSlots(_inventorySlots);
-            return;
+            _inventorySlots[i].Item = null;
+            _inventorySlots[i].UpdateSlot();
         }
-        _inventory.Remove(item);
-    }
-
-    /// <summary>
-    /// Equips an item to the character.
-    /// </summary>
-    /// <param name="item">The item to equip.</param>
-    /// <returns>True if the item was equipped successfully, otherwise false.</returns>
-    public bool EquipItem(Item item)
-    {
-        if (!IsEquipedSlotsFull())
-        {
-            _equippedItems.Add(item);
-            UpdateSlots(_equippedSlots);
-            UpdateStats(item, true);
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Unequips an item from the character.
-    /// </summary>
-    /// <param name="item">The item to unequip.</param>
-    /// <returns>True if the item was unequipped successfully, otherwise false.</returns>
-    /// <remarks>
-    /// If the item is not found in the equipped items or the inventory is full, an error message is logged.
-    /// </remarks>
-    public bool UnequipItem(Item item)
-    {
-        if (!_equippedItems.Contains(item))
-        {
-            Debug.LogError("Item not found in equipped items. Cannot unequip item.");
-            return false;
-        }
-        // if Inventory is not full, then unequip the item
-        if (!IsInventoryFull())
-        {
-            _equippedItems.Remove(item);
-            _inventory.Add(item);
-            UpdateSlots();
-            UpdateStats(item, false);
-            return true;
-        }
-        return false;
     }
 
     /// <summary>
     /// Updates the character's stats based on the item being equipped or unequipped.
     /// </summary>
     /// <param name="item">The item that is being equipped or unequipped.</param>
-    /// <param name="IsBeingAdded">True if the item is being equipped, false if it is being unequipped.</param>
+    /// <param name="IsBeingAdded">True if the item is added, false if removed.</param>
     private void UpdateStats(Item item, bool IsBeingAdded)
     {
         if (item == null)
@@ -212,40 +130,4 @@ public class ItemManager : MonoBehaviour
         }
         GameManager.Instance.UIManager.UpdateStats();
     }
-
-#if UNITY_EDITOR
-    private List<Item> _previousItems = new();
-
-    /// <summary>
-    /// Called when the script is loaded or a value is changed in the Inspector.
-    /// This method ensures that the stats are updated correctly when items are added or removed in the editor.
-    /// </summary>
-    void OnValidate()
-    {
-        // Initialize _previousItems if it is null
-        _previousItems ??= new List<Item>(_equippedItems);
-
-        // Iterate through the currently equipped items
-        foreach (Item item in _equippedItems)
-        {
-            if (!_previousItems.Contains(item))
-
-            {
-                UpdateStats(item, true);
-            }
-        }
-
-        // Iterate through the previously equipped items
-        foreach (Item item in _previousItems)
-        {
-            if (!_equippedItems.Contains(item))
-            {
-                UpdateStats(item, false);
-            }
-        }
-        // Update _previousItems to the current state of _equippedItems
-        _previousItems = new List<Item>(_equippedItems);
-    }
-
-#endif
 }

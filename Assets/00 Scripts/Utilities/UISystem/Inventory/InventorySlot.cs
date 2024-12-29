@@ -1,44 +1,26 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    [SerializeField] private Item item;
+    [SerializeField] private Item _item;
+    /// <summary>
+    /// The item that this inventoryslot holds
+    /// </summary>
+    public Item Item { get => _item; set => _item = value; }
 
-    private bool _hadItem;
-
-    private Image _itemIcon;
-    private EventTrigger _eventTrigger;
-
-    private bool _isInventory = false;
+    [SerializeField] private Image _itemIcon;
+    [SerializeField] private UnityEngine.UI.Button _deleteButton;
 
     private void Start()
     {
-        _eventTrigger = GetComponent<EventTrigger>();
-        _itemIcon = transform.GetComponentInChildren<Image>();
-        _eventTrigger.enabled = false;
+        _deleteButton.enabled = false;
     }
 
-    public void MoveItem()
-    {
-        Debug.Log("Item moved");
-        if (_isInventory)
-        {
-            if (!GameManager.Instance.ItemManager.EquipItem(item))
-            {
-                // Tell Player that the item could not be equipped
-            }
-        }
-        else
-        {
-            if (!GameManager.Instance.ItemManager.UnequipItem(item))
-            {
-                // Tell Player that the item could not be unequipped
-            }
-        }
-    }
-
+    /// <summary>
+    /// Updates the slot if there is a change in condition.
+    /// </summary>
     public void UpdateSlot()
     {
         if (!IsUpdateNeeded())
@@ -47,40 +29,43 @@ public class InventorySlot : MonoBehaviour
             return;
         }
 
-        if (item == null)
+        if (_item == null)
         {
-            _itemIcon.sprite = null;
             _itemIcon.enabled = false;
-            _eventTrigger.enabled = false;
+            _deleteButton.enabled = false;
             return;
         }
         else
         {
-            _itemIcon.sprite = item.GetItemIcon;
+            _itemIcon.sprite = _item.GetItemIcon;
             _itemIcon.enabled = true;
-            _eventTrigger.enabled = true;
+            _deleteButton.enabled = true;
         }
     }
 
+
+    /// <summary>
+    /// Checks if the slot needs to be updated.
+    /// </summary>
+    /// <returns>True if update is needed, false otherwise.</returns>
     private bool IsUpdateNeeded()
     {
-        if (item == null && _hadItem)
+        if ((_item != null && _itemIcon.sprite == null) | (_item == null && _itemIcon.sprite != null))
         {
-            _hadItem = false;
-            return true;
-        }
-        else if (item != null && !_hadItem)
-        {
-            _hadItem = true;
             return true;
         }
         return false;
     }
 
-    //#if UNITY_EDITOR
-    //    private void OnValidate()
-    //    {
-    //        _isInventory = transform.parent.parent.name.Contains("Inventory");
-    //    }
-    //#endif
+    private void OnValidate()
+    {
+        if (_itemIcon == null)
+        {
+            Debug.LogError(nameof(_itemIcon) + " is not set in " + gameObject.name);
+        }
+        if (_deleteButton == null)
+        {
+            Debug.LogError(nameof(_deleteButton) + " is not set in " + gameObject.name);
+        }
+    }
 }

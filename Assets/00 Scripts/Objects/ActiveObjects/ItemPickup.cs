@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider), typeof(Light))]
@@ -6,6 +7,9 @@ public class ItemPickup : MonoBehaviour
     private Transform _player;
     [SerializeField] private Item _item;
     [SerializeField] private Light _light;
+    [SerializeField] private Material _material;
+
+    public static Action ItemPickedUp;
 
     private void OnEnable()
     {
@@ -15,7 +19,9 @@ public class ItemPickup : MonoBehaviour
     public void SetValues(Item item)
     {
         this._item = item;
-        this._light.color = GetColorForRarity(item.ItemLevel);
+        Color color = GetColorForRarity(item.ItemLevel);
+        this._light.color = color;
+        this._material.color = color;
     }
 
     private Color GetColorForRarity(int itemLevel)
@@ -58,5 +64,7 @@ public class ItemPickup : MonoBehaviour
             // Tell player inventory is full
             Debug.Log("Inventory is full");
         }
+
+        
     }
 }

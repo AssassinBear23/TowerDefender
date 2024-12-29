@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 738737391365199907}
   - component: {fileID: 2432917600002855329}
   - component: {fileID: 7126040231839404225}
+  - component: {fileID: 1945962895152534352}
+  - component: {fileID: 1302246490670563085}
   m_Layer: 0
   m_Name: ItemPickUp
   m_TagString: Untagged
@@ -98,8 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcc4d61737d0324fa1f6fb7cb673101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _item: {fileID: 0}
+  _item: {fileID: 11400000, guid: 0d97dee6350cfd142863ef5f3acc052c, type: 2}
   _light: {fileID: 7126040231839404225}
+  _material: {fileID: 0}
 --- !u!65 &2432917600002855329
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -107,7 +110,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8587376256229599063}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 2497e65cdfde3c3478cd19cc7c60cd98, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -115,7 +118,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -134,7 +137,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.5
-  m_Range: 10
+  m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -183,3 +186,46 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!54 &1945962895152534352
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8587376256229599063}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &1302246490670563085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8587376256229599063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f8e7170c76ea2a419fa8576a8b195de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _forceAmount: 7
+  _bounceAmount: 2
+  _minXZ: 0.6
+  _maxXZ: 1
