@@ -4209,6 +4209,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 881409980}
   m_CullTransparentMesh: 1
+--- !u!1 &891023131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8677250490982680666, guid: 91998bb33bfc95146ba380602bc574d1, type: 3}
+  m_PrefabInstance: {fileID: 8981317495945800435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &891023136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891023131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58db8914f22c2d0468e72fc2857a72ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
 --- !u!1001 &922545280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6111,6 +6129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1277777809}
   - component: {fileID: 1277777810}
+  - component: {fileID: 1277777811}
   m_Layer: 5
   m_Name: InventorySlots
   m_TagString: Untagged
@@ -6191,6 +6210,18 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 20}
   m_Constraint: 1
   m_ConstraintCount: 5
+--- !u!225 &1277777811
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277777808}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1300780881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6329,7 +6360,15 @@ PrefabInstance:
     - target: {fileID: 1921404576216898766, guid: d461ad5d221f38a41ac82e27c8e23099, type: 3}
       propertyPath: Tower
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 993708407}
+    - target: {fileID: 1921404576216898766, guid: d461ad5d221f38a41ac82e27c8e23099, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 144503333}
+    - target: {fileID: 1921404576216898766, guid: d461ad5d221f38a41ac82e27c8e23099, type: 3}
+      propertyPath: UIManager
+      value: 
+      objectReference: {fileID: 1262124428}
     - target: {fileID: 1921404576216898766, guid: d461ad5d221f38a41ac82e27c8e23099, type: 3}
       propertyPath: uiManager
       value: 
@@ -6338,6 +6377,10 @@ PrefabInstance:
       propertyPath: _levelData
       value: 
       objectReference: {fileID: 11400000, guid: 264971adecfd1a8459951f99914a49aa, type: 2}
+    - target: {fileID: 1921404576216898766, guid: d461ad5d221f38a41ac82e27c8e23099, type: 3}
+      propertyPath: ItemManager
+      value: 
+      objectReference: {fileID: 342248293}
     - target: {fileID: 6331848575389699907, guid: d461ad5d221f38a41ac82e27c8e23099, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -9338,7 +9381,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8677250490982680666, guid: 91998bb33bfc95146ba380602bc574d1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 891023136}
   m_SourcePrefab: {fileID: 100100000, guid: 91998bb33bfc95146ba380602bc574d1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
