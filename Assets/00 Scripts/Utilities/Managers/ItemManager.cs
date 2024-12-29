@@ -20,8 +20,6 @@ public class ItemManager : MonoBehaviour
 
     private InventorySlot[] _inventorySlots;
 
-
-
     IEnumerator Start()
     {
         tower = GameManager.Instance.Tower.GetComponent<CharStats>();
@@ -78,13 +76,18 @@ public class ItemManager : MonoBehaviour
     /// </summary>
     private void UpdateSlots()
     {
+        Debug.Log("_inventory.Count:\t" + _inventory.Count);
         for (int i = 0; i < _inventory.Count; i++)
         {
+            Debug.Log($"Updating slot number {i}"
+                      + $"\nSlot Name:\t{_inventorySlots[i].name}");
             _inventorySlots[i].Item = _inventory[i];
             _inventorySlots[i].UpdateSlot();
         }
-        for (int i = _inventory.Count - 1; i < _inventorySlots.Length; i++)
+        for (int i = _inventory.Count; i < _inventorySlots.Length; i++)
         {
+            Debug.Log($"Updating slot number {i}"
+                      + $"\nSlot Name:\t{_inventorySlots[i].name}");
             _inventorySlots[i].Item = null;
             _inventorySlots[i].UpdateSlot();
         }
