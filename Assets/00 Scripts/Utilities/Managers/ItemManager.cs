@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -8,76 +10,128 @@ using UnityEditor;
 public class ItemManager : MonoBehaviour
 {
     private CharStats tower;
-    [SerializeField] private List<Item> _equippedItems = new();
+    [Header("Inventory Settings")]
+    [SerializeField] private List<Item> _inventory = new();
+    [Space(10)]
+    [SerializeField] int _inventoryCapacity = 15;
 
-    void Start()
+    [Header("General Settings")]
+    [SerializeField] private Transform _inventorySlotsParent;
+
+    private InventorySlot[] _inventorySlots;
+
+    IEnumerator Start()
     {
-        tower = GameManager.instance.Tower.GetComponent<CharStats>();
+        tower = GameManager.Instance.Tower.GetComponent<CharStats>();
         Debug.Log("StatManager initialized");
+        GetLists();
+        yield return new WaitForEndOfFrame();
+        GameManager.Instance.UIManager.UpdateStats();
     }
 
-#if UNITY_EDITOR
-    private List<Item> _previousItems = new();
+    void GetLists()
+    {
+        _inventorySlots = _inventorySlotsParent.GetComponentsInChildren<InventorySlot>();
+    }
 
     /// <summary>
-    /// Called when the script is loaded or a value is changed in the Inspector.
-    /// This method ensures that the stats are updated correctly when items are added or removed in the editor.
+    /// Adds an item to the inventory.
     /// </summary>
-    void OnValidate()
+    /// <param name="obj">The item to be added to the inventory.</param>
+    /// <returns>True if the item was successfully added, otherwise false.</returns>
+    public bool AddItemToInventory(Item obj)
     {
-        // Initialize _previousItems if it is null
-        _previousItems ??= new List<Item>(_equippedItems);
-
-        // Iterate through the currently equipped items
-        foreach (Item item in _equippedItems)
+        if (obj == null)
         {
-            if (!_previousItems.Contains(item))
-
-            {
-                UpdateStats(item, true);
-            }
+            Debug.Log("Passed item is null.");
+            return false;
+        }
+        if (IsInventoryFull())
+        {
+            return false;
         }
 
-        // Iterate through the previously equipped items
-        foreach (Item item in _previousItems)
+        _inventory.Add(obj);
+        UpdateSlots();
+        UpdateStats(obj, true);
+        return true;
+    }
+
+    /// <summary>
+    /// Removes an item from the inventory.
+    /// </summary>
+    /// <param name="obj">The item to be removed from the inventory.</param>
+    public void RemoveItemFromInventory(Item obj)
+    {
+        if (obj == null)
         {
-            if (!_equippedItems.Contains(item))
-            {
-                UpdateStats(item, false);
-            }
+            Debug.Log("Passed item is null.");
+            return;
         }
-
-        // Update _previousItems to the current state of _equippedItems
-        _previousItems = new List<Item>(_equippedItems);
-    }
-#endif
-
-
-    public void EquipItem(Item item)
-    {
-        _equippedItems.Add(item);
-        UpdateStats(item, true);
+        _inventory.Remove(obj);
+        UpdateSlots();
+        UpdateStats(obj, false);
     }
 
-    public void UnequipItem(Item item, int itemLevel)
+    /// <summary>
+    /// Checks if the inventory is full.
+    /// </summary>
+    /// <returns>True if the inventory is full, otherwise false.</returns>
+    private bool IsInventoryFull()
     {
-        _equippedItems.Remove(item);
-        UpdateStats(item, false);
+        if (_inventory.Count == _inventoryCapacity)
+        {
+            Debug.Log("Inventory is Full. Cannot add item to inventory");
+            return true;
+        }
+        return false;
     }
 
-    private void UpdateStats(Item itemUpdate, bool IsBeingAdded)
+    /// <summary>
+    /// Updates the inventory slots to reflect the current state of the inventory.
+    /// </summary>
+    private void UpdateSlots()
     {
-        if(itemUpdate == null)
+        //Debug.Log("_inventory.Count:\t" + _inventory.Count);
+        //string _messageBuilder = string.Empty;
+        for (int i = 0; i < _inventory.Count; i++)
+        {
+            //_messageBuilder += $"  Updating slot number {i + 1}";
+            //_messageBuilder += $"\nSlot Name:\t{_inventorySlots[i].name}";
+            //_messageBuilder += $"\nValue it needs to be set to:\t{_inventory[i]}\n";
+            _inventorySlots[i].Item = _inventory[i];
+            _inventorySlots[i].UpdateSlot();
+        }
+        //Debug.Log(_messageBuilder);
+        //_messageBuilder = string.Empty;
+        for (int i = _inventory.Count; i < _inventorySlots.Length; i++)
+        {
+            //_messageBuilder += $"  Updating slot number {i + 1}";
+            //_messageBuilder += $"\nSlot Name:\t{_inventorySlots[i].name}\n";
+            _inventorySlots[i].Item = null;
+            _inventorySlots[i].UpdateSlot();
+        }
+        //if(_messageBuilder != string.Empty) Debug.Log(_messageBuilder);
+    }
+
+    /// <summary>
+    /// Updates the character's stats based on the item being equipped or unequipped.
+    /// </summary>
+    /// <param name="item">The item that is being equipped or unequipped.</param>
+    /// <param name="IsBeingAdded">True if the item is added, false if removed.</param>
+    private void UpdateStats(Item item, bool IsBeingAdded)
+    {
+        if (item == null)
         {
             Debug.Log("No item passed for UpdateStats(). Make sure the passed Item is not Null.");
         }
         Debug.Log("Updating stats with following item:"
-                  + $"\nItem:\t{itemUpdate.ItemName}"
-                  + $"\nLevel:\t{itemUpdate.ItemLevel}"
+                  + $"\nItem:\t{item.ItemName}"
+                  + $"\nLevel:\t{item.ItemLevel}"
                   + $"\nAdding:\t{IsBeingAdded}");
         if (IsBeingAdded)
         {
-            foreach (KeyValuePair<Stat, float> stat in itemUpdate.StatModifiers)
+            foreach (KeyValuePair<Stat, float> stat in item.StatModifiers)
             {
                 if (stat.Value == 0) return;
                 float _currentValue = tower.GetStatValue(stat.Key);
@@ -86,7 +140,7 @@ public class ItemManager : MonoBehaviour
         }
         else
         {
-            foreach (KeyValuePair<Stat, float> stat in itemUpdate.StatModifiers)
+            foreach (KeyValuePair<Stat, float> stat in item.StatModifiers)
             {
                 if (stat.Value == 0) return;
                 float _currentValue = tower.GetStatValue(stat.Key);
@@ -98,5 +152,6 @@ public class ItemManager : MonoBehaviour
                 tower.SetStatValue(stat.Key, _currentValue - stat.Value);
             }
         }
+        GameManager.Instance.UIManager.UpdateStats();
     }
 }

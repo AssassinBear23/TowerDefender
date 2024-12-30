@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharStats : MonoBehaviour
@@ -18,6 +19,10 @@ public class CharStats : MonoBehaviour
         Enemy
     }
 
+    /// <summary>
+    /// Determines if the character is a tower.
+    /// </summary>
+    /// <returns>True if the character is a tower, otherwise false.</returns>
     public bool IsTower
     {
         get
@@ -40,6 +45,26 @@ public class CharStats : MonoBehaviour
         return _charStats[key];
     }
 
+    /// <summary>
+    /// Gets the list of stats in the order they are stored.
+    /// </summary>
+    /// <returns>A list of stats in the order they are stored.</returns>
+    public List<Stat> GetStatOrderList()
+    {
+        List<Stat> statOrder = new List<Stat>();
+        foreach (Stat stat in _charStats.Keys)
+        {
+            statOrder.Add(stat);
+        }
+        return statOrder;
+    }
+
+
+    /// <summary>
+    /// Sets the value for a specific stat.
+    /// </summary>
+    /// <param name="key">The stat to set the value for.</param>
+    /// <param name="value">The value to set for the specified stat.</param>
     public void SetStatValue(Stat key, float value)
     {
         _charStats[key] = value;
@@ -48,7 +73,7 @@ public class CharStats : MonoBehaviour
     /// <summary>
     /// Set the tower stats to the given dictionary.
     /// </summary>
-    /// <param name="dict">The dictionary to set the tower stats to</param>
+    /// <param name="dict">The dictionary to set the tower stats equal to</param>
     public void SetStatDict(SerializedDictionary<Stat, float> dict)
     {
         if (dict == null)

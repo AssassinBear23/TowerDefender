@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9d5d546d77daf4f865ce5ed6f9fe73, type: 3}
   m_Name: 7_ArmourPenetration
   m_EditorClassIdentifier: 
-  statName: Armour
+  statName: Armour Penetration
