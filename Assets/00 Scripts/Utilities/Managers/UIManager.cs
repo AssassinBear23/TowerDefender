@@ -48,6 +48,8 @@ public class UIManager : MonoBehaviour
     // A list of all UIElements classes
     private List<UIElement> UIElements;
 
+    [SerializeField] private StatDisplay _statDisplay;
+
     // The event system that manages UI navigation
     [HideInInspector] public EventSystem eventSystem;
     // The input manager to list for pausing
@@ -102,7 +104,7 @@ public class UIManager : MonoBehaviour
     {
         if (inputManager == null)
         {
-            inputManager = InputManager.instance;
+            inputManager = InputManager.Instance;
         }
         if (inputManager == null)
         {
@@ -123,15 +125,15 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets up the UIManager singleton instance in <see cref="GameManager.uIManager"/>.
+    /// Sets up the UIManager singleton Instance in <see cref="GameManager.uIManager"/>.
     /// </summary>
     void SetupUIManager()
     {
-        if (GameManager.instance.uiManager == null && GameManager.instance != null)
+        if (GameManager.Instance.UIManager == null && GameManager.Instance != null)
         {
             try
             {
-                GameManager.instance.uiManager = this;
+                GameManager.Instance.UIManager = this;
             }
             catch (System.Exception)
             {
@@ -180,7 +182,11 @@ public class UIManager : MonoBehaviour
         {
             element.UpdateElement();
         }
+    }
 
+    public void UpdateStats()
+    {
+        _statDisplay.UpdateStatDisplay();
     }
 
     /// <summary>

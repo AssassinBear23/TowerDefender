@@ -17,7 +17,7 @@ public class TowerController : MonoBehaviour
         {
             Debug.Log("Fire point is not set.");
         }
-        _gm = GameManager.instance;
-        _gm.Tower = gameObject;
+        _gm = GameManager.Instance;
+        _gm.Tower = transform;
     }
 }

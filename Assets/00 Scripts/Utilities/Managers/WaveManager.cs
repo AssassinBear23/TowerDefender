@@ -19,7 +19,7 @@ public class WaveManager : MonoBehaviour
 
     public void Start()
     {
-        waveOrder = GameManager.instance.LevelData.Waves;
+        waveOrder = GameManager.Instance.LevelData.Waves;
         GetNextWave();
     }
 
