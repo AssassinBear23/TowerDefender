@@ -58,6 +58,22 @@ public class ItemManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Removes an item from the inventory.
+    /// </summary>
+    /// <param name="obj">The item to be removed from the inventory.</param>
+    public void RemoveItemFromInventory(Item obj)
+    {
+        if (obj == null)
+        {
+            Debug.Log("Passed item is null.");
+            return;
+        }
+        _inventory.Remove(obj);
+        UpdateSlots();
+        UpdateStats(obj, false);
+    }
+
+    /// <summary>
     /// Checks if the inventory is full.
     /// </summary>
     /// <returns>True if the inventory is full, otherwise false.</returns>
@@ -76,21 +92,26 @@ public class ItemManager : MonoBehaviour
     /// </summary>
     private void UpdateSlots()
     {
-        Debug.Log("_inventory.Count:\t" + _inventory.Count);
+        //Debug.Log("_inventory.Count:\t" + _inventory.Count);
+        //string _messageBuilder = string.Empty;
         for (int i = 0; i < _inventory.Count; i++)
         {
-            Debug.Log($"Updating slot number {i}"
-                      + $"\nSlot Name:\t{_inventorySlots[i].name}");
+            //_messageBuilder += $"  Updating slot number {i + 1}";
+            //_messageBuilder += $"\nSlot Name:\t{_inventorySlots[i].name}";
+            //_messageBuilder += $"\nValue it needs to be set to:\t{_inventory[i]}\n";
             _inventorySlots[i].Item = _inventory[i];
             _inventorySlots[i].UpdateSlot();
         }
+        //Debug.Log(_messageBuilder);
+        //_messageBuilder = string.Empty;
         for (int i = _inventory.Count; i < _inventorySlots.Length; i++)
         {
-            Debug.Log($"Updating slot number {i}"
-                      + $"\nSlot Name:\t{_inventorySlots[i].name}");
+            //_messageBuilder += $"  Updating slot number {i + 1}";
+            //_messageBuilder += $"\nSlot Name:\t{_inventorySlots[i].name}\n";
             _inventorySlots[i].Item = null;
             _inventorySlots[i].UpdateSlot();
         }
+        //if(_messageBuilder != string.Empty) Debug.Log(_messageBuilder);
     }
 
     /// <summary>

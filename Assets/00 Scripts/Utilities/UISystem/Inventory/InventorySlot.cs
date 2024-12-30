@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,11 +12,11 @@ public class InventorySlot : MonoBehaviour
     public Item Item { get => _item; set => _item = value; }
 
     [SerializeField] private Image _itemIcon;
-    [SerializeField] private UnityEngine.UI.Button _deleteButton;
+    [SerializeField] private GameObject _deleteButton;
 
     private void Start()
     {
-        _deleteButton.enabled = false;
+        _deleteButton.SetActive(false);
     }
 
     /// <summary>
@@ -23,38 +24,19 @@ public class InventorySlot : MonoBehaviour
     /// </summary>
     public void UpdateSlot()
     {
-        if (!IsUpdateNeeded())
-        {
-            Debug.Log("No Update is needed for " + gameObject.name);
-            return;
-        }
-
         if (_item == null)
         {
             _itemIcon.enabled = false;
-            _deleteButton.enabled = false;
+            _deleteButton.SetActive(false);
             return;
         }
         else
         {
+            Debug.Log("Updating with icon != null for " + gameObject.name);
             _itemIcon.sprite = _item.GetItemIcon;
             _itemIcon.enabled = true;
-            _deleteButton.enabled = true;
+            _deleteButton.SetActive(true);
         }
-    }
-
-
-    /// <summary>
-    /// Checks if the slot needs to be updated.
-    /// </summary>
-    /// <returns>True if update is needed, false otherwise.</returns>
-    private bool IsUpdateNeeded()
-    {
-        if ((_item != null && _itemIcon.sprite == null) | (_item == null && _itemIcon.sprite != null))
-        {
-            return true;
-        }
-        return false;
     }
 
     private void OnValidate()

@@ -6,8 +6,6 @@ public class ItemPickup : MonoBehaviour
 {
     private Transform _player;
     [SerializeField] private Item _item;
-    [SerializeField] private Light _light;
-    [SerializeField] private Material _material;
 
     public static Action ItemPickedUp;
 
@@ -16,12 +14,9 @@ public class ItemPickup : MonoBehaviour
         _player = GameManager.Instance.player;
     }
 
-    public void SetValues(Item item)
+    public ItemPickup(Item item)
     {
         this._item = item;
-        Color color = GetColorForRarity(item.ItemLevel);
-        this._light.color = color;
-        this._material.color = color;
     }
 
     private Color GetColorForRarity(int itemLevel)
@@ -39,17 +34,6 @@ public class ItemPickup : MonoBehaviour
         }
     }
 
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        _light = GetComponent<Light>();
-        if (_light == null)
-        {
-            Debug.LogError("Light is not set in " + gameObject.name);
-        }
-    }
-#endif
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform != _player) return;
@@ -64,7 +48,5 @@ public class ItemPickup : MonoBehaviour
             // Tell player inventory is full
             Debug.Log("Inventory is full");
         }
-
-        
     }
 }
