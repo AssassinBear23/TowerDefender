@@ -1,0 +1,4 @@
+Implement correct spawning (again)
+ - Needs to instantiate the already existing instances.
+ - Possible relook into the wave asset
+ - 

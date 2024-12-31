@@ -8,33 +8,6 @@ public class CharStats : MonoBehaviour
     [Tooltip("The stats of the tower")]
     [SerializeField] private SerializedDictionary<Stat, float> _charStats;
 
-    [Header("Additional Settings")]
-    [Tooltip("Is this the tower, the player character or an enemy?")]
-    [SerializeField] private CharType _charType;
-
-    private enum CharType
-    {
-        Tower,
-        Player,
-        Enemy
-    }
-
-    /// <summary>
-    /// Determines if the character is a tower.
-    /// </summary>
-    /// <returns>True if the character is a tower, otherwise false.</returns>
-    public bool IsTower
-    {
-        get
-        {
-            if (_charType == CharType.Tower)
-            {
-                return true;
-            }
-            return false;
-        }
-    }
-
     /// <summary>
     /// Get the value for a certain tower stat.
     /// </summary>

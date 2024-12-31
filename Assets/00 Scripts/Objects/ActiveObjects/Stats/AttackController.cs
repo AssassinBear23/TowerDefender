@@ -5,7 +5,7 @@ using UnityEngine;
 /// Handles the attack logic for a character.
 /// </summary>
 [RequireComponent(typeof(CharStats))]
-public class Attack : MonoBehaviour
+public class AttackController : MonoBehaviour
 {
     [Header("Initialization Values")]
     [SerializeField] bool _isPlayer;
@@ -41,10 +41,14 @@ public class Attack : MonoBehaviour
     private void Start()
     {
         GetValues();
-        if (!_isPlayer) _mr = GetComponent<MeshRenderer>();
+        if (!_isPlayer)
+        {
+            _mr = GetComponentInChildren<MeshRenderer>();
+            _attackRange += _mr.bounds.extents.x;
+        }
     }
 
-    private void OnValidate()
+    private void OnValidate()   
     {
         if (_damageStat == null)
         {
@@ -91,10 +95,9 @@ public class Attack : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (!_isPlayer)
+        if (!_isPlayer && IsWithinRange(out var healthController))
         {
-            Debug.Log("Going into " + nameof(IsWithinRange));
-            IsWithinRange();
+            DoAttack(healthController);
         }
 
         // Player behaviour
@@ -108,25 +111,18 @@ public class Attack : MonoBehaviour
     /// Checks if there are enemies in range using a sphere cast.
     /// </summary>
     /// <returns>True if there are enemies in range, otherwise false.</returns>
-    private void IsWithinRange()
+    private bool IsWithinRange(out HealthController towerHC)
     {
-        float _range = _attackRange + _mr.bounds.extents.x;
-        Debug.Log($"Range is {_range}");
-        Physics.SphereCast(transform.position, _range, transform.forward, out RaycastHit hit, 5, _enemyLayerMask);
-        if (hit.collider == null)
-        {
-            Debug.Log("No enemies in range.");
-            _enemiesInRange.Clear();
-            return;
-        }
+        Transform towerPos = GameManager.Instance.Tower;
+        towerHC = null;
+        float rangeSquared = _attackRange * _attackRange;
 
-        Debug.Log($"Hit something, being {hit.collider.name}");
-
-        HealthController _healthController = hit.transform.GetComponentInParent<HealthController>();
-        if (_healthController != null && !_enemiesInRange.Contains(_healthController))
+        if ((transform.position - towerPos.position).sqrMagnitude <= rangeSquared)
         {
-            _enemiesInRange.Add(_healthController);
+            towerHC = towerPos.GetComponent<HealthController>();
+            return true;
         }
+        return false;
     }
 
     /// <summary>
@@ -219,21 +215,18 @@ public class Attack : MonoBehaviour
             RemoveFromList(healthController);
         }
     }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        _mr = GetComponent<MeshRenderer>();
-
         if (_isPlayer)
         {
             return;
         }
+        _mr = GetComponentInChildren<MeshRenderer>();
         float _range = _attackRange + _mr.bounds.extents.x;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _range);
     }
 #endif
 }
-
-
-

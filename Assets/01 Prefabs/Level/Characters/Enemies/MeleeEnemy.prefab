@@ -9,6 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8565886738197703305}
+  - component: {fileID: 7403589349231452650}
+  - component: {fileID: 1561924441861365343}
+  - component: {fileID: 7022941682122417362}
+  - component: {fileID: 3677262950361731796}
+  - component: {fileID: 2721452314083541125}
   m_Layer: 8
   m_Name: MeleeEnemy
   m_TagString: Untagged
@@ -32,6 +37,130 @@ Transform:
   - {fileID: 1555782507850830314}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7403589349231452650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285464745886800761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd5eaeb0a8839de4b9924dd2558dc311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _charStats:
+    _serializedList:
+    - Key: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
+      Value: 10
+    - Key: {fileID: 11400000, guid: a99086bff58852b49b819c5ae5090910, type: 2}
+      Value: 0.5
+    - Key: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
+      Value: 0.5
+    - Key: {fileID: 11400000, guid: d4cc4dc6d56e2a043b3e160cf068c768, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: ce1c2a2f7cd8deb4f82a732f6e1d2348, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: bcb6208e7b5fd8a4687243631bc3ba39, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: a82483fe9a6c0bb42aa69a26dced6d57, type: 2}
+      Value: 0
+--- !u!114 &1561924441861365343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285464745886800761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aea284a84afa8e4cb00826e592ff0da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7022941682122417362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285464745886800761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991bc12d12167954ab1598b18407e96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthStat: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
+  _armourStat: {fileID: 11400000, guid: bcb6208e7b5fd8a4687243631bc3ba39, type: 2}
+  _maxHealthValue: 0
+  _currentHealthValue: 0
+  _armourValue: 0
+  OnCharDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Attack, Assembly-CSharp
+        m_MethodName: RemoveFromList
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: HealthController, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1285464745886800761}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3677262950361731796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285464745886800761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0382585dfed647345b4d2f4c5d3f1d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isPlayer: 0
+  _damageStat: {fileID: 11400000, guid: a99086bff58852b49b819c5ae5090910, type: 2}
+  _criticalDamageStat: {fileID: 11400000, guid: ce1c2a2f7cd8deb4f82a732f6e1d2348, type: 2}
+  _criticalChanceStat: {fileID: 11400000, guid: d4cc4dc6d56e2a043b3e160cf068c768, type: 2}
+  _attackSpeedStat: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
+  _armourPenStat: {fileID: 11400000, guid: a82483fe9a6c0bb42aa69a26dced6d57, type: 2}
+  _damageValue: 0
+  _criticalDamageValue: 0
+  _criticalChanceValue: 0
+  _attackSpeedValue: 0
+  _armourPenValue: 0
+  _enemiesInRange: []
+  _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _attackRange: 1
+--- !u!114 &2721452314083541125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285464745886800761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b069987e584e5154cb3f1b032c679d4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5548524973449171622
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,11 +174,6 @@ GameObject:
   - component: {fileID: 2602140850820240505}
   - component: {fileID: 1283567640249061533}
   - component: {fileID: 1305376893015841723}
-  - component: {fileID: 5110976073188586500}
-  - component: {fileID: 3316171284624836046}
-  - component: {fileID: 144895558853037294}
-  - component: {fileID: 4590882565950808339}
-  - component: {fileID: 5887087869241410845}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
@@ -170,128 +294,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!114 &5110976073188586500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5548524973449171622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd5eaeb0a8839de4b9924dd2558dc311, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _charStats:
-    _serializedList:
-    - Key: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
-      Value: 10
-    - Key: {fileID: 11400000, guid: a99086bff58852b49b819c5ae5090910, type: 2}
-      Value: 0.5
-    - Key: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
-      Value: 0.5
-    - Key: {fileID: 11400000, guid: d4cc4dc6d56e2a043b3e160cf068c768, type: 2}
-      Value: 0
-    - Key: {fileID: 11400000, guid: ce1c2a2f7cd8deb4f82a732f6e1d2348, type: 2}
-      Value: 0
-    - Key: {fileID: 11400000, guid: bcb6208e7b5fd8a4687243631bc3ba39, type: 2}
-      Value: 0
-    - Key: {fileID: 11400000, guid: a82483fe9a6c0bb42aa69a26dced6d57, type: 2}
-      Value: 0
-  _charType: 2
---- !u!114 &3316171284624836046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5548524973449171622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aea284a84afa8e4cb00826e592ff0da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &144895558853037294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5548524973449171622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 991bc12d12167954ab1598b18407e96b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healthStat: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
-  _armourStat: {fileID: 11400000, guid: bcb6208e7b5fd8a4687243631bc3ba39, type: 2}
-  _maxHealthValue: 0
-  _currentHealthValue: 0
-  _armourValue: 0
-  OnCharDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Attack, Assembly-CSharp
-        m_MethodName: RemoveFromList
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: HealthController, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1285464745886800761}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4590882565950808339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5548524973449171622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0382585dfed647345b4d2f4c5d3f1d7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isPlayer: 0
-  _damageStat: {fileID: 11400000, guid: a99086bff58852b49b819c5ae5090910, type: 2}
-  _criticalDamageStat: {fileID: 11400000, guid: ce1c2a2f7cd8deb4f82a732f6e1d2348, type: 2}
-  _criticalChanceStat: {fileID: 11400000, guid: d4cc4dc6d56e2a043b3e160cf068c768, type: 2}
-  _attackSpeedStat: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
-  _armourPenStat: {fileID: 11400000, guid: a82483fe9a6c0bb42aa69a26dced6d57, type: 2}
-  _damageValue: 0
-  _criticalDamageValue: 0
-  _criticalChanceValue: 0
-  _attackSpeedValue: 0
-  _armourPenValue: 0
-  _enemiesInRange: []
-  _enemyLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  _attackRange: 1
---- !u!114 &5887087869241410845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5548524973449171622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b069987e584e5154cb3f1b032c679d4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
