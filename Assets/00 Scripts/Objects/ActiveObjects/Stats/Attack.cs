@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the attack logic for a character.
+/// </summary>
 [RequireComponent(typeof(CharStats))]
 public class Attack : MonoBehaviour
 {
@@ -11,23 +14,58 @@ public class Attack : MonoBehaviour
     [SerializeField] private Stat _damageStat;
     [SerializeField] private Stat _criticalDamageStat;
     [SerializeField] private Stat _criticalChanceStat;
-    [SerializeField] private Stat _attackSpeed;
+    [SerializeField] private Stat _attackSpeedStat;
+    [SerializeField] private Stat _armourPenStat;
 
     [Header("Stat Values")]
     [SerializeField] private float _damageValue;
     [SerializeField] private float _criticalDamageValue;
     [SerializeField] private float _criticalChanceValue;
     [SerializeField] private float _attackSpeedValue;
+    [SerializeField] private float _armourPenValue;
 
     [Header("Attack Settings")]
     [Tooltip("The characters that are within range")]
     [SerializeField] List<HealthController> _enemiesInRange;
+    [Tooltip("The layer mask for the enemies")]
+    [SerializeField] private LayerMask _enemyLayerMask;
 
+    [Header("AI Settings")]
+    [Tooltip("The range outside of its own mesh that it can attack in")]
+    [SerializeField] private float _attackRange = 1f;
+
+
+    private MeshRenderer _mr;
     private float _lastAttackTime;
 
     private void Start()
     {
         GetValues();
+        if (!_isPlayer) _mr = GetComponent<MeshRenderer>();
+    }
+
+    private void OnValidate()
+    {
+        if (_damageStat == null)
+        {
+            Debug.LogError($"Damage stat reference not set correctly on {gameObject.name}.");
+        }
+        if (_criticalDamageStat == null)
+        {
+            Debug.LogError($"Critical damage stat reference not set correctly on {gameObject.name}.");
+        }
+        if (_criticalChanceStat == null)
+        {
+            Debug.LogError($"Critical chance stat reference not set correctly on {gameObject.name}.");
+        }
+        if (_attackSpeedStat == null)
+        {
+            Debug.LogError($"Attack speed stat reference not set correctly on {gameObject.name}.");
+        }
+        if (_armourPenStat == null)
+        {
+            Debug.LogError($"Armour penetration stat reference not set correctly on {gameObject.name}.");
+        }
     }
 
     /// <summary>
@@ -40,7 +78,7 @@ public class Attack : MonoBehaviour
             _damageValue = _charStats.GetStatValue(_damageStat);
             _criticalDamageValue = _charStats.GetStatValue(_criticalDamageStat);
             _criticalChanceValue = _charStats.GetStatValue(_criticalChanceStat);
-            _attackSpeedValue = _charStats.GetStatValue(_attackSpeed);
+            _attackSpeedValue = _charStats.GetStatValue(_attackSpeedStat);
         }
         else
         {
@@ -53,9 +91,41 @@ public class Attack : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        if (!_isPlayer)
+        {
+            Debug.Log("Going into " + nameof(IsWithinRange));
+            IsWithinRange();
+        }
+
+        // Player behaviour
         if (CanAttack() && _enemiesInRange.Count > 0)
         {
             DoAttack(_enemiesInRange[0]);
+        }
+    }
+
+    /// <summary>
+    /// Checks if there are enemies in range using a sphere cast.
+    /// </summary>
+    /// <returns>True if there are enemies in range, otherwise false.</returns>
+    private void IsWithinRange()
+    {
+        float _range = _attackRange + _mr.bounds.extents.x;
+        Debug.Log($"Range is {_range}");
+        Physics.SphereCast(transform.position, _range, transform.forward, out RaycastHit hit, 5, _enemyLayerMask);
+        if (hit.collider == null)
+        {
+            Debug.Log("No enemies in range.");
+            _enemiesInRange.Clear();
+            return;
+        }
+
+        Debug.Log($"Hit something, being {hit.collider.name}");
+
+        HealthController _healthController = hit.transform.GetComponentInParent<HealthController>();
+        if (_healthController != null && !_enemiesInRange.Contains(_healthController))
+        {
+            _enemiesInRange.Add(_healthController);
         }
     }
 
@@ -71,7 +141,7 @@ public class Attack : MonoBehaviour
 
         float _damageDealt = isCrit ? _damageValue * _criticalDamageValue : _damageValue;
 
-        _toDamageChar.TakeDamage(_damageDealt);
+        _toDamageChar.TakeDamage(_damageDealt, _armourPenValue);
 
         if (_toDamageChar.CurrentHealth <= 0)
         {
@@ -79,6 +149,20 @@ public class Attack : MonoBehaviour
         }
 
         _lastAttackTime = Time.time;
+    }
+
+
+
+    public void RemoveFromList(HealthController _diedChar)
+    {
+        if (_enemiesInRange.Contains(_diedChar))
+        {
+            _enemiesInRange.Remove(_diedChar);
+        }
+        else
+        {
+            Debug.Log($"{_diedChar.gameObject.name} not in {gameObject.name}'s {nameof(_enemiesInRange)} List.");
+        }
     }
 
     ///<summary>
@@ -101,36 +185,55 @@ public class Attack : MonoBehaviour
     }
 
     /// <summary>
-    /// Handles collision events. Adds the collided object to the enemies in range if it is the tower and the character is not the player.
+    /// 
     /// </summary>
-    /// <param name="other">The collision information.</param>
-    private void OnCollisionEnter(Collision other)
+    /// <param name="other">The collider that entered the trigger.</param>
+    private void OnTriggerEnter(Collider other)
     {
-        if (!_isPlayer && _enemiesInRange.Count == 0)
+        Debug.Log("Triggered");
+        if (!_isPlayer)
         {
-            if (other.transform == GameManager.Instance.Tower)
-            {
-                if (other.gameObject.TryGetComponent<HealthController>(out var healthController))
-                {
-                    _enemiesInRange.Add(healthController);
-                }
-            }
+            return;
+        }
+
+        if (other.TryGetComponent<HealthController>(out var healthController))
+        {
+            Debug.Log($"Adding {healthController.name} to the list");
+            _enemiesInRange.Add(healthController);
         }
     }
 
     /// <summary>
-    /// Handles trigger events. Adds the triggered object to the enemies in range if it is an enemy and the character is the player.
+    /// 
     /// </summary>
-    /// <param name="other">The trigger information.</param>
-    private void OnTriggerEnter(Collider other)
+    /// <param name="other">The collider that exited the trigger.</param>
+    private void OnTriggerExit(Collider other)
     {
-        if (_isPlayer && other.CompareTag("Enemy"))
+        if (!_isPlayer)
         {
-            if (other.TryGetComponent<HealthController>(out var healthController))
-            {
-                _enemiesInRange.Add(healthController);
-            }
+            return;
+        }
+
+        if (other.TryGetComponent<HealthController>(out var healthController))
+        {
+            RemoveFromList(healthController);
         }
     }
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        _mr = GetComponent<MeshRenderer>();
+
+        if (_isPlayer)
+        {
+            return;
+        }
+        float _range = _attackRange + _mr.bounds.extents.x;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _range);
+    }
+#endif
 }
+
+
 

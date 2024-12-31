@@ -55,7 +55,7 @@ public class StatDisplay : MonoBehaviour
         string messageBuilder = "";
         foreach (Stat stat in statListOrder)
         {
-            Debug.Log($"Stat: {stat.StatName} being checked");
+            //Debug.Log($"Stat: {stat.StatName} being checked");
             float value = Mathf.Round(_towerStats.GetStatValue(stat)*10)/10;
             messageBuilder += $"{value}\n";
         }
