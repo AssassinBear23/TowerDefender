@@ -234,7 +234,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8539934312319077579}
-  - component: {fileID: 4577554740099243595}
   - component: {fileID: 1650493775930702299}
   - component: {fileID: 4050190325582879983}
   - component: {fileID: 5044338822219294484}
@@ -263,20 +262,6 @@ Transform:
   - {fileID: 8552554615543813709}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4577554740099243595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8200921621368473556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b423aebc0c49e5148baf80a2beeddbee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentPlayerStats:
-    _serializedList: []
 --- !u!114 &1650493775930702299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +319,9 @@ MonoBehaviour:
   _healthStatAsset: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
   _maxHealth: 0
   _currentHealth: 0
+  OnCharDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6405970902948858703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,3 +334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0382585dfed647345b4d2f4c5d3f1d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageStat: {fileID: 11400000, guid: a99086bff58852b49b819c5ae5090910, type: 2}
+  _criticalDamageStat: {fileID: 11400000, guid: ce1c2a2f7cd8deb4f82a732f6e1d2348, type: 2}
+  _criticalChanceStat: {fileID: 11400000, guid: d4cc4dc6d56e2a043b3e160cf068c768, type: 2}
+  _damage: 0
+  _criticalDamage: 0
+  _criticalChance: 0

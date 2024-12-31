@@ -1,6 +1,5 @@
-using System;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HealthController : MonoBehaviour
 {
@@ -8,6 +7,8 @@ public class HealthController : MonoBehaviour
     [SerializeField] private Stat _healthStatAsset;
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _currentHealth;
+    public float CurrentHealth { get => _currentHealth; }
+
 
     private CharStats _charInfo;
 
@@ -17,7 +18,8 @@ public class HealthController : MonoBehaviour
     /// The bool parameter is true if the character is the player.
     /// </para>
     /// </summary>
-    public static event Action<bool> OnCharDeath;
+    [Space(20)]
+    public UnityEvent OnCharDeath;
 
     void Start()
     {
@@ -26,18 +28,23 @@ public class HealthController : MonoBehaviour
         _currentHealth = _maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    private void CheckHealth()
     {
-        _currentHealth -= damage;
-        if (_currentHealth <= 0)
+        if(_currentHealth <= 0)
         {
             Die();
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        _currentHealth -= damage;
+        CheckHealth();
+    }
+
     private void Die()
     {
-        OnCharDeath?.Invoke(_charInfo.IsTower);
+        OnCharDeath?.Invoke();
         Destroy(gameObject);
     }
 }
