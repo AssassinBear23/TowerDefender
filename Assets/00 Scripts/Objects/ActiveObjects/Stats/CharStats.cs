@@ -8,6 +8,11 @@ public class CharStats : MonoBehaviour
     [Tooltip("The stats of the tower")]
     [SerializeField] private SerializedDictionary<Stat, float> _charStats;
 
+    [Space(10)]
+
+    [SerializeField] private CharTypes _charType;
+    public CharTypes CharType { get => _charType; }
+
     /// <summary>
     /// Get the value for a certain tower stat.
     /// </summary>
@@ -61,4 +66,9 @@ public class CharStats : MonoBehaviour
         }
         _charStats = dict;
     }
+}
+public enum CharTypes
+{
+    Tower,
+    Enemy
 }

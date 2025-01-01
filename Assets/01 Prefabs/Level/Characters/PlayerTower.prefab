@@ -286,7 +286,7 @@ MonoBehaviour:
     - Key: {fileID: 11400000, guid: d4cc4dc6d56e2a043b3e160cf068c768, type: 2}
       Value: 0
     - Key: {fileID: 11400000, guid: ce1c2a2f7cd8deb4f82a732f6e1d2348, type: 2}
-      Value: 100
+      Value: 105
     - Key: {fileID: 11400000, guid: bcb6208e7b5fd8a4687243631bc3ba39, type: 2}
       Value: 0
     - Key: {fileID: 11400000, guid: a82483fe9a6c0bb42aa69a26dced6d57, type: 2}
@@ -304,7 +304,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d89965515fda6a48ba0e2d52cd951ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackController: {fileID: 6405970902948858703}
   _firePoint: {fileID: 8552554615543813709}
+  _charStats: {fileID: 1650493775930702299}
+  _attackSpeedStat: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
+  _attackSpeedValue: 0
+  _enemiesInRange: []
+  _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &5044338822219294484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,21 +330,6 @@ MonoBehaviour:
   _maxHealthValue: 0
   _currentHealthValue: 0
   _armourValue: 0
-  OnCharDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: GameOver
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &6405970902948858703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,22 +342,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0382585dfed647345b4d2f4c5d3f1d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPlayer: 1
   _damageStat: {fileID: 11400000, guid: a99086bff58852b49b819c5ae5090910, type: 2}
   _criticalDamageStat: {fileID: 11400000, guid: ce1c2a2f7cd8deb4f82a732f6e1d2348, type: 2}
   _criticalChanceStat: {fileID: 11400000, guid: d4cc4dc6d56e2a043b3e160cf068c768, type: 2}
-  _attackSpeedStat: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
   _armourPenStat: {fileID: 11400000, guid: a82483fe9a6c0bb42aa69a26dced6d57, type: 2}
   _damageValue: 0
   _criticalDamageValue: 0
   _criticalChanceValue: 0
-  _attackSpeedValue: 0
   _armourPenValue: 0
-  _enemiesInRange: []
-  _enemyLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  _attackRange: 1
 --- !u!135 &6377287026735872547
 SphereCollider:
   m_ObjectHideFlags: 0

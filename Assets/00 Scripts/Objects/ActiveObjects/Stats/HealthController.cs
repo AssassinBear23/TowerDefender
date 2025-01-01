@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,14 +14,13 @@ public class HealthController : MonoBehaviour
     [SerializeField] private float _currentHealthValue;
     [SerializeField] private float _armourValue;
     public float CurrentHealth { get => _currentHealthValue; }
-
     private CharStats _charInfo;
 
     /// <summary>
     /// Event that is invoked when the character dies. 
     /// </summary>
     [Space(20)]
-    public UnityEvent OnCharDeath;
+    public static Action<HealthController> OnCharDeath;
 
     /// <summary>
     /// Initializes the health controller by setting all the values.
@@ -75,6 +75,14 @@ public class HealthController : MonoBehaviour
     /// </summary>
     private void Die()
     {
-        OnCharDeath?.Invoke();
+        GameManager _gm = GameManager.Instance;
+        if (_charInfo.CharType != CharTypes.Tower)
+        {
+            _gm.Tower.GetComponent<TowerController>().RemoveFromList(this);
+        }
+        else
+        {
+            _gm.GameOver();
+        }
     }
 }

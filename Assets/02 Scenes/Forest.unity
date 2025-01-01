@@ -2932,17 +2932,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeleeEnemyBoss
       objectReference: {fileID: 0}
-    - target: {fileID: 6190691071496070464, guid: 8baeaaef2568241488581f1fe628d422, type: 3}
-      propertyPath: OnCharDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1353898250}
-    - target: {fileID: 8565886738197703305, guid: 8baeaaef2568241488581f1fe628d422, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.9297482
-      objectReference: {fileID: 0}
     - target: {fileID: 8565886738197703305, guid: 8baeaaef2568241488581f1fe628d422, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.75
+      value: -68
       objectReference: {fileID: 0}
     - target: {fileID: 8565886738197703305, guid: 8baeaaef2568241488581f1fe628d422, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2950,7 +2942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8565886738197703305, guid: 8baeaaef2568241488581f1fe628d422, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.994301
+      value: 2.57
       objectReference: {fileID: 0}
     - target: {fileID: 8565886738197703305, guid: 8baeaaef2568241488581f1fe628d422, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3813,21 +3805,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1140624976}
     m_Modifications:
-    - target: {fileID: 144895558853037294, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
-      propertyPath: OnCharDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1353898250}
-    - target: {fileID: 144895558853037294, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
-      propertyPath: OnCharDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1285464745886800761, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
       propertyPath: m_Name
       value: MeleeEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8565886738197703305, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.18594964
       objectReference: {fileID: 0}
     - target: {fileID: 8565886738197703305, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4690,10 +4670,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 866660395}
     m_Modifications:
-    - target: {fileID: 5044338822219294484, guid: 6146d4145b7711b4f90b053456722228, type: 3}
-      propertyPath: OnCharDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1364606035}
     - target: {fileID: 8200921621368473556, guid: 6146d4145b7711b4f90b053456722228, type: 3}
       propertyPath: m_Name
       value: PlayerTower
@@ -6624,17 +6600,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b52af98a562b9794897cd640b1eb0e75, type: 3}
   m_PrefabInstance: {fileID: 1339952182}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1353898250 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6405970902948858703, guid: 6146d4145b7711b4f90b053456722228, type: 3}
-  m_PrefabInstance: {fileID: 993708406}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0382585dfed647345b4d2f4c5d3f1d7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1364606033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6713,17 +6678,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6331848575389699907, guid: d461ad5d221f38a41ac82e27c8e23099, type: 3}
   m_PrefabInstance: {fileID: 1364606033}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1364606035 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1921404576216898766, guid: d461ad5d221f38a41ac82e27c8e23099, type: 3}
-  m_PrefabInstance: {fileID: 1364606033}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4de4747a58543db488603bec67480729, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1365925887
 GameObject:
   m_ObjectHideFlags: 0
@@ -7948,14 +7902,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeleeEnemyMiniBoss
       objectReference: {fileID: 0}
-    - target: {fileID: 7395071362669552442, guid: 3e984698d45f7554aacb1d5163a707df, type: 3}
-      propertyPath: OnCharDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1353898250}
-    - target: {fileID: 8565886738197703305, guid: 3e984698d45f7554aacb1d5163a707df, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.37189928
-      objectReference: {fileID: 0}
     - target: {fileID: 8565886738197703305, guid: 3e984698d45f7554aacb1d5163a707df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.75001526
@@ -7996,8 +7942,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7953319082690473358, guid: 3e984698d45f7554aacb1d5163a707df, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
