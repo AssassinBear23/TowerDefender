@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
+[RequireComponent(typeof(CharStats))]
 public class HealthController : MonoBehaviour
 {
     [Header("Stat References")]
@@ -76,13 +76,13 @@ public class HealthController : MonoBehaviour
     private void Die()
     {
         GameManager _gm = GameManager.Instance;
-        if (_charInfo.CharType != CharTypes.Tower)
+        if (_charInfo.CharType == CharTypes.Tower)
         {
-            _gm.Tower.GetComponent<TowerController>().RemoveFromList(this);
+            _gm.GameOver();
         }
         else
         {
-            _gm.GameOver();
+            Destroy(gameObject);
         }
     }
 }

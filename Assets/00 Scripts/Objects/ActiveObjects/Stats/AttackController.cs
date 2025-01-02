@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -19,9 +18,12 @@ public class AttackController : MonoBehaviour
     [SerializeField] private float _criticalChanceValue;
     [SerializeField] private float _armourPenValue;
 
+    private TowerController _controller;
+
     private void Start()
     {
         GetValues();
+        TryGetComponent<TowerController>(out var _controller);
     }
 
     /// <summary>
@@ -53,7 +55,7 @@ public class AttackController : MonoBehaviour
 
         bool isCrit = RollForCrit();
 
-        float _damageDealt = isCrit ? _damageValue * (_criticalDamageValue / 100) : _damageValue;
+        float _damageDealt = isCrit ? _damageValue * CalculateCriticalDamage() : _damageValue;
 
         _toDamageChar.TakeDamage(_damageDealt, _armourPenValue);
     }
@@ -64,11 +66,24 @@ public class AttackController : MonoBehaviour
     /// <returns>True if the attack is a critical hit, otherwise false.</returns>
     private bool RollForCrit()
     {
-        float roll = Random.Range(0, 100);
-        return roll <= _criticalChanceValue;
+        return Random.Range(0, 100) <= _criticalChanceValue;
     }
 
-    private void OnValidate()   
+    /// <summary>
+    /// Calculates the critical damage based on the critical chance value.
+    /// </summary>
+    /// <returns>The calculated critical damage as a percentage.</returns>
+    private float CalculateCriticalDamage()
+    {
+        // If the critical chance is less than 100, then return _criticalDamageValue as a percentage
+        if (_criticalChanceValue < 100) return _criticalDamageValue / 100;
+
+        // Otherwise return the _criticalDamageValue added with the excess of the _criticalChanceValue
+        // and return that as a percentage
+        else return (_criticalDamageValue + (_criticalChanceValue - 100)) / 100;
+    }
+
+    private void OnValidate()
     {
         if (_damageStat == null)
         {

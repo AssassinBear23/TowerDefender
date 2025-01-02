@@ -46,7 +46,12 @@ public class TowerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(CanAttack() && _enemiesInRange.Count > 0)
+        if (_enemiesInRange.Count != 0 && _enemiesInRange[0] == null)
+        {
+            _enemiesInRange.RemoveAt(0);
+        }
+
+        if (CanAttack() && _enemiesInRange.Count > 0)
         {
             _attackController.DoAttack(_enemiesInRange[0]);
             _lastAttackTime = Time.time;
