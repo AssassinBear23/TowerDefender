@@ -1,4 +1,19 @@
-Implement correct spawning (again)
- - Needs to instantiate the already existing instances.
- - Possible relook into the wave asset
- - 
+﻿TODO
+│
+├ SCRIPTS
+|	├ WaveSpawner.cs
+│	│	├ Add a dictionary to WaveManager to have a reference for each enemy type
+│	│	└ Change the way the wave is spawned to use the dictionary
+|	└ ItemDrop.cs
+│		└ Implement functionality to drop items on OnDestroy()
+|
+├ SCRIPTABLEOBJECTS
+│	├ Wave
+│	|	└ Setup the waves and their settings correctly
+|	└ Level
+│		└ Set the level data for Forest scene
+│
+└ VISUALS
+	├ Add VFX to the attacking to give feedback
+	├ Add a healthbar to the enemies and tower
+	└ Add a particleSystem to the tower that plays on an attack from the tower

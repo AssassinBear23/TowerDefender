@@ -23,7 +23,7 @@ public class WaveManager : MonoBehaviour
         GetNextWave();
     }
 
-    public void StartNextWave()
+    public void StartWave()
     {
         if (_currentWave == null) return;
         List<AbstractEnemy> enemies = new(_currentWave.Enemies);
@@ -49,7 +49,7 @@ public class WaveManager : MonoBehaviour
         // Create a button at the top-left corner of the screen
         if (GUI.Button(new Rect(10, 10, 150, 30), "Start Next Wave"))
         {
-            StartNextWave();
+            StartWave();
         }
     }
 }
