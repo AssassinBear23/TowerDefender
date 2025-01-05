@@ -8,14 +8,28 @@ public class Spawner : MonoBehaviour
     public List<GameObject> ToSpawnWave { set => _toSpawnWave = value; }
     [SerializeField] private Transform _parentTransform;
 
-    [SerializeField] private float _timeBetweenEnemies = 2f;
+    [SerializeField] private float _baseTimeBetweenEnemies = 2f;
+    private List<float> _timeBetweenEnemies = new();
+
+    public void GetSpawnTimes()
+    {
+        for (int i = 1; i < _toSpawnWave.Count; i++)
+        {
+            Vector3 bounds = _toSpawnWave[i].GetComponent<AbstractEnemy>().GetBounds();
+            float _toAddTime = .1f * Mathf.Pow(bounds.x,1.9f) + _baseTimeBetweenEnemies;
+            _timeBetweenEnemies.Add(_toAddTime);
+        }
+        Debug.Log("Spawn times have been calculated" + _timeBetweenEnemies);
+    }
 
     public IEnumerator StartWave()
     {
-        foreach (var enemy in _toSpawnWave)
+        GetSpawnTimes();
+        for (int i = 0; i < _toSpawnWave.Count; i++)
         {
-            Instantiate(original: enemy, position: transform.position, rotation: Quaternion.identity, parent: _parentTransform);
-            yield return new WaitForSeconds(_timeBetweenEnemies);
+            Instantiate(original: _toSpawnWave[i], position: transform.position, rotation: Quaternion.identity, parent: _parentTransform);
+            Debug.Log("Waint for " + _timeBetweenEnemies[i] + " seconds");
+            if(i != _toSpawnWave.Count - 1) yield return new WaitForSeconds(_timeBetweenEnemies[i]);
         }
         Debug.Log("Wave has ended");
     }

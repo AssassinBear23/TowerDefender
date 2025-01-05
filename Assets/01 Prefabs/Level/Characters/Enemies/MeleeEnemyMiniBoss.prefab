@@ -78,12 +78,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 6472295909586751251}
-  _tower: {fileID: 0}
+  _target: {fileID: 0}
   _attackController: {fileID: 3861896277635585441}
   _attackSpeedStat: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
   attackSpeedValue: 0
   _attackRange: 1
   moveSpeedValue: 1.5
+  shouldDebug: 0
 --- !u!114 &3861896277635585441
 MonoBehaviour:
   m_ObjectHideFlags: 0

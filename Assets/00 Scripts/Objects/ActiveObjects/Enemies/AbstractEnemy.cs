@@ -24,6 +24,12 @@ abstract public class AbstractEnemy : MonoBehaviour
     [SerializeField] protected bool shouldDebug = true;
 
     private MeshRenderer _mr;
+    /// <summary>
+    /// Returns the size of the mesh renderer associated with this enemy.
+    /// </summary>
+    /// <returns>The size of the mesh renderer as a Vector3.</returns>
+    public Vector3 GetBounds() { return _mr.bounds.size; }
+
     private float _lastAttackTime;
 
     virtual public void Start()

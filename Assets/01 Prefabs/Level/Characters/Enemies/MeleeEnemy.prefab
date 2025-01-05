@@ -84,7 +84,7 @@ MonoBehaviour:
   _attackSpeedStat: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
   attackSpeedValue: 0
   _attackRange: 3
-  moveSpeedValue: 2
+  moveSpeedValue: 1
   shouldDebug: 0
 --- !u!114 &7022941682122417362
 MonoBehaviour:

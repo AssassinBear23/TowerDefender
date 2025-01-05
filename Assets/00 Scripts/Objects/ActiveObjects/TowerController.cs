@@ -82,15 +82,15 @@ public class TowerController : MonoBehaviour
     /// <param name="other">The collider that entered the trigger.</param>
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Trigger entered with {other.name}");
+        //Debug.Log($"Trigger entered with {other.name}");
         if (other.transform.parent.TryGetComponent<HealthController>(out var parentHealthController))
         {
-            Debug.Log($"Adding {parentHealthController.name} to the list");
+            //Debug.Log($"Adding {parentHealthController.name} to the list");
             _enemiesInRange.Add(parentHealthController);
         }
         else if (other.TryGetComponent<HealthController>(out var healthController))
         {
-            Debug.Log($"Adding {healthController.name} from the list");
+            //Debug.Log($"Adding {healthController.name} to the list");
             _enemiesInRange.Add(healthController);
         }
     }
