@@ -29,7 +29,7 @@ public class WaveManager : MonoBehaviour
         List<GameObject> enemies = new(_currentWave.Enemies);
         foreach (var spawner in spawners)
         {
-            spawner.SetEnemiesToSpawn(enemies);
+            spawner.ToSpawnWave = enemies;
             StartCoroutine(spawner.StartWave());
         }
         GetNextWave();

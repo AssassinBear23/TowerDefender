@@ -41,17 +41,23 @@ abstract public class AbstractEnemy : MonoBehaviour
         if (_attackController == null) _attackController = GetComponent<AttackController>();
 
         _lastAttackTime = Time.time;
-        
+
+        GetMeshRenderer();
         _attackRange += _mr.bounds.extents.x;
     }
 
     private void OnValidate()
     {
-        if(_mr == null)
+        GetMeshRenderer();
+    }
+
+    private void GetMeshRenderer()
+    {
+        if (_mr == null)
         {
             _mr = GetComponent<MeshRenderer>();
         }
-        if(_mr == null)
+        if (_mr == null)
         {
             _mr = GetComponentInChildren<MeshRenderer>();
         }

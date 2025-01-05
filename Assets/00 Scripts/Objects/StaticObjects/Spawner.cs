@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
     public List<GameObject> ToSpawnWave { set => _toSpawnWave = value; }
     [SerializeField] private Transform _parentTransform;
 
-    [SerializeField] private readonly float _timeBetweenEnemies = 1;
+    [SerializeField] private float _timeBetweenEnemies = 2f;
 
     public IEnumerator StartWave()
     {

@@ -3537,6 +3537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentTransform: {fileID: 874339175}
+  _timeBetweenEnemies: 1.5
 --- !u!1001 &763427692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3684,6 +3685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentTransform: {fileID: 874339175}
+  _timeBetweenEnemies: 1.5
 --- !u!114 &780421022 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3078444543003137252, guid: d861e2be692f42e4fbd85ebcffaabb7d, type: 3}
@@ -3740,6 +3742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentTransform: {fileID: 874339175}
+  _timeBetweenEnemies: 1.5
 --- !u!1001 &839396410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4578,7 +4581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8539934312319077579, guid: 6146d4145b7711b4f90b053456722228, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9238798
       objectReference: {fileID: 0}
     - target: {fileID: 8539934312319077579, guid: 6146d4145b7711b4f90b053456722228, type: 3}
       propertyPath: m_LocalRotation.x
@@ -4586,7 +4589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8539934312319077579, guid: 6146d4145b7711b4f90b053456722228, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.38268274
       objectReference: {fileID: 0}
     - target: {fileID: 8539934312319077579, guid: 6146d4145b7711b4f90b053456722228, type: 3}
       propertyPath: m_LocalRotation.z
@@ -4598,7 +4601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8539934312319077579, guid: 6146d4145b7711b4f90b053456722228, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 8539934312319077579, guid: 6146d4145b7711b4f90b053456722228, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -7089,6 +7092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentTransform: {fileID: 874339175}
+  _timeBetweenEnemies: 1.5
 --- !u!1 &1656100604
 GameObject:
   m_ObjectHideFlags: 0
