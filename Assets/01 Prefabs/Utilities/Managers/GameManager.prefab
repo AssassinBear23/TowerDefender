@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de4747a58543db488603bec67480729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManager: {fileID: 0}
+  Tower: {fileID: 0}
   player: {fileID: 0}
-  levelMovementSpeed: 5
-  levelMovementScale: 0.1
-  distanceTraveled: 0
+  UIManager: {fileID: 0}
+  ItemManager: {fileID: 0}
+  Wave: 0
+  _levelData: {fileID: 11400000, guid: 264971adecfd1a8459951f99914a49aa, type: 2}
+  gameOverPageIndex: 0

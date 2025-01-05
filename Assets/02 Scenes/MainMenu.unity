@@ -1665,26 +1665,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7400136021446635536, guid: c4be62a7231c7294ca6e3f6d0e0b97d2, type: 3}
-      propertyPath: debug
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7400136021446635536, guid: c4be62a7231c7294ca6e3f6d0e0b97d2, type: 3}
-      propertyPath: allowPause
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7400136021446635536, guid: c4be62a7231c7294ca6e3f6d0e0b97d2, type: 3}
-      propertyPath: pages.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7400136021446635536, guid: c4be62a7231c7294ca6e3f6d0e0b97d2, type: 3}
-      propertyPath: pages.Array.data[0]
-      value: 
-      objectReference: {fileID: 421050870}
-    - target: {fileID: 7400136021446635536, guid: c4be62a7231c7294ca6e3f6d0e0b97d2, type: 3}
-      propertyPath: pages.Array.data[1]
-      value: 
-      objectReference: {fileID: 193529602}
     - target: {fileID: 781937089007868199, guid: 84d4e7d7969283841bd5ad7dc6c2d60c, type: 3}
       propertyPath: m_Name
       value: UIManager
@@ -1749,6 +1729,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7400136021446635536, guid: c4be62a7231c7294ca6e3f6d0e0b97d2, type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400136021446635536, guid: c4be62a7231c7294ca6e3f6d0e0b97d2, type: 3}
+      propertyPath: allowPause
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400136021446635536, guid: c4be62a7231c7294ca6e3f6d0e0b97d2, type: 3}
+      propertyPath: pages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400136021446635536, guid: c4be62a7231c7294ca6e3f6d0e0b97d2, type: 3}
+      propertyPath: pages.Array.data[0]
+      value: 
+      objectReference: {fileID: 421050870}
+    - target: {fileID: 7400136021446635536, guid: c4be62a7231c7294ca6e3f6d0e0b97d2, type: 3}
+      propertyPath: pages.Array.data[1]
+      value: 
+      objectReference: {fileID: 193529602}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2096,6 +2096,82 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2868251132804125036, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_Name
+      value: InputManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925877726583933237, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: playerControlsEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925877726583933237, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: playerGameControlsEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: BasicControls
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_ActionId
+      value: 41095767-93ad-4a9b-8e18-850a3c378bf1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionId
+      value: 82b0b739-2b2f-4dc4-90dd-4412c0aee743
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_ActionName
+      value: BasicControls/Pause[/Keyboard/escape,/Keyboard/p]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionName
+      value: BasicControls/Shield[/Keyboard/space,/Keyboard/s]
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4148527288937401465, guid: 0230c861c3fc1a24fbd3e60ed9c822e6, type: 3}
       propertyPath: m_Actions
       value: 
@@ -2387,82 +2463,6 @@ PrefabInstance:
     - target: {fileID: 4148527288937401465, guid: 0230c861c3fc1a24fbd3e60ed9c822e6, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 2868251132804125036, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_Name
-      value: InputManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925877726583933237, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: playerControlsEnabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925877726583933237, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: playerGameControlsEnabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_DefaultActionMap
-      value: BasicControls
-      objectReference: {fileID: 0}
-    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_ActionId
-      value: 41095767-93ad-4a9b-8e18-850a3c378bf1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_ActionId
-      value: 82b0b739-2b2f-4dc4-90dd-4412c0aee743
-      objectReference: {fileID: 0}
-    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_ActionName
-      value: BasicControls/Pause[/Keyboard/escape,/Keyboard/p]
-      objectReference: {fileID: 0}
-    - target: {fileID: 4148527288937401465, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_ActionName
-      value: BasicControls/Shield[/Keyboard/space,/Keyboard/s]
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990513964286109402, guid: 21759e002e9bf3b499c53a0615543382, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3121,8 +3121,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1921404576216898766, guid: e676577c33009774bb822b852867849a, type: 3}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 774873545}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MeleeWave_3x
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 2541560605915584751, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
-  - {fileID: 2541560605915584751, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
-  - {fileID: 2541560605915584751, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
+  - {fileID: 1561924441861365343, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   isMiniBossWave: 0
   isBossWave: 0

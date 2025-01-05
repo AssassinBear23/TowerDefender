@@ -45,11 +45,6 @@ public class GameManager : MonoBehaviour
         SetupSingleton();
     }
 
-    private void Start()
-    {
-        SubscribeToEvents();
-    }
-
     /// <summary>
     /// Set up the GameManager Singleton.
     /// </summary>
@@ -63,11 +58,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-    }
-
-    private void SubscribeToEvents()
-    {
-        //CharacterController.PlayerDeath += GameOver;
     }
 
     #endregion SetupMethods
@@ -87,14 +77,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void QuitGame()
-    {
-#if UNITY_EDITOR
-        Debug.Log("Quiting Application");
-#endif
-        StaticMethods.QuitApplication();
-    }
-
     //===================================== END GAME FUNCTIONALITY =========================================
 
     [Header("Game Over")]
@@ -103,7 +85,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Loads the game over scene.
     /// </summary>
-    void GameOver()
+    public void GameOver()
     {
         Time.timeScale = 0;
         Debug.Log("Game Over");

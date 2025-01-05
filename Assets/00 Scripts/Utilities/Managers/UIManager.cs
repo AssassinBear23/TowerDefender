@@ -273,6 +273,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        Debug.Log("Quiting Application");
+#endif
+        StaticMethods.QuitApplication();
+    }
+
     #endregion
-    #endregion Methods
+    #endregion
 }

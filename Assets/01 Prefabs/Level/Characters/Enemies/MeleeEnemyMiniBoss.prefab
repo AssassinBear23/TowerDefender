@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8565886738197703305}
-  - component: {fileID: -1550731165189180221}
-  - component: {fileID: 2541560605915584751}
-  - component: {fileID: -5671813008837116625}
-  - component: {fileID: -1789353410128315382}
-  m_Layer: 0
+  - component: {fileID: 4133834384301435418}
+  - component: {fileID: 4732338427769532996}
+  - component: {fileID: 3861896277635585441}
+  - component: {fileID: 2525894658748468286}
+  m_Layer: 8
   m_Name: MeleeEnemyMiniBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,15 +28,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285464745886800761}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.37189928, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1555782507850830314}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1550731165189180221
+--- !u!114 &4133834384301435418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,8 +64,8 @@ MonoBehaviour:
       Value: 3
     - Key: {fileID: 11400000, guid: a82483fe9a6c0bb42aa69a26dced6d57, type: 2}
       Value: 1
-  _charType: 2
---- !u!114 &2541560605915584751
+  _charType: 1
+--- !u!114 &4732338427769532996
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,22 +77,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aea284a84afa8e4cb00826e592ff0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-5671813008837116625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1285464745886800761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 991bc12d12167954ab1598b18407e96b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healthStatAsset: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
-  _maxHealth: 0
-  _currentHealth: 0
---- !u!114 &-1789353410128315382
+  _characterController: {fileID: 6472295909586751251}
+  _target: {fileID: 0}
+  _attackController: {fileID: 3861896277635585441}
+  _attackSpeedStat: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
+  attackSpeedValue: 0
+  _attackRange: 1
+  moveSpeedValue: 1.5
+  shouldDebug: 0
+--- !u!114 &3861896277635585441
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,6 +97,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0382585dfed647345b4d2f4c5d3f1d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageStat: {fileID: 11400000, guid: a99086bff58852b49b819c5ae5090910, type: 2}
+  _criticalDamageStat: {fileID: 11400000, guid: ce1c2a2f7cd8deb4f82a732f6e1d2348, type: 2}
+  _criticalChanceStat: {fileID: 11400000, guid: d4cc4dc6d56e2a043b3e160cf068c768, type: 2}
+  _armourPenStat: {fileID: 11400000, guid: a82483fe9a6c0bb42aa69a26dced6d57, type: 2}
+  _damageValue: 0
+  _criticalDamageValue: 0
+  _criticalChanceValue: 0
+  _armourPenValue: 0
+--- !u!114 &2525894658748468286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285464745886800761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991bc12d12167954ab1598b18407e96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthStat: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
+  _armourStat: {fileID: 11400000, guid: bcb6208e7b5fd8a4687243631bc3ba39, type: 2}
+  _maxHealthValue: 0
+  _currentHealthValue: 0
+  _armourValue: 0
 --- !u!1 &5548524973449171622
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +134,8 @@ GameObject:
   - component: {fileID: 9180663904405581575}
   - component: {fileID: 2602140850820240505}
   - component: {fileID: 1283567640249061533}
-  m_Layer: 0
+  - component: {fileID: 6472295909586751251}
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,4 +227,30 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!143 &6472295909586751251
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5548524973449171622}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1
+  m_Radius: 0.50000095
+  m_SlopeLimit: 0
+  m_StepOffset: 0
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
