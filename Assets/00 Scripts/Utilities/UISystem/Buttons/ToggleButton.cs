@@ -1,7 +1,6 @@
 using System;
 using TMPro;
 using UnityEngine;
-using static GameDebug;
 
 public class ToggleButton : Button
 {
@@ -37,24 +36,5 @@ public class ToggleButton : Button
     public virtual void ToggleState(Transform var)
     {
         var.gameObject.SetActive(!var.gameObject.activeSelf);
-    }
-
-    public DebugFlagsEnum flagToToggle;
-
-    /// <summary>
-    /// Toggles the specified debug flag.
-    /// </summary>
-    public void ToggleDebugFlag()
-    {
-        if (GameDebug.IsDebugFlagEnabled(flagToToggle))
-        {
-            GameDebug.DisableDebugFlag(flagToToggle);
-            GameManager.Instance.UIManager.UpdateElements();
-        }
-        else
-        {
-            GameDebug.EnableDebugFlag(flagToToggle);
-            GameManager.Instance.UIManager.UpdateElements();
-        }
     }
 }

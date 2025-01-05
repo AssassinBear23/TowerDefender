@@ -12,74 +12,107 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e19ce7104a3a234680e756ee475f587, type: 3}
   m_Name: 1_Forest
   m_EditorClassIdentifier: 
-  strengthMultiplier: 1.1
+  _startStrengthMultiplier: 1
+  _strengthMultiplier: 1.1
   waves:
-  - {fileID: 11400000, guid: 30be59a6823cfa042883b6769b984819, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
-  - {fileID: 11400000, guid: 45136a241ad4a0e45ad8905e7d64f891, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   levelSceneName: Forest
