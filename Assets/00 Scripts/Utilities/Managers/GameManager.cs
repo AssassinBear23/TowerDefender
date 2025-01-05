@@ -77,14 +77,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void QuitGame()
-    {
-#if UNITY_EDITOR
-        Debug.Log("Quiting Application");
-#endif
-        StaticMethods.QuitApplication();
-    }
-
     //===================================== END GAME FUNCTIONALITY =========================================
 
     [Header("Game Over")]
