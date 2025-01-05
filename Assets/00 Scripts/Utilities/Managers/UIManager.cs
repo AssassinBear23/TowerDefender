@@ -80,7 +80,6 @@ public class UIManager : MonoBehaviour
     {
         SetupInputManager();
         SetupEventSystem();
-        if (debugOn) SetupDebug();
         UpdateElements();
     }
 
@@ -144,27 +143,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    [Header("Debug")]
-    [SerializeField] private bool debugOn;
-    [Space(10)]
-    [SerializeField] private GameDebug.DebugFlagsEnum debugFlags;
-    [SerializeField] private TMPro.TMP_Text debugText;
-    [SerializeField] private int debugTextSize = 24;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private void SetupDebug()
-    {
-        GameDebug.SetupDebug(debugText, debugTextSize, debugFlags);
-    }
-
-    public void ToggleDebug()
-    {
-        debugOn = !debugOn;
-        if(debugOn) SetupDebug(); 
-        else debugText.gameObject.SetActive(false);
-    }
     #endregion Setup Methods
 
     //=========================================== FUNCTIONAL METHODS ===========================================
@@ -176,7 +154,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void UpdateElements()
     {
-        if (debugOn) GameDebug.UpdateDebug();
         GetUIElements();
         foreach (UIElement element in UIElements)
         {

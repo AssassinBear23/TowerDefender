@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewStat", menuName = "Core/Tower/Stat")]

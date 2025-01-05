@@ -8,11 +8,16 @@ public class Level : ScriptableObject
 {
     [Space(10)]
     [Header("Level Settings")]
-    [SerializeField] private float strengthMultiplier = 1.1f;
+    [SerializeField] private float _startStrengthMultiplier = 1f;
+    /// <summary>
+    /// The general Strength multiplier for the level
+    /// </summary>
+    public float StartStrengthMultiplier { get => _startStrengthMultiplier; }
+    [SerializeField] private float _strengthMultiplier = 1.1f;
     /// <summary>
     /// The rate at which enemies get stronger as the waves progress
     /// </summary>
-    public float StrengthMultiplier { get => strengthMultiplier; }
+    public float StrengthMultiplier { get => _strengthMultiplier; }
 
     [SerializeField] private List<Wave> waves;
     /// <summary>
