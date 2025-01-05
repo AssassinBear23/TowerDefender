@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    private List<AbstractEnemy> _toSpawnWave;
-    public void SetEnemiesToSpawn(List<AbstractEnemy> enemies) => _toSpawnWave = enemies;
+    private List<GameObject> _toSpawnWave;
+    public List<GameObject> ToSpawnWave { set => _toSpawnWave = value; }
     [SerializeField] private Transform _parentTransform;
 
     [SerializeField] private readonly float _timeBetweenEnemies = 1;

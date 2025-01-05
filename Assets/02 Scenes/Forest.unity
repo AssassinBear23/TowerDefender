@@ -1418,7 +1418,7 @@ MonoBehaviour:
   _time: 1
   _xPositionRetracted: -501
   _xPositionExtended: 0
-  _isExtended: 1
+  _isExtended: 0
   _sceneCamera: {fileID: 89740590}
 --- !u!114 &342248293
 MonoBehaviour:

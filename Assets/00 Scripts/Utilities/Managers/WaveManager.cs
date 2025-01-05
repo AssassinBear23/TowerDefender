@@ -26,7 +26,7 @@ public class WaveManager : MonoBehaviour
     public void StartWave()
     {
         if (_currentWave == null) return;
-        List<AbstractEnemy> enemies = new(_currentWave.Enemies);
+        List<GameObject> enemies = new(_currentWave.Enemies);
         foreach (var spawner in spawners)
         {
             spawner.SetEnemiesToSpawn(enemies);
