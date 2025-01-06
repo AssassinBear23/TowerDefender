@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1945962895152534352}
   - component: {fileID: 1302246490670563085}
   m_Layer: 0
-  m_Name: ItemPickUpLevel1
+  m_Name: ItemPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 279d2ee84e5c9914abbf4c8a0c2a71d0, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,7 +100,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcc4d61737d0324fa1f6fb7cb673101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _item: {fileID: 0}
+  _item: {fileID: 11400000, guid: 40494b218098f2c47bd4140b0b0e8d66, type: 2}
+  _light: {fileID: 7126040231839404225}
+  _materialPrefab: {fileID: 2100000, guid: 279d2ee84e5c9914abbf4c8a0c2a71d0, type: 2}
+  _mr: {fileID: 4455058621291135514}
+  _commonColor: {r: 0.7924528, g: 0.78123885, b: 0.78123885, a: 1}
+  _rareColor: {r: 0.19999996, g: 0.8682109, b: 0.93333334, a: 1}
+  _epicColor: {r: 0.8962264, g: 0.08877714, b: 0.08877714, a: 1}
+  _materialAlpha: 0.75
 --- !u!65 &2432917600002855329
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -133,7 +140,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.19999996, g: 0.8682109, b: 0.93333334, a: 1}
   m_Intensity: 1.5
   m_Range: 5
   m_SpotAngle: 30

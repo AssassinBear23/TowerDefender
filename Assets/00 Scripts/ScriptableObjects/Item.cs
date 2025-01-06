@@ -1,7 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Core/Tower/Item")]
+[CreateAssetMenu(fileName = "NewItem", menuName = "Core/Items/Item")]
 public class Item : ScriptableObject
 {
     [Header("Item Information")]
@@ -13,8 +13,8 @@ public class Item : ScriptableObject
     public Sprite GetItemIcon { get => _itemIcon;  }
 
     [Tooltip("The tier of the Item")]
-    [SerializeField] private int _itemLevel;
-    public int ItemLevel { get => _itemLevel; }
+    [SerializeField] private ItemRarity _itemLevel;
+    public ItemRarity ItemLevel { get => _itemLevel; }
 
     [Tooltip("The stats of the item")]
     [SerializeField] private SerializedDictionary<Stat, float> _statModifiers;

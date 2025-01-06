@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Rock Foundation
   _itemIcon: {fileID: 21300000, guid: f5618540e89ffda4f804c01d71df4ac4, type: 3}
-  _itemLevel: 3
+  _itemLevel: 2
   _statModifiers:
     _serializedList:
     - Key: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
