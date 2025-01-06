@@ -80,10 +80,11 @@ MonoBehaviour:
   _characterController: {fileID: 6472295909586751251}
   _target: {fileID: 0}
   _attackController: {fileID: 3861896277635585441}
+  _healthBar: {fileID: 0}
   _attackSpeedStat: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
   attackSpeedValue: 0
   _attackRange: 1
-  moveSpeedValue: 1.5
+  moveSpeedValue: 2
   shouldDebug: 0
 --- !u!114 &3861896277635585441
 MonoBehaviour:
@@ -117,11 +118,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991bc12d12167954ab1598b18407e96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthBar: {fileID: 0}
   _healthStat: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
   _armourStat: {fileID: 11400000, guid: bcb6208e7b5fd8a4687243631bc3ba39, type: 2}
   _maxHealthValue: 0
   _currentHealthValue: 0
   _armourValue: 0
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5548524973449171622
 GameObject:
   m_ObjectHideFlags: 0

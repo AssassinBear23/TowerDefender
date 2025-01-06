@@ -4,29 +4,42 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private HealthController _healthController;
-    [SerializeField] private Slider _healthSlider;
 
-    private void Start()
+    [Header("Health Bar Settings")]
+    [SerializeField] private Slider _slider;
+    [SerializeField] private Image _fill;
+    [SerializeField] private Gradient _gradient;
+
+    public void Start()
     {
-        if (_healthController == null)
-        {
-            Debug.LogError("HealthController reference is missing.");
-            return;
-        }
-
-        if (_healthSlider == null)
-        {
-            Debug.LogError("HealthSlider reference is missing.");
-            return;
-        }
-
-        // Initialize the health bar
-        _healthSlider.maxValue = _healthController.CurrentHealth;
-        _healthSlider.value = _healthController.CurrentHealth;
+        Debug.Log("HealthBar has started");
+        UpdateMaxHealth();
+        UpdateHealth();
+        SetColor();
     }
 
-    public void UpdateHealthBar()
+    public void UpdateMaxHealth()
     {
-        _healthSlider.value = _healthController.CurrentHealth;
+        _slider.maxValue = _healthController.MaxHealth;
+        SetColor();
+    }
+
+    public void UpdateHealth()
+    {
+        _slider.value = _healthController.CurrentHealth;
+        SetColor();
+        if (_slider.value == _slider.maxValue)
+        {
+            _fill.enabled = false;
+        }
+        else
+        {
+             _fill.enabled = true;
+        }
+    }
+
+    public void SetColor()
+    {
+        _fill.color = _gradient.Evaluate(_slider.normalizedValue);
     }
 }

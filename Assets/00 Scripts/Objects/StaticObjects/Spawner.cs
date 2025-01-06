@@ -9,7 +9,21 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Transform _parentTransform;
 
     [SerializeField] private float _baseTimeBetweenEnemies = 2f;
-    private List<float> _timeBetweenEnemies = new();
+    private readonly List<float> _timeBetweenEnemies = new();
+
+    [Header("Health Bar Settings")]
+    [SerializeField] private Canvas _canvas;
+    [SerializeField] private Camera _camera;
+
+    private float _distanceToTowerSquared;
+
+    private void Start()
+    {
+        Vector3 _towerPositionn = GameManager.Instance.Tower.transform.position;
+        _distanceToTowerSquared = new Vector2(transform.position.x - _towerPositionn.x
+                                             ,transform.position.z - _towerPositionn.z)
+                                             .sqrMagnitude;
+    }
 
     public void GetSpawnTimes()
     {
@@ -22,14 +36,21 @@ public class Spawner : MonoBehaviour
         Debug.Log("Spawn times have been calculated" + _timeBetweenEnemies);
     }
 
+    /// <summary>
+    /// Starts the wave of enemies by instantiating each enemy in the list with a delay between each spawn.
+    /// </summary>
+    /// <returns>IEnumerator for coroutine handling.</returns>
     public IEnumerator StartWave()
     {
         GetSpawnTimes();
         for (int i = 0; i < _toSpawnWave.Count; i++)
         {
-            Instantiate(original: _toSpawnWave[i], position: transform.position, rotation: Quaternion.identity, parent: _parentTransform);
+            GameObject _instantiated = Instantiate(original: _toSpawnWave[i], position: transform.position, rotation: Quaternion.identity, parent: _parentTransform);
+            AbstractEnemy _aeComponent = _instantiated.GetComponent<AbstractEnemy>();
+            _aeComponent.SetupHealthBar(_canvas, _camera);
+            _aeComponent.TotalDistance = _distanceToTowerSquared;
             Debug.Log("Waint for " + _timeBetweenEnemies[i] + " seconds");
-            if(i != _toSpawnWave.Count - 1) yield return new WaitForSeconds(_timeBetweenEnemies[i]);
+            if (i != _toSpawnWave.Count - 1) yield return new WaitForSeconds(_timeBetweenEnemies[i]);
         }
         Debug.Log("Wave has ended");
     }

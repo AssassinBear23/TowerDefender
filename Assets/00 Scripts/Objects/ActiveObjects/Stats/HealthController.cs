@@ -1,9 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(CharStats))]
 public class HealthController : MonoBehaviour
 {
+    [Header("Setup")]
+    [Tooltip("The health bar for the character")]
+    [SerializeField] private HealthBar _healthBar;
+
     [Header("Stat References")]
     [SerializeField] private Stat _healthStat;
     [SerializeField] private Stat _armourStat;
@@ -13,19 +18,28 @@ public class HealthController : MonoBehaviour
     [SerializeField] private float _maxHealthValue;
     [SerializeField] private float _currentHealthValue;
     [SerializeField] private float _armourValue;
+
+    public float MaxHealth { get => _maxHealthValue; }
+    /// <summary>
+    /// The current health of the character.
+    /// </summary>
     public float CurrentHealth { get => _currentHealthValue; }
+
     private CharStats _charInfo;
+
+
 
     /// <summary>
     /// Event that is invoked when the character dies. 
     /// </summary>
     [Space(20)]
-    public static Action<HealthController> OnCharDeath;
+    public UnityEvent OnDamage;
+    public UnityEvent OnDeath;
 
     /// <summary>
     /// Initializes the health controller by setting all the values.
     /// </summary>
-    void Start()
+    void OnEnable()
     {
         _charInfo = GetComponent<CharStats>();
         _maxHealthValue = _charInfo.GetStatValue(_healthStat);
@@ -54,6 +68,7 @@ public class HealthController : MonoBehaviour
     {
         if (_currentHealthValue <= 0)
         {
+            OnDeath?.Invoke();
             Die();
         }
     }
@@ -68,6 +83,7 @@ public class HealthController : MonoBehaviour
         float _finalDamage = damage - _armourLeft;
         _currentHealthValue -= _finalDamage;
         CheckHealth();
+        OnDamage?.Invoke();
     }
 
     /// <summary>
@@ -82,6 +98,7 @@ public class HealthController : MonoBehaviour
         }
         else
         {
+            Destroy(_healthBar.gameObject);
             Destroy(gameObject);
         }
     }

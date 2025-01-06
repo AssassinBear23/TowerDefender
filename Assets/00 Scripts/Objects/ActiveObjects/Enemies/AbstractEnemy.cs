@@ -4,9 +4,14 @@ using UnityEngine;
 abstract public class AbstractEnemy : MonoBehaviour
 {
     [Header("Setup")]
+    [Tooltip("The character controller for the enemy")]
     [SerializeField] private CharacterController _characterController;
+    [Tooltip("The target for the enemy")]
     [SerializeField] private HealthController _target;
+    [Tooltip("The attack controller for the enemy")]
     [SerializeField] private AttackController _attackController;
+    [Tooltip("The health bar for the enemy")]
+    [SerializeField] private HealthBar _healthBar;
 
     [Header("Stats")]
     [Tooltip("The speed stat reference")]
@@ -21,6 +26,7 @@ abstract public class AbstractEnemy : MonoBehaviour
     [SerializeField] protected float moveSpeedValue = 1f;
 
     [Space(50)]
+    [Tooltip("Should debug messages be shown?")]
     [SerializeField] protected bool shouldDebug = true;
 
     private MeshRenderer _mr;
@@ -31,6 +37,9 @@ abstract public class AbstractEnemy : MonoBehaviour
     public Vector3 GetBounds() { return _mr.bounds.size; }
 
     private float _lastAttackTime;
+
+    private float _totalDistance;
+    public float TotalDistance { get => _totalDistance; set => _totalDistance = value; }
 
     virtual public void Start()
     {
@@ -145,10 +154,29 @@ abstract public class AbstractEnemy : MonoBehaviour
         else return false;
     }
 
+    /// <summary>
+    /// Sets up the health bar for the enemy.
+    /// </summary>
+    /// <param name="_canvas">The canvas to which the health bar will be attached.</param>
+    /// <param name="_camera">The camera that the health bar will face.</param>
+    public void SetupHealthBar(Canvas _canvas, Camera _camera)
+    {
+        if (!TryGetComponent<HealthController>(out var _healthController))
+        {
+            Debug.Log("Enemy doesn't have a healthcontroller component, removing healthbar");
+            _healthBar.gameObject.SetActive(false);
+            return;
+        }
+
+        _healthBar.transform.SetParent(_canvas.transform);
+        FaceCamera _faceCamera = _healthBar.GetComponent<FaceCamera>();
+        _faceCamera.Camera = _camera;
+    }
+
     protected void OnDrawGizmos()
     {
         if (!shouldDebug) return;
-        Gizmos.color = new Color(1f,0f,0f,.4f);
+        Gizmos.color = new Color(1f, 0f, 0f, .4f);
         Gizmos.DrawSphere(_mr.bounds.center, _attackRange);
     }
 }
