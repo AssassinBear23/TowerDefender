@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -48,6 +49,8 @@ public class UIManager : MonoBehaviour
     // A list of all UIElements classes
     private List<UIElement> UIElements;
 
+    [SerializeField] private StatDisplay _statDisplay;
+
     // The event system that manages UI navigation
     [HideInInspector] public EventSystem eventSystem;
     // The input manager to list for pausing
@@ -78,8 +81,6 @@ public class UIManager : MonoBehaviour
     {
         SetupInputManager();
         SetupEventSystem();
-        if (debugOn) SetupDebug();
-        UpdateElements();
     }
 
     /// <summary>
@@ -102,7 +103,7 @@ public class UIManager : MonoBehaviour
     {
         if (inputManager == null)
         {
-            inputManager = InputManager.instance;
+            inputManager = InputManager.Instance;
         }
         if (inputManager == null)
         {
@@ -123,63 +124,39 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets up the UIManager singleton instance in <see cref="GameManager.uIManager"/>.
+    /// Sets up the UIManager singleton Instance in <see cref="GameManager.uIManager"/>.
     /// </summary>
     void SetupUIManager()
     {
-        if (GameManager.instance.uiManager == null && GameManager.instance != null)
+        if (GameManager.Instance.UIManager == null && GameManager.Instance != null)
         {
             try
             {
-                GameManager.instance.uiManager = this;
+                GameManager.Instance.UIManager = this;
             }
             catch (System.Exception)
             {
+                Debug.Log("Dafuq?");
                 // Exception caught but not displayed
             }
 
         }
     }
 
-    [Header("Debug")]
-    [SerializeField] private bool debugOn;
-    [Space(10)]
-    [SerializeField] private GameDebug.DebugFlagsEnum debugFlags;
-    [SerializeField] private TMPro.TMP_Text debugText;
-    [SerializeField] private int debugTextSize = 24;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private void SetupDebug()
-    {
-        GameDebug.SetupDebug(debugText, debugTextSize, debugFlags);
-    }
-
-    public void ToggleDebug()
-    {
-        debugOn = !debugOn;
-        if(debugOn) SetupDebug(); 
-        else debugText.gameObject.SetActive(false);
-    }
     #endregion Setup Methods
 
     //=========================================== FUNCTIONAL METHODS ===========================================
 
     #region FunctionalMethods
 
-    /// <summary>
-    /// Updates all UI elements in the <see cref="UIElements"/> list.
-    /// </summary>
-    public void UpdateElements()
+    public void UpdateTextElement(TextMeshPro _text, string _mes)
     {
-        if (debugOn) GameDebug.UpdateDebug();
-        GetUIElements();
-        foreach (UIElement element in UIElements)
-        {
-            element.UpdateElement();
-        }
+        _text.text = _mes;
+    }
 
+    public void UpdateStats()
+    {
+        _statDisplay.UpdateStatDisplay();
     }
 
     /// <summary>
@@ -195,10 +172,8 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private void CheckPauseInput()
     {
-        if (inputManager == null)
-        {
-            return;
-        }
+        if (inputManager == null) return;
+
         if (inputManager.pausePressed)
         {
             TogglePause();
@@ -210,10 +185,8 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void TogglePause()
     {
-        if (!allowPause)
-        {
-            return;
-        }
+        if (!allowPause) return;
+
         if (isPaused)
         {
             SetActiveAllPages(false);
@@ -266,6 +239,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        Debug.Log("Quiting Application");
+#endif
+        StaticMethods.QuitApplication();
+    }
+
     #endregion
-    #endregion Methods
+    #endregion
 }

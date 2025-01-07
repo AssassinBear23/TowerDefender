@@ -6,15 +6,16 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     // A global reference (Singleton) of the InputManager that other scripts can reference to
-    [HideInInspector] public static InputManager instance;
+    private static InputManager _instance;
+    public static InputManager Instance { get => _instance; }
 
-    // Whether or not the tower game controls are enabled
+    // Whether or not the player game controls are enabled
     [SerializeField] private bool playerGameControlsEnabled = true;
     /// <summary>  
     /// Gets or sets a value indicating whether the tower game controls are enabled.  
     /// </summary>  
     /// <value>  
-    ///   <c>true</c> if tower game controls are enabled; otherwise, <c>false</c>.  
+    ///   <c>true</c> if player game controls are enabled; otherwise, <c>false</c>.  
     /// </value>  
     public bool PlayerGameControlsEnabled { get => playerGameControlsEnabled; set => playerGameControlsEnabled = value; }
 
@@ -24,7 +25,7 @@ public class InputManager : MonoBehaviour
     /// Gets or sets a value indicating whether the overall tower controls are enabled.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if tower controls are enabled; otherwise, <c>false</c>.
+    ///   <c>true</c> if player controls are enabled; otherwise, <c>false</c>.
     /// </value>
     public bool PlayerControlsEnabled { get => playerControlsEnabled; set => playerControlsEnabled = value; }
 
@@ -38,9 +39,9 @@ public class InputManager : MonoBehaviour
     /// </summary>
     void Initialization()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
         else
         {
@@ -69,21 +70,6 @@ public class InputManager : MonoBehaviour
         playerMovementInput = context.ReadValue<Vector2>();
     }
 
-    [Header("Skill inputs")]
-    public bool shieldPressed;
-    /// <summary>
-    /// Handles the shield key input.
-    /// </summary>
-    /// <param name="context">The input action callback context.</param>
-    public void OnShieldKey(InputAction.CallbackContext context)
-    {
-        if (!playerGameControlsEnabled) return;
-        //Debug.Log("OnShieldKey called"
-        //          + $"\nState is: {context.phase}");
-        shieldPressed = !context.canceled;
-        //StartCoroutine(ResetKey(() => shieldPressed = false));
-    }
-
     [Header("Pause Input")]
     public bool pausePressed;
 
@@ -109,8 +95,8 @@ public class InputManager : MonoBehaviour
         /* How does this work:
          * The return type is a IEnumerator, which allows this function to be used as a coroutine.
          * 
-         * The paremeter is a System.Action, this means that the parameter is a delegate that can be called. 
-         * In this case that would be a lambda function.
+         * The paremeter is a System.Action, this means that you can pass  a lambda function.
+         * System.Action is a delegate for that lambda function.
          * 
          * This allows the user to pass a lambda fucntion that reset the desired boolean 
          * Example: StartCoroutine(ResetKey(() => pausePressed = false));

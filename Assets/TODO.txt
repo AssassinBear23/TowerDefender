@@ -1,0 +1,9 @@
+﻿TODO
+│
+├ SCRIPTABLEOBJECTS
+│	└ Wave
+│		└ Setup the wave settings correctly
+│
+└ VISUALS
+	├ Add VFX to the attacking to give feedback
+	└ Add a particleSystem to the tower that plays on an attack from the tower

@@ -44,15 +44,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Shoot"",
-                    ""type"": ""Button"",
-                    ""id"": ""82b0b739-2b2f-4dc4-90dd-4412c0aee743"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -187,17 +178,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4276a017-3569-4634-a165-96141155da34"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -208,7 +188,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_BasicControls = asset.FindActionMap("BasicControls", throwIfNotFound: true);
         m_BasicControls_BasicMove = m_BasicControls.FindAction("Basic Move", throwIfNotFound: true);
         m_BasicControls_Pause = m_BasicControls.FindAction("Pause", throwIfNotFound: true);
-        m_BasicControls_Shoot = m_BasicControls.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -272,14 +251,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IBasicControlsActions> m_BasicControlsActionsCallbackInterfaces = new List<IBasicControlsActions>();
     private readonly InputAction m_BasicControls_BasicMove;
     private readonly InputAction m_BasicControls_Pause;
-    private readonly InputAction m_BasicControls_Shoot;
     public struct BasicControlsActions
     {
         private @PlayerControls m_Wrapper;
         public BasicControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @BasicMove => m_Wrapper.m_BasicControls_BasicMove;
         public InputAction @Pause => m_Wrapper.m_BasicControls_Pause;
-        public InputAction @Shoot => m_Wrapper.m_BasicControls_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_BasicControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -295,9 +272,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
-            @Shoot.started += instance.OnShoot;
-            @Shoot.performed += instance.OnShoot;
-            @Shoot.canceled += instance.OnShoot;
         }
 
         private void UnregisterCallbacks(IBasicControlsActions instance)
@@ -308,9 +282,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
-            @Shoot.started -= instance.OnShoot;
-            @Shoot.performed -= instance.OnShoot;
-            @Shoot.canceled -= instance.OnShoot;
         }
 
         public void RemoveCallbacks(IBasicControlsActions instance)
@@ -332,6 +303,5 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnBasicMove(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnShoot(InputAction.CallbackContext context);
     }
 }
