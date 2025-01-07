@@ -75,12 +75,12 @@ public class StatDisplay : MonoBehaviour
         _statNameText.text = messageBuilder;
     }
 
-    private void OnGUI()
-    {
-        // Create a button at the top-left corner of the screen
-        if (GUI.Button(new Rect(10, 60, 150, 30), "Update Stats"))
-        {
-            UpdateStatDisplay();
-        }
-    }
+    //private void OnGUI()
+    //{
+    //    // Create a button at the top-left corner of the screen
+    //    if (GUI.Button(new Rect(10, 60, 150, 30), "Update Stats"))
+    //    {
+    //        UpdateStatDisplay();
+    //    }
+    //}
 }

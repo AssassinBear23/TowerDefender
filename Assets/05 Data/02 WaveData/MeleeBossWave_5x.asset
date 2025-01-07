@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 312c60c4d9c879545bd6ed6ee8e1ac05, type: 3}
-  m_Name: mBoss_MeleeWave_5x
+  m_Name: MeleeBossWave_5x
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 1285464745886800761, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
   - {fileID: 1285464745886800761, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
   - {fileID: 1285464745886800761, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
   - {fileID: 1285464745886800761, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
-  - {fileID: 1285464745886800761, guid: 3e984698d45f7554aacb1d5163a707df, type: 3}
-  isMiniBossWave: 1
-  isBossWave: 0
+  - {fileID: 1285464745886800761, guid: 5db526a39bfd3374ba6aa27b34f4d40a, type: 3}
+  isBossWave: 1

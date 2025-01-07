@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 public partial class StaticMethods
 {
     /// <summary>
@@ -14,5 +15,19 @@ public partial class StaticMethods
 #else
             Application.Quit();
 #endif
+    }
+}
+
+public static class ValidationHelper
+{
+    public static bool PingWhenNull(this object @o, GameObject parent, string msg)
+    {
+        if (@o != null)
+            return false;
+        Debug.LogError(msg + " on " + parent.name);
+#if UNITY_EDITOR
+        EditorGUIUtility.PingObject(parent);
+#endif
+        return true;
     }
 }

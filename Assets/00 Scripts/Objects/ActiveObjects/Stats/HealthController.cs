@@ -19,6 +19,9 @@ public class HealthController : MonoBehaviour
     [SerializeField] private float _currentHealthValue;
     [SerializeField] private float _armourValue;
 
+    /// <summary>
+    /// The maximum health of the character.
+    /// </summary>
     public float MaxHealth { get => _maxHealthValue; }
     /// <summary>
     /// The current health of the character.
@@ -27,13 +30,12 @@ public class HealthController : MonoBehaviour
 
     private CharStats _charInfo;
 
-
-
     /// <summary>
     /// Event that is invoked when the character dies. 
     /// </summary>
     [Space(20)]
     public UnityEvent OnDamage;
+    public UnityEvent OnMaxHealthChange;
     public UnityEvent OnDeath;
 
     /// <summary>
@@ -42,7 +44,7 @@ public class HealthController : MonoBehaviour
     void OnEnable()
     {
         _charInfo = GetComponent<CharStats>();
-        _maxHealthValue = _charInfo.GetStatValue(_healthStat);
+        UpdateStats();
         _currentHealthValue = _maxHealthValue;
     }
 
@@ -73,16 +75,27 @@ public class HealthController : MonoBehaviour
         }
     }
 
+    public void UpdateStats()
+    {
+        _maxHealthValue = _charInfo.GetStatValue(_healthStat);
+        _armourValue = _charInfo.GetStatValue(_armourStat);
+    }
+
+
     /// <summary>
     /// Reduces the current health by the specified damage amount and checks health status.
     /// </summary>
     /// <param name="damage">The amount of damage to take.</param>
     public void TakeDamage(float damage, float armourPen)
     {
+        // Calculate the damage taken
         float _armourLeft = Mathf.Max(_armourValue - armourPen, 0);
         float _finalDamage = damage - _armourLeft;
+        // Remove damage from health
         _currentHealthValue -= _finalDamage;
+        // Check if dead
         CheckHealth();
+        // Invoke damage event
         OnDamage?.Invoke();
     }
 

@@ -9,7 +9,7 @@ using UnityEditor;
 
 public class ItemManager : MonoBehaviour
 {
-    private CharStats tower;
+    private CharStats _towerStats;
     [Header("Inventory Settings")]
     [SerializeField] private List<Item> _inventory = new();
     [Space(10)]
@@ -22,7 +22,7 @@ public class ItemManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        tower = GameManager.Instance.Tower.GetComponent<CharStats>();
+        _towerStats = GameManager.Instance.Tower.GetComponent<CharStats>();
         Debug.Log("StatManager initialized");
         GetLists();
         yield return new WaitForEndOfFrame();
@@ -134,8 +134,8 @@ public class ItemManager : MonoBehaviour
             foreach (KeyValuePair<Stat, float> stat in item.StatModifiers)
             {
                 if (stat.Value == 0) return;
-                float _currentValue = tower.GetStatValue(stat.Key);
-                tower.SetStatValue(stat.Key, _currentValue + stat.Value);
+                float _currentValue = _towerStats.GetStatValue(stat.Key);
+                _towerStats.SetStatValue(stat.Key, _currentValue + stat.Value);
             }
         }
         else
@@ -143,15 +143,15 @@ public class ItemManager : MonoBehaviour
             foreach (KeyValuePair<Stat, float> stat in item.StatModifiers)
             {
                 if (stat.Value == 0) return;
-                float _currentValue = tower.GetStatValue(stat.Key);
+                float _currentValue = _towerStats.GetStatValue(stat.Key);
                 if (_currentValue - stat.Value < 0)
                 {
-                    tower.SetStatValue(stat.Key, 0);
+                    _towerStats.SetStatValue(stat.Key, 0);
                     continue;
                 }
-                tower.SetStatValue(stat.Key, _currentValue - stat.Value);
+                _towerStats.SetStatValue(stat.Key, _currentValue - stat.Value);
             }
         }
-        GameManager.Instance.UIManager.UpdateStats();
+        _towerStats.StatChange.Invoke();
     }
 }

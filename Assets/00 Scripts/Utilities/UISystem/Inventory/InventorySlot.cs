@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.UI;
 

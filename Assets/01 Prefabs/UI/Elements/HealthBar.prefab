@@ -27,17 +27,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924391762208821481}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0.35355315, y: -0.35355303, z: 0.14644629, w: 0.8535537}
+  m_LocalPosition: {x: 0, y: 0, z: -0.019165039}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4912383539306148061}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 32.04242, y: 2.5}
   m_SizeDelta: {x: -90, y: -98}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4616621997573836684
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
+  _debug: 1
 --- !u!114 &3293176192664948618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  Offset: {x: 0, y: 10, z: 0}
+  Offset: {x: 0, y: 2.5, z: 0}
+  _debug: 1
 --- !u!1 &4637140262175212484
 GameObject:
   m_ObjectHideFlags: 0

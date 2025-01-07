@@ -59,6 +59,8 @@ abstract public class AbstractEnemy : MonoBehaviour
 
         GetMeshRenderer();
         _attackRange += _mr.bounds.extents.x;
+
+        GameManager.Instance.EnemiesAlive++;
     }
 
     private void OnValidate()
@@ -178,5 +180,10 @@ abstract public class AbstractEnemy : MonoBehaviour
         if (!shouldDebug) return;
         Gizmos.color = new Color(1f, 0f, 0f, .4f);
         Gizmos.DrawSphere(_mr.bounds.center, _attackRange);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.EnemiesAlive--;
     }
 }

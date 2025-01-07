@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(CharStats), typeof(AttackController))]
@@ -40,7 +41,7 @@ public class TowerController : MonoBehaviour
         _gm.Tower = transform;
         if(_charStats != null)
         {
-            _attackSpeedValue = _charStats.GetStatValue(_attackSpeedStat);
+            UpdateStats();
         }
     }
 
@@ -56,6 +57,11 @@ public class TowerController : MonoBehaviour
             _attackController.DoAttack(_enemiesInRange[0]);
             _lastAttackTime = Time.time;
         }
+    }
+
+    public void UpdateStats()
+    {
+        _attackSpeedValue = _charStats.GetStatValue(_attackSpeedStat);
     }
 
     float _lastAttackTime;
@@ -113,17 +119,17 @@ public class TowerController : MonoBehaviour
             Debug.Log($"Removing {healthController.name} from the list");
             _enemiesInRange.Remove(healthController);
         }
+        else
+        {
+            Debug.Log("No HealthController found on the exiting object.");
+#if UNITY_EDITOR
+            EditorGUIUtility.PingObject(this);
+#endif
+        }
     }
 
     private void OnValidate()
     {
-        if (_attackSpeedStat == null)
-        {
-            Debug.LogError($"Attack speed stat reference not set correctly on {gameObject.name}.");
-        }
-        if (_charStats == null)
-        {
-            Debug.LogError($"Char stats reference not set correctly on {gameObject.name}.");
-        }
+        _attackSpeedStat.PingWhenNull(gameObject, "Attack speed stat is null.");
     }
 }

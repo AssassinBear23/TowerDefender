@@ -20,8 +20,9 @@ public class ItemDrop : MonoBehaviour
 
     private float _dropChance;
 
-    public void OnCharacterDeath(AbstractEnemy _char)
+    public void OnCharacterDeath()
     {
+        AbstractEnemy _char = GetComponent<AbstractEnemy>();
         _startDistanceSquared = _char.TotalDistance;
         Vector3 _towerPosition = GameManager.Instance.Tower.transform.position;
         Vector2 _charPositionn = new(_char.transform.position.x, _char.transform.position.z);

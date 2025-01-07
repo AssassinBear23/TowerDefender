@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -80,7 +81,6 @@ public class UIManager : MonoBehaviour
     {
         SetupInputManager();
         SetupEventSystem();
-        UpdateElements();
     }
 
     /// <summary>
@@ -149,16 +149,9 @@ public class UIManager : MonoBehaviour
 
     #region FunctionalMethods
 
-    /// <summary>
-    /// Updates all UI elements in the <see cref="UIElements"/> list.
-    /// </summary>
-    public void UpdateElements()
+    public void UpdateTextElement(TextMeshPro _text, string _mes)
     {
-        GetUIElements();
-        foreach (UIElement element in UIElements)
-        {
-            element.UpdateElement();
-        }
+        _text.text = _mes;
     }
 
     public void UpdateStats()
@@ -179,10 +172,8 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private void CheckPauseInput()
     {
-        if (inputManager == null)
-        {
-            return;
-        }
+        if (inputManager == null) return;
+
         if (inputManager.pausePressed)
         {
             TogglePause();
@@ -194,10 +185,8 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void TogglePause()
     {
-        if (!allowPause)
-        {
-            return;
-        }
+        if (!allowPause) return;
+
         if (isPaused)
         {
             SetActiveAllPages(false);

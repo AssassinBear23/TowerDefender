@@ -15,9 +15,9 @@ public class ToggleButton : Button
         {
             throw new NullReferenceException();
         }
-        Debug.Log($"Changing {var.name}'s state");
+        //Debug.Log($"Changing {var.name}'s state");
         var.SetActive(!var.activeSelf);
-        Debug.Log($"State: {var.activeSelf}");
+        //Debug.Log($"State: {var.activeSelf}");
     }
 
     /// <summary>

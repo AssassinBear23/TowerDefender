@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -18,32 +19,27 @@ public class AttackController : MonoBehaviour
     [SerializeField] private float _criticalChanceValue;
     [SerializeField] private float _armourPenValue;
 
-    private TowerController _controller;
+    private CharStats _charStats;
 
     private void Start()
     {
-        GetValues();
-        TryGetComponent<TowerController>(out var _controller);
+        _charStats = GetComponent<CharStats>();
+        if (_charStats != null) UpdateStats();
+        else Debug.Log("CharStats component not found.");
+#if UNITY_EDITOR
+        EditorGUIUtility.PingObject(this);
+#endif
     }
 
     /// <summary>
     /// Retrieves the values for damage, critical damage, and critical chance from the character's stats.
     /// </summary>
-    public void GetValues()
+    public void UpdateStats()
     {
-        if (TryGetComponent<CharStats>(out var _charStats))
-        {
-            _damageValue = _charStats.GetStatValue(_damageStat);
-            _criticalDamageValue = _charStats.GetStatValue(_criticalDamageStat);
-            _criticalChanceValue = _charStats.GetStatValue(_criticalChanceStat);
-        }
-        else
-        {
-            Debug.Log("CharStats component not found.");
-        }
+        _damageValue = _charStats.GetStatValue(_damageStat);
+        _criticalDamageValue = _charStats.GetStatValue(_criticalDamageStat);
+        _criticalChanceValue = _charStats.GetStatValue(_criticalChanceStat);
     }
-
-
 
     /// <summary>
     /// Performs an attack on the specified character, dealing damage and potentially removing the character from the enemies in range if they die.
@@ -85,21 +81,9 @@ public class AttackController : MonoBehaviour
 
     private void OnValidate()
     {
-        if (_damageStat == null)
-        {
-            Debug.LogError($"Damage stat reference not set correctly on {gameObject.name}.");
-        }
-        if (_criticalDamageStat == null)
-        {
-            Debug.LogError($"Critical damage stat reference not set correctly on {gameObject.name}.");
-        }
-        if (_criticalChanceStat == null)
-        {
-            Debug.LogError($"Critical chance stat reference not set correctly on {gameObject.name}.");
-        }
-        if (_armourPenStat == null)
-        {
-            Debug.LogError($"Armour penetration stat reference not set correctly on {gameObject.name}.");
-        }
+        _damageStat.PingWhenNull(gameObject, "Damage stat reference not set correctly");
+        _criticalDamageStat.PingWhenNull(gameObject, "Critical damage stat reference not set correctly");
+        _criticalChanceStat.PingWhenNull(gameObject, "Critical chance stat reference not set correctly");
+        _armourPenStat.PingWhenNull(gameObject, "Armour penetration stat reference not set correctly");
     }
 }

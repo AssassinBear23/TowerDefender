@@ -1,6 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CharStats : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class CharStats : MonoBehaviour
 
     [SerializeField] private CharTypes _charType;
     public CharTypes CharType { get => _charType; }
+
+    public UnityEvent StatChange; 
 
     /// <summary>
     /// Get the value for a certain tower stat.
@@ -67,6 +70,7 @@ public class CharStats : MonoBehaviour
         _charStats = dict;
     }
 }
+
 public enum CharTypes
 {
     Tower,

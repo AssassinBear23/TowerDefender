@@ -42,6 +42,7 @@ public class Spawner : MonoBehaviour
     /// <returns>IEnumerator for coroutine handling.</returns>
     public IEnumerator StartWave()
     {
+        Debug.Log("Wave has started");
         GetSpawnTimes();
         for (int i = 0; i < _toSpawnWave.Count; i++)
         {

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     // The UI Manager that manages the UI elements in the current scene
     public UIManager UIManager;
     public ItemManager ItemManager;
+    //public WaveManager WaveManager;
 
     [Header("Stats")]
     [Tooltip("The wave the player is currently at")]
@@ -28,6 +29,10 @@ public class GameManager : MonoBehaviour
     [Tooltip("The level data of the loaded level")]
     [SerializeField] private Level _levelData;
     public Level LevelData { get => _levelData; set => _levelData = value; }
+
+    [Header("Wave Data")]
+    [SerializeField] private float _enemiesAlive;
+    public float EnemiesAlive { get => _enemiesAlive; set => _enemiesAlive = value; }
 
     #endregion Variables
 
@@ -62,21 +67,6 @@ public class GameManager : MonoBehaviour
 
     #endregion SetupMethods
 
-    // =========================================== FUNCTIONAL METHODS ===============================================
-
-    #region FunctionalMethods
-
-    /// <summary>
-    /// FixedUpdate is called once every physics update.
-    /// </summary>
-    void Update()
-    {
-        if (Time.timeScale != 0)
-        {
-            UIManager.UpdateElements();
-        }
-    }
-
     //===================================== END GAME FUNCTIONALITY =========================================
 
     [Header("Game Over")]
@@ -94,10 +84,8 @@ public class GameManager : MonoBehaviour
             UIManager.allowPause = false;
             UIManager.GoToPage(gameOverPageIndex);
         }
-        UIManager.UpdateElements();
+
     }
 
     #endregion FunctionalMethods
-
-    #endregion Methods
 }

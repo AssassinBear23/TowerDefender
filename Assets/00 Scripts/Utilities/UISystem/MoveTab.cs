@@ -15,18 +15,32 @@ public class MoveTab : MonoBehaviour
 
     [SerializeField] private Camera _sceneCamera;
 
-    public void OnButtonPress()
+    public void MoveTabPosition()
     {
         if (_isExtended)
         {
             transform.DOMoveX(_xPositionRetracted, _time);
-            DOTween.To(() => _sceneCamera.rect, x => _sceneCamera.rect = x, new Rect(0, 0, 1, 1), _time);
         }
         else
         {
             transform.DOMoveX(_xPositionExtended, _time);
+        }
+    }
+
+    public void MoveCameraRect()
+    {
+        if (_isExtended)
+        {
+            DOTween.To(() => _sceneCamera.rect, x => _sceneCamera.rect = x, new Rect(0, 0, 1, 1), _time);
+        }
+        else
+        {
             DOTween.To(() => _sceneCamera.rect, x => _sceneCamera.rect = x, new Rect(0.25f, 0, 1, 1), _time);
         }
+    }
+
+    public void ChangeState()
+    {
         _isExtended = !_isExtended;
     }
 }

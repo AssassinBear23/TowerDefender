@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         // I want a check to see if the player would move outside of the camera view, if so, set the velocity in that direction to 0
         Vector3 playerPosition = _camera.WorldToViewportPoint(transform.position);
 
-        Debug.Log("Player position in Camera: " + playerPosition);
+        //Debug.Log("Player position in Camera: " + playerPosition);
 
         Vector2 moveDirection = _inputManager.playerMovementInput;
         
