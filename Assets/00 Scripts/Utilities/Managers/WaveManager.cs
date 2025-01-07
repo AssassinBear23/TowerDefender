@@ -27,24 +27,19 @@ public class WaveManager : MonoBehaviour
     {
         waveOrder = GameManager.Instance.LevelData.Waves;
         GetNextWave();
-        _lastWaveTime = Time.time;
-        //GameManager.Instance.WaveManager = this;
+        GameManager.Instance.WaveManager = this;
     }
-
-    private float _lastWaveTime;
 
     public void TryStartWave(GameObject _callElement)
     {
         Debug.Log("Trying to start wave");
         if (_currentWave == null) return;
-        if (Time.time - _lastWaveTime < 2f) return;
 
         Debug.Log("Disabling Button");
         StartCoroutine(DisableButton(_callElement));
 
         Debug.Log("Starting wave");
         StartWave();
-        _lastWaveTime = Time.time;
     }
 
     private IEnumerator DisableButton(GameObject _callElement)

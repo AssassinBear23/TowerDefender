@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     // The UI Manager that manages the UI elements in the current scene
     public UIManager UIManager;
     public ItemManager ItemManager;
-    //public WaveManager WaveManager;
+    public WaveManager WaveManager;
 
     [Header("Stats")]
     [Tooltip("The wave the player is currently at")]
@@ -67,10 +67,23 @@ public class GameManager : MonoBehaviour
 
     #endregion SetupMethods
 
+    #region FunctionalMethods
+
+    private void FixedUpdate()
+    {
+        if (EnemiesAlive == 0 && WaveManager.CurrentWaveIndex == 99)
+        {
+            Victory();
+        }
+    }
+
+    #endregion FunctionalMethods
+
     //===================================== END GAME FUNCTIONALITY =========================================
 
-    [Header("Game Over")]
+    [Header("End Game Screens")]
     [SerializeField] private int gameOverPageIndex = 0;
+    [SerializeField] private int victoryPageIndex = 4;
 
     /// <summary>
     /// Loads the game over scene.
@@ -84,7 +97,17 @@ public class GameManager : MonoBehaviour
             UIManager.allowPause = false;
             UIManager.GoToPage(gameOverPageIndex);
         }
+    }
 
+    public void Victory()
+    {
+        Time.timeScale = 0;
+        Debug.Log("Victory");
+        if (UIManager != null)
+        {
+            UIManager.allowPause = false;
+            UIManager.GoToPage(victoryPageIndex);
+        }
     }
 
     #endregion FunctionalMethods
