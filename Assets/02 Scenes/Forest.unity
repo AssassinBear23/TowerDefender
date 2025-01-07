@@ -7651,6 +7651,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 342248293}
     - target: {fileID: 1921404576216898766, guid: d461ad5d221f38a41ac82e27c8e23099, type: 3}
+      propertyPath: WaveManager
+      value: 
+      objectReference: {fileID: 1086780740}
+    - target: {fileID: 1921404576216898766, guid: d461ad5d221f38a41ac82e27c8e23099, type: 3}
       propertyPath: victoryPageIndex
       value: 3
       objectReference: {fileID: 0}

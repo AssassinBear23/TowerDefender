@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     private List<GameObject> _toSpawnWave;
-    public List<GameObject> ToSpawnWave { set => _toSpawnWave = value; }
+    public List<GameObject> ToSpawnWave { set => _toSpawnWave = value; get => _toSpawnWave; }
     [SerializeField] private Transform _parentTransform;
 
     [SerializeField] private float _baseTimeBetweenEnemies = 2f;

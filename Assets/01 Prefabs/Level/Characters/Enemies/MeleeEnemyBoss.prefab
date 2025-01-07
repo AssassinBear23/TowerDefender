@@ -52,7 +52,7 @@ MonoBehaviour:
   _charStats:
     _serializedList:
     - Key: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
-      Value: 50
+      Value: 30
     - Key: {fileID: 11400000, guid: a99086bff58852b49b819c5ae5090910, type: 2}
       Value: 5
     - Key: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
@@ -87,8 +87,8 @@ MonoBehaviour:
   _healthBar: {fileID: 0}
   _attackSpeedStat: {fileID: 11400000, guid: 567cfd8ff1644a048afbc8374f311ce7, type: 2}
   attackSpeedValue: 0
-  _attackRange: 3
-  moveSpeedValue: 2
+  _attackRange: 2
+  moveSpeedValue: 3
   shouldDebug: 0
 --- !u!114 &7387226412231846285
 MonoBehaviour:
