@@ -26,10 +26,10 @@ public class Item : ScriptableObject
     /// <returns>A dictionary of stat modifiers for the specified level, or null if the level is invalid.</returns>
     public SerializedDictionary<Stat, float> StatModifiers{ get => _statModifiers; }
 
-    [Tooltip("The description of the item")]
-    [SerializeField] private string _itemDescription;
-    /// <summary>
-    /// Gets the description of the item.
-    /// </summary>
-    public string ItemDescription { get => _itemDescription; }
+    //[Tooltip("The description of the item")]
+    //[SerializeField] private string _itemDescription;
+    ///// <summary>
+    ///// Gets the description of the item.
+    ///// </summary>
+    //public string ItemDescription { get => _itemDescription; }
 }
