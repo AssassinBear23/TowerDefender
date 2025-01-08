@@ -90,8 +90,9 @@ public class HealthController : MonoBehaviour
     {
         // Calculate the damage taken
         float _armourLeft = Mathf.Max(_armourValue - armourPen, 0);
-        float _finalDamage = damage - _armourLeft;
+        float _finalDamage = Mathf.Clamp(damage - _armourLeft, 0, damage);
         // Remove damage from health
+
         _currentHealthValue -= _finalDamage;
         // Check if dead
         CheckHealth();

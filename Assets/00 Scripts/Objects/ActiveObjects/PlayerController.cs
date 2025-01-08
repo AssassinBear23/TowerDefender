@@ -35,8 +35,17 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Player position in Camera: " + playerPosition);
 
         Vector2 moveDirection = _inputManager.playerMovementInput;
-        
 
+        moveDirection = RestrictMovementToViewport(playerPosition, moveDirection);
+
+        moveDirection = moveDirection.Rotate(45f); // Rotate the movement direction by 45 degrees
+        _cc.SimpleMove(new Vector3(moveDirection.x, 0, moveDirection.y) * moveSpeed);
+
+        Debug.DrawLine(transform.position, transform.position + new Vector3(moveDirection.x, 0, moveDirection.y));
+    }
+
+    private static Vector2 RestrictMovementToViewport(Vector3 playerPosition, Vector2 moveDirection)
+    {
         switch (playerPosition.x)
         {
             case < 0:
@@ -57,9 +66,6 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        moveDirection = moveDirection.Rotate(45f); // Rotate the movement direction by 45 degrees
-        _cc.SimpleMove(new Vector3(moveDirection.x, 0, moveDirection.y) * moveSpeed);
-
-        Debug.DrawLine(transform.position, transform.position + new Vector3(moveDirection.x, 0, moveDirection.y));
+        return moveDirection;
     }
 }
