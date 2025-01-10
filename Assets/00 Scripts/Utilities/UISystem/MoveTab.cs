@@ -19,11 +19,11 @@ public class MoveTab : MonoBehaviour
     {
         if (_isExtended)
         {
-            transform.DOMoveX(_xPositionRetracted, _time);
+            transform.DOLocalMoveX(_xPositionRetracted, _time);
         }
         else
         {
-            transform.DOMoveX(_xPositionExtended, _time);
+            transform.DOLocalMoveX(_xPositionExtended, _time);
         }
     }
 
