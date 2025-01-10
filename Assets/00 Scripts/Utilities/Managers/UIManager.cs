@@ -128,19 +128,20 @@ public class UIManager : MonoBehaviour
     /// </summary>
     void SetupUIManager()
     {
-        if (GameManager.Instance.UIManager == null && GameManager.Instance != null)
-        {
-            try
-            {
-                GameManager.Instance.UIManager = this;
-            }
-            catch (System.Exception)
-            {
-                Debug.Log("Dafuq?");
-                // Exception caught but not displayed
-            }
+        if (GameManager.Instance == null) return;
+        if (GameManager.Instance.UIManager != null) return;
 
+        try
+        {
+            GameManager.Instance.UIManager = this;
         }
+        catch (System.Exception)
+        {
+            Debug.Log("Dafuq?");
+            // Exception caught but not displayed
+        }
+
+
     }
 
     #endregion Setup Methods

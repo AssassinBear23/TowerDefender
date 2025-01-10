@@ -50,7 +50,6 @@ public class Spawner : MonoBehaviour
             AbstractEnemy _aeComponent = _instantiated.GetComponent<AbstractEnemy>();
             _aeComponent.SetupHealthBar(_canvas, _camera);
             _aeComponent.TotalDistance = _distanceToTowerSquared;
-            Debug.Log("Waint for " + _timeBetweenEnemies[i] + " seconds");
             if (i != _toSpawnWave.Count - 1) yield return new WaitForSeconds(_timeBetweenEnemies[i]);
         }
         Debug.Log("Wave has ended");

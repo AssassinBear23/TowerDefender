@@ -22,9 +22,20 @@ public class ItemDrop : MonoBehaviour
 
     public void OnCharacterDeath()
     {
-        AbstractEnemy _char = GetComponent<AbstractEnemy>();
+        if (!TryGetComponent<AbstractEnemy>(out var _char))
+        {
+            Debug.LogError("AbstractEnemy component is missing.");
+            return;
+        }
+
         _startDistanceSquared = _char.TotalDistance;
-        Vector3 _towerPosition = GameManager.Instance.Tower.transform.position;
+        Vector3 _towerPosition = GameManager.Instance?.Tower?.transform.position ?? Vector3.zero;
+        if (GameManager.Instance == null || GameManager.Instance.Tower == null)
+        {
+            Debug.LogError("GameManager.Instance or GameManager.Instance.Tower is null.");
+            return;
+        }
+
         Vector2 _charPositionn = new(_char.transform.position.x, _char.transform.position.z);
         _deathDistanceSquared = (_charPositionn - new Vector2(_towerPosition.x, _towerPosition.z)).sqrMagnitude;
 
@@ -38,10 +49,33 @@ public class ItemDrop : MonoBehaviour
 
         if (!RollForDrop()) return;
 
+        if (_itemTable == null)
+        {
+            Debug.LogError("_itemTable is not assigned.");
+            return;
+        }
+
         Item _item = _itemTable.GetRandomItem(RollForRarity());
+        if (_item == null)
+        {
+            Debug.LogError("GetRandomItem returned null.");
+            return;
+        }
 
         Debug.Log($"Instantiating {_item.ItemName}...");
+        if (_itemDropPrefab == null)
+        {
+            Debug.LogError("_itemDropPrefab is not assigned.");
+            return;
+        }
+
         ItemPickup _itemPickupComponent = Instantiate(_itemDropPrefab, transform.position, Quaternion.identity).GetComponent<ItemPickup>();
+        if (_itemPickupComponent == null)
+        {
+            Debug.LogError("ItemPickup component is missing on _itemDropPrefab.");
+            return;
+        }
+
         _itemPickupComponent.SetItem(_item);
     }
 

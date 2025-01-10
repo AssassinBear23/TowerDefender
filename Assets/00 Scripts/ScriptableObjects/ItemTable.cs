@@ -9,9 +9,9 @@ public class ItemTable : ScriptableObject
     [SerializeField] List<Item> items;
 #endif
 
-    private List<Item> _commonItems;
-    private List<Item> _rareItems;
-    private List<Item> _epicItems;
+    [HideInInspector][SerializeField] private List<Item> _commonItems = new();
+    [HideInInspector][SerializeField] private List<Item> _rareItems = new();
+    [HideInInspector][SerializeField] private List<Item> _epicItems = new();
 
     /// <summary>
     /// Gets a random item from the specified rarity category.
@@ -28,8 +28,28 @@ public class ItemTable : ScriptableObject
             ItemRarity.Epic => _epicItems,     // Epic items list
             _ => null                          // Invalid rarity
         };
+
         // If the list is null, return null
-        if (_items == null) return null;
+        if (_items == null)
+        {
+            Debug.LogError($"Item list for rarity {rarity} is null.");
+            return null;
+        }
+
+        // If the list is empty, return null
+        if (_items.Count == 0)
+        {
+            Debug.LogError($"Item list for rarity {rarity} is empty.");
+            return null;
+        }
+
+        // Log the items in the list
+        Debug.Log($"Items in the list for rarity {rarity}:");
+        foreach (var item in _items)
+        {
+            Debug.Log(item.name);
+        }
+
         // Return a random item from the list
         return _items[Random.Range(0, _items.Count)];
     }
@@ -38,15 +58,13 @@ public class ItemTable : ScriptableObject
     private void OnValidate()
     {
         // Ensure that the item lists are not null
-
         if (items == null) return;
 
         _commonItems = new List<Item>();
         _rareItems = new List<Item>();
         _epicItems = new List<Item>();
 
-        // go through every item in the items list and add it to the appropriate list
-
+        // Go through every item in the items list and add it to the appropriate list
         foreach (Item item in items)
         {
             switch (item.ItemLevel)
@@ -61,6 +79,25 @@ public class ItemTable : ScriptableObject
                     _epicItems.Add(item);
                     break;
             }
+        }
+
+        // Log the items in each list
+        Debug.Log("Common items:");
+        foreach (var item in _commonItems)
+        {
+            Debug.Log(item.name);
+        }
+
+        Debug.Log("Rare items:");
+        foreach (var item in _rareItems)
+        {
+            Debug.Log(item.name);
+        }
+
+        Debug.Log("Epic items:");
+        foreach (var item in _epicItems)
+        {
+            Debug.Log(item.name);
         }
     }
 #endif

@@ -29,7 +29,7 @@ abstract public class AbstractEnemy : MonoBehaviour
     [Tooltip("Should debug messages be shown?")]
     [SerializeField] protected bool shouldDebug = true;
 
-    private MeshRenderer _mr;
+    [SerializeField] private MeshRenderer _mr;
     /// <summary>
     /// Returns the size of the mesh renderer associated with this enemy.
     /// </summary>
@@ -61,11 +61,6 @@ abstract public class AbstractEnemy : MonoBehaviour
         _attackRange += _mr.bounds.extents.x;
 
         GameManager.Instance.EnemiesAlive++;
-    }
-
-    private void OnValidate()
-    {
-        GetMeshRenderer();
     }
 
     private void GetMeshRenderer()

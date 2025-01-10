@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aea284a84afa8e4cb00826e592ff0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterController: {fileID: 0}
+  _characterController: {fileID: 4642409664162599161}
   _target: {fileID: 0}
   _attackController: {fileID: 3677262950361731796}
   _healthBar: {fileID: 2281733267124255509}
@@ -93,6 +93,7 @@ MonoBehaviour:
   _attackRange: 2
   moveSpeedValue: 5
   shouldDebug: 0
+  _mr: {fileID: 2602140850820240505}
 --- !u!114 &7022941682122417362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,19 +129,7 @@ MonoBehaviour:
         m_CallState: 2
   OnMaxHealthChange:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2281733267124255509}
-        m_TargetAssemblyTypeName: HealthBar, Assembly-CSharp
-        m_MethodName: UpdateMaxHealth
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnDeath:
     m_PersistentCalls:
       m_Calls:

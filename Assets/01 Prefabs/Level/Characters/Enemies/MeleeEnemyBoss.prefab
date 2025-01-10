@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6769878107106267922}
   - component: {fileID: 7387226412231846285}
   - component: {fileID: 919548213140773568}
+  - component: {fileID: 6987365441742139638}
   m_Layer: 8
   m_Name: MeleeEnemyBoss
   m_TagString: Untagged
@@ -90,6 +91,7 @@ MonoBehaviour:
   _attackRange: 2
   moveSpeedValue: 3
   shouldDebug: 0
+  _mr: {fileID: 2602140850820240505}
 --- !u!114 &7387226412231846285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991bc12d12167954ab1598b18407e96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBar: {fileID: 0}
+  _healthBar: {fileID: 3317774363307067583}
   _healthStat: {fileID: 11400000, guid: 25bde55668c6ce7418df5d79c8548339, type: 2}
   _armourStat: {fileID: 11400000, guid: bcb6208e7b5fd8a4687243631bc3ba39, type: 2}
   _maxHealthValue: 0
@@ -128,7 +130,19 @@ MonoBehaviour:
       m_Calls: []
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6987365441742139638}
+        m_TargetAssemblyTypeName: ItemDrop, Assembly-CSharp
+        m_MethodName: OnCharacterDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &919548213140773568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +163,24 @@ MonoBehaviour:
   _criticalDamageValue: 0
   _criticalChanceValue: 0
   _armourPenValue: 0
+--- !u!114 &6987365441742139638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285464745886800761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b069987e584e5154cb3f1b032c679d4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _heldItem: {fileID: 0}
+  _dropChanceAtPeak: 40
+  _rareItemChance: 30
+  _epicItemChance: 10
+  _itemDropPrefab: {fileID: 8587376256229599063, guid: 4f84fb5e87cd7aa4cb140f10dfb82758, type: 3}
+  _itemTable: {fileID: 11400000, guid: bcd7751320b2bf649b9d756afcdc2bd0, type: 2}
 --- !u!1 &5548524973449171622
 GameObject:
   m_ObjectHideFlags: 0
